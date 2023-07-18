@@ -227,7 +227,7 @@ for i in range (len(arr_text)) :
                         print(f"kalimat 1 : {arr_text[i]}")
                         print(f"kalimat 2 : {arr_text[j]}")
                         print('Similarity Score: ',temp.ratio())
-                        arr_similar[i] += temp.ratio()
+                        arr_similar[i] += 1
                 
 
 print("text:\n",arr_text)
