@@ -17,7 +17,6 @@ def find_idx(news, temp_news):
     f_match = True
     while idx < len_temp_news and f_match:
         if news == temp_news[idx]:
-            print("BENARRRR")
             f_match = False
             return idx
         idx += 1
@@ -71,6 +70,7 @@ def last_temp(temp):
         n_temp -= 1
     return result
 
+
 def bounding_box(result):
     # cek bounding box
     count_2 = 0
@@ -78,32 +78,46 @@ def bounding_box(result):
     arr_bx = []
     arr_bx_arr = []
     arr_tx_arr = []
-    arr_distance= [0]
+    arr_distance = [0]
     # show video
     for (coord, text, prob) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
-        #cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        # cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
         count_2 += 1
         arr_bx.append(bx)
         arr_tx.append(tx)
 
-        for i in range (count_2-1) :
+        for i in range(count_2-1):
             arr_bx_arr.append(arr_bx[i])
-            arr_tx_arr.append(arr_tx [i+1])
+            arr_tx_arr.append(arr_tx[i+1])
 
-    if (len(arr_tx_arr)) == 1 :
+    if (len(arr_tx_arr)) == 1:
         distance = arr_tx_arr[0] - arr_bx_arr[0]
-        #print("jarak drawing bound : ",distance)
+        # print("jarak drawing bound : ",distance)
         arr_distance.append(distance)
-    elif (len(arr_tx_arr)) > 1 :
-        for j in range (len(arr_tx_arr)) :
-            if j != 0 :
+    elif (len(arr_tx_arr)) > 1:
+        for j in range(len(arr_tx_arr)):
+            if j != 0:
                 distance = arr_tx_arr[j] - arr_bx_arr[j]
-                #print(f"jarak drawing bound ke -{j} : {distance}")
+                # print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
     return arr_distance
+
+
+def find_asterisk(str):
+    asterisk = False
+    n_str = len(str)
+    i = 0
+
+    while i < n_str and asterisk == False:
+        if str[i] == "*":
+            asterisk = True
+
+        i += 1
+    return asterisk
+
 
 def cetak_json(news):
     input_json = []
@@ -112,16 +126,18 @@ def cetak_json(news):
 
     for i in range(jml_berita):
         if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
-            temp_json = {"text": news[i][0],"start time": news[i][1], "end time": news[i][2], "duration": news[i][1] - news[i][2],"repeat": news[i][3] }
+            temp_json = {"text": news[i][0], "start time": news[i][1], "end time": news[i]
+                         [2], "duration": news[i][1] - news[i][2], "repeat": news[i][3]}
             input_json.append({})
             input_json[j] = temp_json
             j += 1
-        
+
     with open("cobatime2.json", "w") as f:
-        json.dump(input_json,f, indent=3)
+        json.dump(input_json, f, indent=3)
     f.close()
 
-cap = cv2.VideoCapture("Videos/vidio-inews-tv.mkv")
+
+cap = cv2.VideoCapture("video-inews-long.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -138,6 +154,8 @@ time = 0
 
 idx_start = 1
 idx_end = 1
+f_asterisk = False
+f_end = True
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -183,13 +201,14 @@ while cap.isOpened():
                 temp_news = result[0][1]
                 if element > 1:
                     for i in range(1, element):
-                        #disini taro if kalau bounding boxnya deket
-                        #if distance antar bounding box tidak deket do the line below
-                        if arr_distance[i]<25:
+                        # disini taro if kalau bounding boxnya deket
+                        # if distance antar bounding box tidak deket do the line below
+                        if arr_distance[i] < 25:
                             temp_news += " " + result[i][1]
                         else:
                             temp_news += "* " + result[i][1]
                 temp_news = temp_news.split()
+                f_asterisk = find_asterisk("".join(temp_news[:2]))
                 print("\ntemp_news:")
                 print(temp_news)
 
@@ -238,6 +257,14 @@ while cap.isOpened():
                 print(news)
                 print("\nyolo:")
                 print(yolo)
+
+            if f_asterisk:
+                if f_end:
+                    yolo[idx_end][2] = time
+                    idx_end += 1
+                    f_end = False
+            else:
+                f_end = True
 
             # show video
             # cv2.imshow("frame", frame_2)
