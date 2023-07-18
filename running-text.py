@@ -11,6 +11,21 @@ import torch
 import json
 
 
+def find_idx(news, temp_news):
+    len_temp_news = len(temp_news)
+    idx = 0
+    f_match = True
+    while idx < len_temp_news and f_match:
+        if news == temp_news[idx]:
+            print("BENARRRR")
+            f_match = False
+            return idx
+        idx += 1
+
+    print(idx)
+    return idx
+
+
 def find_sentence(temp_news, n_sentence):
     f_asterisk = 0
     n_temp_news = len(temp_news)
@@ -34,11 +49,12 @@ def find_sentence(temp_news, n_sentence):
         if sentence[i][len(sentence[i])-1] == "*":
             yolo[idx_yolo] = yolo[idx_yolo][:-2]
             idx_yolo += 1
+
     return yolo
 
 
 def add_element(elm, n_elm):
-    elm.append(["", 0, 0, 0])
+    elm.append([0, 0, 0, 0])
     n_elm += 1
     return elm, n_elm
 
@@ -55,24 +71,8 @@ def last_temp(temp):
         n_temp -= 1
     return result
 
-def cetak_json(news):
-    input_json = []
-    j = 0
-    jml_berita = len(news)
 
-    for i in range(jml_berita):
-        if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
-            temp_json = {"text": news[i][0],"start time": news[i][2], "end time": news[i][1], "duration": news[i][1] - news[i][2],"repeat": news[i][3] }
-            input_json.append({})
-            input_json[j] = temp_json
-            j += 1
-        
-    with open("cobatime2.json", "w") as f:
-        json.dump(input_json,f, indent=3)
-    f.close()
-
-
-cap = cv2.VideoCapture("Videos/video-inews-long.mp4")
+cap = cv2.VideoCapture("video-inews-long.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -82,7 +82,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 iter = 0
 frame_count = 0
 news = ["#*"]
-yolo = [["#*", 0, 0, 0], ["", 0, 0, 0]]
+yolo = [["#*", 0, 0, 0], [0, 0, 0, 0]]
 len_yolo = 1
 last_sentence = ""
 time = 0
@@ -154,12 +154,21 @@ while cap.isOpened():
                         if news[-2:] == temp_news[0:2]:
                             news += temp_news[2:]
                             aw = find_sentence(news, element)
-                            print("AW: ", aw)
-                            if len(aw) > 0:
-                                for idx in range(element):
-                                    if yolo[len_yolo-1][0] != aw[idx-1]:
-                                        yolo[len_yolo][0] = aw[idx-1]
-                                        yolo, len_yolo = add_element(yolo, len_yolo)
+                            len_aw = len(aw)
+                            if len_aw > 0:
+                                idx_dif = find_idx(yolo[len_yolo-1][0], aw)
+                                if idx_dif < len_aw-1:
+                                    for idx in range(idx_dif+1, len_aw):
+                                        yolo[len_yolo][0] = aw[idx]
+                                        yolo, len_yolo = add_element(
+                                            yolo, len_yolo)
+                                        yolo[idx_start][1] = time
+                                        idx_start += 1
+                                elif idx_dif == len_aw:
+                                    for idx in range(len_aw):
+                                        yolo[len_yolo][0] = aw[idx]
+                                        yolo, len_yolo = add_element(
+                                            yolo, len_yolo)
                                         yolo[idx_start][1] = time
                                         idx_start += 1
                             f_same = True
@@ -188,4 +197,3 @@ while cap.isOpened():
 
 cap.release()
 # cv2.destroyAllWindows()
-cetak_json(yolo)
