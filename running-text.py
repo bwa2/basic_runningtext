@@ -71,6 +71,40 @@ def cetak_json(news):
         json.dump(input_json,f, indent=3)
     f.close()
 
+def bounding_box(result):
+    # cek bounding box
+    count_2 = 0
+    arr_tx = []
+    arr_bx = []
+    arr_bx_arr = []
+    arr_tx_arr = []
+    arr_distance= [0]
+    # show video
+    for (coord, text, prob) in result:
+        (topleft, topright, bottomright, bottofleft) = coord
+        tx, ty = (int(topleft[0]), int(topleft[1]))
+        bx, by = (int(bottomright[0]), int(bottomright[1]))
+        #cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        count_2 += 1
+        arr_bx.append(bx)
+        arr_tx.append(tx)
+
+        for i in range (count_2-1) :
+            arr_bx_arr.append(arr_bx[i])
+            arr_tx_arr.append(arr_tx [i+1])
+
+    if (len(arr_tx_arr)) == 1 :
+        distance = arr_tx_arr[0] - arr_bx_arr[0]
+        #print("jarak drawing bound : ",distance)
+        arr_distance.append(distance)
+    elif (len(arr_tx_arr)) > 1 :
+        for j in range (len(arr_tx_arr)) :
+            if j != 0 :
+                distance = arr_tx_arr[j] - arr_bx_arr[j]
+                #print(f"jarak drawing bound ke -{j} : {distance}")
+                arr_distance.append(distance)
+    return arr_distance
+
 
 cap = cv2.VideoCapture("Videos/video-inews-long.mp4")
 
@@ -113,6 +147,7 @@ while cap.isOpened():
             #
             element = len(result)
             temp_news = ""
+            arr_distance = bounding_box(result)
 
             if element == 0:
                 if (news[len(news)-1] != "#*"):
@@ -133,7 +168,12 @@ while cap.isOpened():
                 temp_news = result[0][1]
                 if element > 1:
                     for i in range(1, element):
-                        temp_news += "* " + result[i][1]
+                        #disini taro if kalau bounding boxnya deket
+                        #if distance antar bounding box tidak deket do the line below
+                        if arr_distance[i]<25:
+                            temp_news += " " + result[i][1]
+                        else:
+                            temp_news += "* " + result[i][1]
                 temp_news = temp_news.split()
                 print("\ntemp_news:")
                 print(temp_news)
