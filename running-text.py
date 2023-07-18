@@ -54,7 +54,7 @@ def find_sentence(temp_news, n_sentence):
 
 
 def add_element(elm, n_elm):
-    elm.append([0, 0, 0, 0])
+    elm.append(["", 0, 0, 0])
     n_elm += 1
     return elm, n_elm
 
@@ -105,7 +105,23 @@ def bounding_box(result):
                 arr_distance.append(distance)
     return arr_distance
 
-cap = cv2.VideoCapture("Videos/video-inews-long.mp4")
+def cetak_json(news):
+    input_json = []
+    j = 0
+    jml_berita = len(news)
+
+    for i in range(jml_berita):
+        if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
+            temp_json = {"text": news[i][0],"start time": news[i][1], "end time": news[i][2], "duration": news[i][1] - news[i][2],"repeat": news[i][3] }
+            input_json.append({})
+            input_json[j] = temp_json
+            j += 1
+        
+    with open("cobatime2.json", "w") as f:
+        json.dump(input_json,f, indent=3)
+    f.close()
+
+cap = cv2.VideoCapture("Videos/vidio-inews-tv.mkv")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -115,7 +131,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 iter = 0
 frame_count = 0
 news = ["#*"]
-yolo = [["#*", 0, 0, 0], [0, 0, 0, 0]]
+yolo = [["#*", 0, 0, 0], ["", 0, 0, 0]]
 len_yolo = 1
 last_sentence = ""
 time = 0
@@ -236,3 +252,4 @@ while cap.isOpened():
 
 cap.release()
 # cv2.destroyAllWindows()
+cetak_json(yolo)
