@@ -192,12 +192,13 @@ jml_berita += 1
 
 # cek similarity
 arr_repetition = []
-arr_similar = []
 for i in range (len(arr_text)) :
     arr_repetition.append(0)
     for j in range (len(arr_text)) :
         if i!=j :
             if arr_text[i] == arr_text[j]:
+                    arr_text[i] = arr_text[i].upper()
+                    arr_text[j] = arr_text[j].upper()
                     arr_repetition[i] += 1
             
             else : 
@@ -212,22 +213,25 @@ for i in range (len(arr_text)) :
                         print(f"kalimat 2 : {arr_text[j]}")
                         print('Similarity Score: ',temp.ratio())
                         arr_text[j] = arr_text[i]
+                        arr_text[i] = arr_text[i].upper()
+                        arr_text[j] = arr_text[j].upper()
                         arr_repetition[i] += 1
-                        arr_similar[i] += temp.ratio()
                     
                     elif len(arr_text[i]) < len(arr_text[j]) :
                         print(f"kalimat 1 : {arr_text[i]}")
                         print(f"kalimat 2 : {arr_text[j]}")
-                        print('Similarity Score: ',temp.ratio())
+                        print('Similarity Score: ', temp.ratio())
                         arr_text[i] = arr_text[j]
-                        arr_repetition[j] += 1
-                        arr_similar[i] += temp.ratio
+                        arr_text[i] = arr_text[i].upper()
+                        arr_text[j] = arr_text[j].upper()
+                        arr_repetition[i] += 1
                     
                     else : 
                         print(f"kalimat 1 : {arr_text[i]}")
                         print(f"kalimat 2 : {arr_text[j]}")
                         print('Similarity Score: ',temp.ratio())
-                        arr_similar[i] += temp.ratio()
+                        arr_text[i] = arr_text[i].upper()
+                        arr_text[j] = arr_text[j].upper()
                 
 
 print("text:\n",arr_text)
@@ -237,7 +241,7 @@ print("repeat: ",arr_repetition)
 input_json = [{}]
 
 for i in range(jml_berita):
-    temp_json = {"text": arr_text[i],"time": None,"repeat": arr_repetition[i], "similarity":  arr_similar[i]}
+    temp_json = {"text": arr_text[i],"time": None,"repeat": arr_repetition[i]}
     input_json[i] = temp_json
     print(input_json)
     if(i != jml_berita-1):
@@ -246,5 +250,3 @@ for i in range(jml_berita):
 with open("hasilnyacobafinal_5_ke1.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
-
-print(arr_text)
