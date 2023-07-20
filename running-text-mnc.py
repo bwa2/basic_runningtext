@@ -161,13 +161,14 @@ def cetak_json(news):
 
 def similar (arr, pjg) :
     arr_repetition = []
-    arr_text = ['']
+    arr_text = []
     for i in range (pjg) :
         arr_text.append(arr[i][0])
+        arr_repetition.append(0)
+
 
 
     for i in range (len(arr_text)) :
-        arr_repetition.append(0)
         for j in range (len(arr_text)) :
             if i!=j :
                 if arr_text[i] == arr_text[j]:
@@ -209,10 +210,11 @@ def similar (arr, pjg) :
         
         for i in range (pjg) :
             arr[i][0] = arr_text[i]
+            arr[i][3] = arr_repetition[i]
         
     return arr
 
-cap = cv2.VideoCapture("inews-5min.mp4")
+cap = cv2.VideoCapture("Videos/vidio-inews-tv.mkv")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
