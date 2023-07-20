@@ -159,6 +159,58 @@ def cetak_json(news):
     print("jml berita")
     print(jml_berita)
 
+def similar (arr, len) :
+    arr_repetition = []
+    arr_text = ['']
+    for i in range (len) :
+        arr_text.append(arr[0])
+
+
+    for i in range (len(arr_text)) :
+        arr_repetition.append(0)
+        for j in range (len(arr_text)) :
+            if i!=j :
+                if arr_text[i] == arr_text[j]:
+                        arr_text[i] = arr_text[i].upper()
+                        arr_text[j] = arr_text[j].upper()
+                        arr_repetition[i] += 1
+                
+                else : 
+                    string1 = arr_text[i]
+                    string2 = arr_text[j]
+                    
+                    temp = sm(None,string1 ,string2)
+
+                    if temp.ratio() > 0.9 :
+                        if len(arr_text[i]) > len(arr_text[j]) :
+                            print(f"kalimat 1 : {arr_text[i]}")
+                            print(f"kalimat 2 : {arr_text[j]}")
+                            print('Similarity Score: ',temp.ratio())
+                            arr_text[j] = arr_text[i]
+                            arr_text[i] = arr_text[i].upper()
+                            arr_text[j] = arr_text[j].upper()
+                            arr_repetition[i] += 1
+                        
+                        elif len(arr_text[i]) < len(arr_text[j]) :
+                            print(f"kalimat 1 : {arr_text[i]}")
+                            print(f"kalimat 2 : {arr_text[j]}")
+                            print('Similarity Score: ', temp.ratio())
+                            arr_text[i] = arr_text[j]
+                            arr_text[i] = arr_text[i].upper()
+                            arr_text[j] = arr_text[j].upper()
+                            arr_repetition[i] += 1
+                        
+                        else : 
+                            print(f"kalimat 1 : {arr_text[i]}")
+                            print(f"kalimat 2 : {arr_text[j]}")
+                            print('Similarity Score: ',temp.ratio())
+                            arr_text[i] = arr_text[i].upper()
+                            arr_text[j] = arr_text[j].upper()
+        
+        for i in range (len) :
+            arr[i][0] = arr_text[i]
+        
+    return arr
 
 cap = cv2.VideoCapture("video-inews-long.mp4")
 
@@ -310,4 +362,5 @@ for i in range(idx_end, len_yolo):
 cap.release()
 # cv2.destroyAllWindows()
 print(yolo)
+yolo = similar(yolo, len_yolo)
 cetak_json(yolo)
