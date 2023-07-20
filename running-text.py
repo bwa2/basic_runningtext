@@ -212,8 +212,6 @@ def similar (arr, len) :
         
     return arr
 
-
-
 cap = cv2.VideoCapture("video-inews-long.mp4")
 
 # get video property
