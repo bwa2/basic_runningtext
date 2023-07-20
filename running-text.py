@@ -9,6 +9,7 @@ import cv2
 import easyocr
 import torch
 import json
+from difflib import SequenceMatcher as sm
 
 
 def find_idx(news, temp_news):
@@ -248,7 +249,7 @@ while cap.isOpened():
                     f_same = False
                     n = find_same(news, temp_news)
                     while (i < len_temp and f_same == False):
-                        if news[-n:] == temp_news[0:n]:
+                        if sm(None, news[-n:], temp_news[0:n]).ratio() >= 0.85:
                             news += temp_news[n:]
                             aw = find_sentence(news, element)
                             len_aw = len(aw)
@@ -278,8 +279,8 @@ while cap.isOpened():
 
                 print("\nnews:")
                 print(news)
-                # print("\nyolo:")
-                # print(yolo)
+                print("\nyolo:")
+                print(yolo)
 
             if f_asterisk:
                 if f_end:
