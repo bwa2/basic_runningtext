@@ -2,4 +2,4 @@ KODE RUNNING TEXT
 
 UNTUK MENDETEKSI RUNNING TEXT PADA BERITA DENGAN TIPE GESER
 
-main code: running-text.py
+kode buat inews: running-text-inews.py
