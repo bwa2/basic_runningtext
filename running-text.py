@@ -9,7 +9,7 @@ import cv2
 import easyocr
 import torch
 import json
-import difflib
+from difflib import SequenceMatcher as sm
 
 
 def find_idx(news, temp_news):
@@ -120,6 +120,23 @@ def find_asterisk(str):
     return asterisk
 
 
+def find_same(str_1, str_2):
+    n = 2
+    len_str_2 = len(str_2)
+    match = True
+    while n < 4 and match:
+        i = 0
+        while i < len_str_2-n:
+            if str_1[-n:] == str_2[i:i+n]:
+                n += 1
+            i += 1
+
+        if i == len_str_2-n:
+            match = False
+
+    return n
+
+
 def cetak_json(news):
     input_json = []
     j = 0
@@ -137,6 +154,11 @@ def cetak_json(news):
         json.dump(input_json, f, indent=3)
     f.close()
 
+    print("idx j")
+    print(j)
+    print("jml berita")
+    print(jml_berita)
+
 def similar (arr, len) :
     arr_repetition = []
     arr_text = ['']
@@ -144,9 +166,9 @@ def similar (arr, len) :
         arr_text.append(arr[0])
 
 
-    for i in range (len) :
+    for i in range (len(arr_text)) :
         arr_repetition.append(0)
-        for j in range (len) :
+        for j in range (len(arr_text)) :
             if i!=j :
                 if arr_text[i] == arr_text[j]:
                         arr_text[i] = arr_text[i].upper()
@@ -157,7 +179,7 @@ def similar (arr, len) :
                     string1 = arr_text[i]
                     string2 = arr_text[j]
                     
-                    temp = difflib.SequenceMatcher(None,string1 ,string2)
+                    temp = sm(None,string1 ,string2)
 
                     if temp.ratio() > 0.9 :
                         if len(arr_text[i]) > len(arr_text[j]) :
@@ -189,6 +211,7 @@ def similar (arr, len) :
             arr[i][0] = arr_text[i]
         
     return arr
+
 
 
 cap = cv2.VideoCapture("video-inews-long.mp4")
@@ -278,9 +301,10 @@ while cap.isOpened():
                 else:
                     i = 0
                     f_same = False
+                    n = find_same(news, temp_news)
                     while (i < len_temp and f_same == False):
-                        if news[-2:] == temp_news[0:2]:
-                            news += temp_news[2:]
+                        if sm(None, news[-n:], temp_news[0:n]).ratio() >= 0.85:
+                            news += temp_news[n:]
                             aw = find_sentence(news, element)
                             len_aw = len(aw)
                             if len_aw > 0:
@@ -321,16 +345,24 @@ while cap.isOpened():
                 f_end = True
 
             # show video
-            # cv2.imshow("frame", frame_2)
-            # key = cv2.waitKey(10)
+            cv2.imshow("frame", frame_2)
+            key = cv2.waitKey(10)
 
-            # frame_count += 1
-            # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            frame_count += 1
+            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             time += 1
         iter += 1
     else:
         break
 
+yolo[len_yolo][0] = "#*"
+
+for i in range(idx_end, len_yolo):
+    yolo[i][2] = time
+    idx_end += 1
+
 cap.release()
 # cv2.destroyAllWindows()
+print(yolo)
+yolo = similar(yolo, len_yolo)
 cetak_json(yolo)
