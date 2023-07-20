@@ -9,6 +9,7 @@ import cv2
 import easyocr
 import torch
 import json
+import difflib
 
 
 def find_idx(news, temp_news):
@@ -135,6 +136,59 @@ def cetak_json(news):
     with open("cobatime2.json", "w") as f:
         json.dump(input_json, f, indent=3)
     f.close()
+
+def similar (arr, len) :
+    arr_repetition = []
+    arr_text = ['']
+    for i in range (len) :
+        arr_text.append(arr[0])
+
+
+    for i in range (len) :
+        arr_repetition.append(0)
+        for j in range (len) :
+            if i!=j :
+                if arr_text[i] == arr_text[j]:
+                        arr_text[i] = arr_text[i].upper()
+                        arr_text[j] = arr_text[j].upper()
+                        arr_repetition[i] += 1
+                
+                else : 
+                    string1 = arr_text[i]
+                    string2 = arr_text[j]
+                    
+                    temp = difflib.SequenceMatcher(None,string1 ,string2)
+
+                    if temp.ratio() > 0.9 :
+                        if len(arr_text[i]) > len(arr_text[j]) :
+                            print(f"kalimat 1 : {arr_text[i]}")
+                            print(f"kalimat 2 : {arr_text[j]}")
+                            print('Similarity Score: ',temp.ratio())
+                            arr_text[j] = arr_text[i]
+                            arr_text[i] = arr_text[i].upper()
+                            arr_text[j] = arr_text[j].upper()
+                            arr_repetition[i] += 1
+                        
+                        elif len(arr_text[i]) < len(arr_text[j]) :
+                            print(f"kalimat 1 : {arr_text[i]}")
+                            print(f"kalimat 2 : {arr_text[j]}")
+                            print('Similarity Score: ', temp.ratio())
+                            arr_text[i] = arr_text[j]
+                            arr_text[i] = arr_text[i].upper()
+                            arr_text[j] = arr_text[j].upper()
+                            arr_repetition[i] += 1
+                        
+                        else : 
+                            print(f"kalimat 1 : {arr_text[i]}")
+                            print(f"kalimat 2 : {arr_text[j]}")
+                            print('Similarity Score: ',temp.ratio())
+                            arr_text[i] = arr_text[i].upper()
+                            arr_text[j] = arr_text[j].upper()
+        
+        for i in range (len) :
+            arr[i][0] = arr_text[i]
+        
+    return arr
 
 
 cap = cv2.VideoCapture("video-inews-long.mp4")
