@@ -85,7 +85,7 @@ def bounding_box(result):
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
-        # cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
         count_2 += 1
         arr_bx.append(bx)
         arr_tx.append(tx)
@@ -159,39 +159,39 @@ def cetak_json(news):
     print("jml berita")
     print(jml_berita)
 
-def similar (arr, len) :
+
+def similar(arr, pjg):
     arr_repetition = []
     arr_text = ['']
-    for i in range (len) :
-        arr_text.append(arr[0])
+    for i in range(pjg):
+        arr_text.append(arr[i][0])
 
-
-    for i in range (len(arr_text)) :
+    for i in range(len(arr_text)):
         arr_repetition.append(0)
-        for j in range (len(arr_text)) :
-            if i!=j :
+        for j in range(len(arr_text)):
+            if i != j:
                 if arr_text[i] == arr_text[j]:
-                        arr_text[i] = arr_text[i].upper()
-                        arr_text[j] = arr_text[j].upper()
-                        arr_repetition[i] += 1
-                
-                else : 
+                    arr_text[i] = arr_text[i].upper()
+                    arr_text[j] = arr_text[j].upper()
+                    arr_repetition[i] += 1
+
+                else:
                     string1 = arr_text[i]
                     string2 = arr_text[j]
-                    
-                    temp = sm(None,string1 ,string2)
 
-                    if temp.ratio() > 0.9 :
-                        if len(arr_text[i]) > len(arr_text[j]) :
+                    temp = sm(None, string1, string2)
+
+                    if temp.ratio() > 0.9:
+                        if len(arr_text[i]) > len(arr_text[j]):
                             print(f"kalimat 1 : {arr_text[i]}")
                             print(f"kalimat 2 : {arr_text[j]}")
-                            print('Similarity Score: ',temp.ratio())
+                            print('Similarity Score: ', temp.ratio())
                             arr_text[j] = arr_text[i]
                             arr_text[i] = arr_text[i].upper()
                             arr_text[j] = arr_text[j].upper()
                             arr_repetition[i] += 1
-                        
-                        elif len(arr_text[i]) < len(arr_text[j]) :
+
+                        elif len(arr_text[i]) < len(arr_text[j]):
                             print(f"kalimat 1 : {arr_text[i]}")
                             print(f"kalimat 2 : {arr_text[j]}")
                             print('Similarity Score: ', temp.ratio())
@@ -199,20 +199,21 @@ def similar (arr, len) :
                             arr_text[i] = arr_text[i].upper()
                             arr_text[j] = arr_text[j].upper()
                             arr_repetition[i] += 1
-                        
-                        else : 
+
+                        else:
                             print(f"kalimat 1 : {arr_text[i]}")
                             print(f"kalimat 2 : {arr_text[j]}")
-                            print('Similarity Score: ',temp.ratio())
+                            print('Similarity Score: ', temp.ratio())
                             arr_text[i] = arr_text[i].upper()
                             arr_text[j] = arr_text[j].upper()
-        
-        for i in range (len) :
+
+        for i in range(pjg):
             arr[i][0] = arr_text[i]
-        
+
     return arr
 
-cap = cv2.VideoCapture("video-inews-long.mp4")
+
+cap = cv2.VideoCapture("inews-5min.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -271,6 +272,7 @@ while cap.isOpened():
                     yolo, len_yolo = add_element(yolo, len_yolo)
                     yo = find_sentence(news, 2)
                     yolo[len_yolo-1][0] = yo[0]
+                    idx_start += 1
                 print("\nTidak ada kalimat!")
             else:
                 temp_news = result[0][1]
@@ -301,7 +303,7 @@ while cap.isOpened():
                     f_same = False
                     n = find_same(news, temp_news)
                     while (i < len_temp and f_same == False):
-                        if sm(None, news[-n:], temp_news[0:n]).ratio() >= 0.85:
+                        if sm(None, " ".join(news[-n:]), " ".join(temp_news[0:n])).ratio() >= 0.915:
                             news += temp_news[n:]
                             aw = find_sentence(news, element)
                             len_aw = len(aw)
@@ -309,18 +311,20 @@ while cap.isOpened():
                                 idx_dif = find_idx(yolo[len_yolo-1][0], aw)
                                 if idx_dif < len_aw-1:
                                     for idx in range(idx_dif+1, len_aw):
-                                        yolo[len_yolo][0] = aw[idx]
-                                        yolo, len_yolo = add_element(
-                                            yolo, len_yolo)
-                                        yolo[idx_start][1] = time
-                                        idx_start += 1
+                                        if len(aw[idx] > 1):
+                                            yolo[len_yolo][0] = aw[idx]
+                                            yolo, len_yolo = add_element(
+                                                yolo, len_yolo)
+                                            yolo[idx_start][1] = time
+                                            idx_start += 1
                                 elif idx_dif == len_aw:
                                     for idx in range(len_aw):
-                                        yolo[len_yolo][0] = aw[idx]
-                                        yolo, len_yolo = add_element(
-                                            yolo, len_yolo)
-                                        yolo[idx_start][1] = time
-                                        idx_start += 1
+                                        if len(aw[idx] > 1):
+                                            yolo[len_yolo][0] = aw[idx]
+                                            yolo, len_yolo = add_element(
+                                                yolo, len_yolo)
+                                            yolo[idx_start][1] = time
+                                            idx_start += 1
                             f_same = True
                         else:
                             temp_news = temp_news[1:]
@@ -334,17 +338,9 @@ while cap.isOpened():
                 print("\nyolo:")
                 print(yolo)
 
-            if f_asterisk:
-                if f_end:
-                    yolo[idx_end][2] = time
-                    idx_end += 1
-                    f_end = False
-            else:
-                f_end = True
-
             # show video
-            cv2.imshow("frame", frame_2)
-            key = cv2.waitKey(10)
+            '''cv2.imshow("frame", frame_2)
+            key = cv2.waitKey(10)'''
 
             frame_count += 1
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
@@ -361,6 +357,7 @@ for i in range(idx_end, len_yolo):
 
 cap.release()
 # cv2.destroyAllWindows()
-print(yolo)
+print("sebelum similar: ", yolo)
 yolo = similar(yolo, len_yolo)
+print("setelah similar: ", yolo)
 cetak_json(yolo)
