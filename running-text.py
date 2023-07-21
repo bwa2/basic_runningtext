@@ -311,7 +311,7 @@ while cap.isOpened():
                                 idx_dif = find_idx(yolo[len_yolo-1][0], aw)
                                 if idx_dif < len_aw-1:
                                     for idx in range(idx_dif+1, len_aw):
-                                        if len(aw[idx] > 1):
+                                        if len(aw[idx]) > 1:
                                             yolo[len_yolo][0] = aw[idx]
                                             yolo, len_yolo = add_element(
                                                 yolo, len_yolo)
@@ -319,7 +319,7 @@ while cap.isOpened():
                                             idx_start += 1
                                 elif idx_dif == len_aw:
                                     for idx in range(len_aw):
-                                        if len(aw[idx] > 1):
+                                        if len(aw[idx]) > 1:
                                             yolo[len_yolo][0] = aw[idx]
                                             yolo, len_yolo = add_element(
                                                 yolo, len_yolo)
