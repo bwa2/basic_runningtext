@@ -145,7 +145,7 @@ def cetak_json(news):
     for i in range(jml_berita):
         if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
             temp_json = {"text": news[i][0], "start time": news[i][1], "end time": news[i]
-                         [2], "duration": news[i][2] - news[i][1], "repeat": news[i][3]}
+                         [2], "duration": news[i][1] - news[i][2], "repeat": news[i][3]}
             input_json.append({})
             input_json[j] = temp_json
             j += 1
