@@ -213,7 +213,7 @@ def similar(arr, pjg):
     return arr
 
 
-cap = cv2.VideoCapture("inews-5min.mp4")
+cap = cv2.VideoCapture("../videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -230,8 +230,9 @@ time = 0
 
 idx_start = 1
 idx_end = 1
-f_asterisk = False
-f_end = True
+f_end = False
+f_insert_end = True
+bound = 0
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -273,8 +274,17 @@ while cap.isOpened():
                     yo = find_sentence(news, 2)
                     yolo[len_yolo-1][0] = yo[0]
                     idx_start += 1
+
+                f_bound = False
                 print("\nTidak ada kalimat!")
             else:
+                bound = result[0][0][1][0]
+                print(f"bound: {bound}")
+                if bound > 200:
+                    f_end = True
+                else:
+                    f_end = False
+
                 temp_news = result[0][1]
                 if element > 1:
                     for i in range(1, element):
@@ -290,7 +300,7 @@ while cap.isOpened():
                 print(temp_news)
 
             len_temp = len(temp_news)
-            if (len_temp != 0):
+            if (len_temp > 1):
                 # mengambil kalimat sampai kata kedua dari akhir
                 temp_news = temp_news[:-1]
 
@@ -338,12 +348,20 @@ while cap.isOpened():
                 print("\nyolo:")
                 print(yolo)
 
+            if f_end:
+                if f_insert_end:
+                    yolo[idx_end][2] = time
+                    idx_end += 1
+                    f_insert_end = False
+            else:
+                f_insert_end = True
+
             # show video
             '''cv2.imshow("frame", frame_2)
-            key = cv2.waitKey(10)'''
+            key = cv2.waitKey(10)
 
             frame_count += 1
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
             time += 1
         iter += 1
     else:
@@ -357,7 +375,5 @@ for i in range(idx_end, len_yolo):
 
 cap.release()
 # cv2.destroyAllWindows()
-print("sebelum similar: ", yolo)
 yolo = similar(yolo, len_yolo)
-print("setelah similar: ", yolo)
 cetak_json(yolo)
