@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # sudah ada safety buat kalau ada jeda running-text dan ada salah baca easyocr
 # TODOTOM : count_mismatch tidak ke reset kalau tidak masuk ke kondisi if (DONE)
 # TODOAGAIN : check berapa persen yang sama antara tiap kalimat berita supaya bisa tau munculnya berapa kali
