@@ -1,23 +1,800 @@
 [
    {
-      "text": "UK MENTERI PERTANIAN SYAHRUL YASIN LIMPO TERKAIT DUGAAN KORUPSI",
-      "start time": 0,
-      "end time": 10,
-      "duration": -10,
+      "text": "INGKAP POLISI",
+      "start time": 5,
+      "end time": 5,
+      "duration": 0,
       "repeat": 0
    },
    {
-      "text": "KAWAL PEMERATAAN PEMBANGUNAN DI DAERAH OTONOMI BARU PAPUA MAHFUD MD PANGLIMA TNI KAPOLRI HINGGA MENKEU BULAN DEPAN AKAN BERKANTOR",
-      "start time": 1,
-      "end time": 22,
-      "duration": -21,
+      "text": "POLISI SITA 2 TAS MEWAH TERSANGKA PENIPUAN SI KEMBAR RIHANA-RIHANI",
+      "start time": 6,
+      "end time": 15,
+      "duration": 9,
       "repeat": 0
    },
    {
-      "text": "KAPOLRI HINGGA MENKEU BULAN DEPAN AKAN BERKANTOR DI PAPUA",
-      "start time": 24,
-      "end time": 29,
-      "duration": -5,
+      "text": "TOTAL 502 JEMAAH HAJI INDONESIA MENINGGAL DUNIA DI ARAB SAUDI PADA MUSIM HAJI 2023",
+      "start time": 7,
+      "end time": 27,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "SURVEI LSN: ELEKTABILITAS PARTAI PERINDO TEMBUS 5,1 PERSEN, UNGGULI BEBERAPA PARPOL PARLEMEN",
+      "start time": 19,
+      "end time": 40,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "KKHI MAKKAH PULANGKAN JEMAAH HAJI LANSIA KE TANAH AIR LEWAT MEKANISME TANAZUL",
+      "start time": 32,
+      "end time": 52,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "TERSANGKA PEMERKOSAAN TEWAS DIANIAYA SESAMA TAHANAN DI POLRES DEPOK",
+      "start time": 44,
+      "end time": 63,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "TIANG PENYANGGA HIDROLIK DI DERMAGA PELABUHAN KETAPANG BANYUWANGI RETAK SETELAH DITABRAK KAPAL KMP GERBANG SAMUDERA II",
+      "start time": 55,
+      "end time": 81,
+      "duration": 26,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DENGAN PEMBAHASAN MENDALAM DI SINDONEWS.COM",
+      "start time": 73,
+      "end time": 91,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "SUHU DI MADINAH SANGAT PANAS, JEMAAH HAJI DIIMBAU TAK PAKSAKAN IBADAH ARBAIN",
+      "start time": 83,
+      "end time": 102,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "PEMKAB LUMAJANG TETAPKAN STATUS TANGGAP DARURAT BENCANA BANJIR DAN LONGSOR",
+      "start time": 94,
+      "end time": 114,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "PEMERKOSA ANAK KANDUNG TEWAS DIANIAYA SESAMA TAHANAN DI DEPOK",
+      "start time": 106,
+      "end time": 124,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "DEKLARASI DUKUNG GANJAR PRANOWO SEBAGAI BACAPRES, PULUHAN RIBU EMAK-EMAK JAWA TIMUR TITIPKAN 9 MANDAT UNTUK GANJAR",
+      "start time": 116,
+      "end time": 141,
+      "duration": 25,
+      "repeat": 0
+   },
+   {
+      "text": "LRT JABODEBEK UJI COBA 12 JULI 2023, KAI PASTIKAN KEAMANAN PENUMPANG MESKI TANPA MASINIS",
+      "start time": 133,
+      "end time": 154,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "PT LIB AKAN TINDAK TEGAS PELAKU RASISME DI LIGA 1",
+      "start time": 146,
+      "end time": 161,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "RUSIA TEMBAK JATUH 4 RUDAL UKRAINA, SALAH SATUNYA DI ATAS CRIMEA",
+      "start time": 153,
+      "end time": 171,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DAN TERCEPAT DI OKEZONE COM",
+      "start time": 163,
+      "end time": 178,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "15 ORANG TEWAS AKIBAT BANJIR DAN TANAH LONGSOR DI INDIA",
+      "start time": 171,
+      "end time": 186,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "PEMIMPIN ISIS USAMAH AL MUHAJIR TEWAS DALAM SERANGAN DRONE AS DI SURIAH",
+      "start time": 178,
+      "end time": 197,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "LEDAKAN BOM MOBIL DI SURIAH, TEWASKAN 8 ORANG",
+      "start time": 189,
+      "end time": 204,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "DILAPORKAN DIPECAT SEBAGAI PANGLIMA PERANG RUSIA , JENDERAL GERASIMOV MUNCUL DI VIDEO",
+      "start time": 196,
+      "end time": 217,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "BERTEMU JOKOWI, PRABOWO LAPOR PERKEMBANGAN INDUSTRI PERTAHANAN HINGGA SITUASI GEOPOLITIK",
+      "start time": 209,
+      "end time": 230,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "KOREA UTARA ANCAM TEMBAK JATUH PESAWAT MATA-MATA AS JIKA LANGGAR BATAS WILAYAH",
+      "start time": 222,
+      "end time": 242,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA-BERITA EKSKLUSIF INEWS, SUBSCRIBE CHANNEL YOUTUBE @OFFICIALINEWS",
+      "start time": 234,
+      "end time": 253,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "PERUSAHAAN JASA DESAIN DAN KONSULTASI ASAL INGGRIS , BURO HAPPOLD, MENGKLARIFIKASI BAHWA SEJUMLAH ASPEK PEMBANGUNAN JIS TIDAK SESUAI PANDUAN",
+      "start time": 245,
+      "end time": 274,
+      "duration": 29,
+      "repeat": 0
+   },
+   {
+      "text": "PRAPERADILAN DITOLAK PN JAKSEL, SEKRETARIS MA HASBI HASAN SEGERA DIPERIKSA KPK LAGI",
+      "start time": 266,
+      "end time": 286,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "KASUS PANJI GUMILANG, BARESKRIM PERIKSA SEJUMLAH AHLI PEKAN INI",
+      "start time": 278,
+      "end time": 296,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "BACA BERITA CEPAT DAN LENGKAP DI INEWS.ID",
+      "start time": 288,
+      "end time": 302,
+      "duration": 14,
+      "repeat": 0
+   },
+   {
+      "text": "TEMBAKKAN AIR SOFT GUN DI JALAN ALTERNATIF PUNCAK, PENGENDARA MOTOR DITANGKAP POLISI",
+      "start time": 294,
+      "end time": 315,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "POLISI SITA 2 TAS MEWAH TERSANGKA PENIPUAN SI KEMBAR RIHANA-RIHANI",
+      "start time": 307,
+      "end time": 324,
+      "duration": 17,
+      "repeat": 0
+   },
+   {
+      "text": "TOTAL 502 JEMAAH HAJI INDONESIA MENINGGAL DUNIA DI ARAB SAUDI PADA MUSIM HAJI 2023",
+      "start time": 316,
+      "end time": 336,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "SURVEI LSN: ELEKTABILITAS PARTAI PERINDO TEMBUS 5,1 PERSEN, UNGGULI BEBERAPA PARPOL PARLEMEN",
+      "start time": 328,
+      "end time": 350,
+      "duration": 22,
+      "repeat": 0
+   },
+   {
+      "text": "KKHI MAKKAH PULANGKAN JEMAAH HAJI LANSIA KE TANAH AIR LEWAT MEKANISME TANAZUL",
+      "start time": 342,
+      "end time": 362,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "TERSANGKA PEMERKOSAAN TEWAS DIANIAYA SESAMA TAHANAN DI POLRES DEPOK",
+      "start time": 354,
+      "end time": 372,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "TIANG PENYANGGA HIDROLIK DI DERMAGA PELABUHAN KETAPANG BANYUWANGI RETAK SETELAH DITABRAK KAPAL KMP GERBANG SAMUDERA II",
+      "start time": 364,
+      "end time": 390,
+      "duration": 26,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DENGAN PEMBAHASAN MENDALAM DI SINDONEWS.COM",
+      "start time": 382,
+      "end time": 400,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "SUHU DI MADINAH SANGAT PANAS, JEMAAH HAJI DIIMBAU TAK PAKSAKAN IBADAH ARBAIN",
+      "start time": 392,
+      "end time": 412,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "PEMKAB LUMAJANG TETAPKAN STATUS TANGGAP DARURAT BENCANA BANJIR DAN LONGSOR",
+      "start time": 404,
+      "end time": 423,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "PEMERKOSA ANAK KANDUNG TEWAS DIANIAYA SESAMA TAHANAN DI DEPOK",
+      "start time": 415,
+      "end time": 433,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "DEKLARASI DUKUNG GANJAR PRANOWO SEBAGAI BACAPRES, PULUHAN RIBU EMAK-EMAK JAWA TIMUR TITIPKAN 9 MANDAT UNTUK GANJAR",
+      "start time": 425,
+      "end time": 450,
+      "duration": 25,
+      "repeat": 0
+   },
+   {
+      "text": "LRT JABODEBEK UJI COBA 12 JULI 2023, KAI PASTIKAN KEAMANAN PENUMPANG MESKI TANPA MASINIS",
+      "start time": 443,
+      "end time": 463,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "PT LIB AKAN TINDAK TEGAS PELAKU RASISME DI LIGA 1",
+      "start time": 455,
+      "end time": 470,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "RUSIA TEMBAK JATUH 4 RUDAL UKRAINA, SALAH SATUNYA DI ATAS CRIMEA",
+      "start time": 462,
+      "end time": 480,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DAN TERCEPAT DI OKEZONE COM",
+      "start time": 472,
+      "end time": 487,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "15 ORANG TEWAS AKIBAT BANJIR DAN TANAH LONGSOR DI INDIA",
+      "start time": 480,
+      "end time": 495,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "PEMIMPIN ISIS USAMAH AL MUHAJIR TEWAS DALAM SERANGAN DRONE AS DI SURIAH",
+      "start time": 487,
+      "end time": 506,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "LEDAKAN BOM MOBIL DI SURIAH, TEWASKAN 8 ORANG",
+      "start time": 498,
+      "end time": 513,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "DILAPORKAN DIPECAT SEBAGAI PANGLIMA PERANG RUSIA , JENDERAL GERASIMOV MUNCUL DI VIDEO",
+      "start time": 505,
+      "end time": 526,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "BERTEMU JOKOWI, PRABOWO LAPOR PERKEMBANGAN INDUSTRI PERTAHANAN HINGGA SITUASI GEOPOLITIK",
+      "start time": 518,
+      "end time": 539,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "KOREA UTARA ANCAM TEMBAK JATUH PESAWAT MATA-MATA AS JIKA LANGGAR BATAS WILAYAH",
+      "start time": 531,
+      "end time": 552,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA-BERITA EKSKLUSIF INEWS, SUBSCRIBE CHANNEL YOUTUBE @OFFICIALINEWS",
+      "start time": 543,
+      "end time": 563,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "PERUSAHAAN JASA DESAIN DAN KONSULTASI ASAL INGGRIS , BURO HAPPOLD, MENGKLARIFIKASI BAHWA SEJUMLAH ASPEK PEMBANGUNAN JIS TIDAK SESUAI PANDUAN",
+      "start time": 555,
+      "end time": 583,
+      "duration": 28,
+      "repeat": 0
+   },
+   {
+      "text": "PRAPERADILAN DITOLAK PN JAKSEL, SEKRETARIS MA HASBI HASAN SEGERA DIPERIKSA KPK LAGI",
+      "start time": 575,
+      "end time": 596,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "KASUS PANJI GUMILANG, BARESKRIM PERIKSA SEJUMLAH AHLI PEKAN INI",
+      "start time": 588,
+      "end time": 605,
+      "duration": 17,
+      "repeat": 0
+   },
+   {
+      "text": "BACA BERITA CEPAT DAN LENGKAP DI INEWS.ID",
+      "start time": 597,
+      "end time": 611,
+      "duration": 14,
+      "repeat": 0
+   },
+   {
+      "text": "TEMBAKKAN AIR SOFT GUN DI JALAN ALTERNATIF PUNCAK, PENGENDARA MOTOR DITANGKAP POLISI",
+      "start time": 603,
+      "end time": 624,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "POLISI SITA 2 TAS MEWAH TERSANGKA PENIPUAN SI KEMBAR RIHANA-RIHANI",
+      "start time": 616,
+      "end time": 634,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "TOTAL 502 JEMAAH HAJI INDONESIA MENINGGAL DUNIA DI ARAB SAUDI PADA MUSIM HAJI 2023",
+      "start time": 626,
+      "end time": 646,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "SURVEI LSN: ELEKTABILITAS PARTAI PERINDO TEMBUS 5,1 PERSEN, UNGGULI BEBERAPA PARPOL PARLEMEN",
+      "start time": 637,
+      "end time": 659,
+      "duration": 22,
+      "repeat": 0
+   },
+   {
+      "text": "KKHI MAKKAH PULANGKAN JEMAAH HAJI LANSIA KE TANAH AIR LEWAT MEKANISME TANAZUL",
+      "start time": 651,
+      "end time": 671,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "TERSANGKA PEMERKOSAAN TEWAS DIANIAYA SESAMA TAHANAN DI POLRES DEPOK",
+      "start time": 663,
+      "end time": 682,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "TIANG PENYANGGA HIDROLIK DI DERMAGA PELABUHAN KETAPANG BANYUWANGI RETAK SETELAH DITABRAK KAPAL KMP GERBANG SAMUDERA II",
+      "start time": 674,
+      "end time": 700,
+      "duration": 26,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DENGAN PEMBAHASAN MENDALAM DI SINDONEWS.COM",
+      "start time": 692,
+      "end time": 710,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "SUHU DI MADINAH SANGAT PANAS, JEMAAH HAJI DIIMBAU TAK PAKSAKAN IBADAH ARBAIN",
+      "start time": 701,
+      "end time": 721,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "PEMKAB LUMAJANG TETAPKAN STATUS TANGGAP DARURAT BENCANA BANJIR DAN LONGSOR",
+      "start time": 713,
+      "end time": 733,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "PEMERKOSA ANAK KANDUNG TEWAS DIANIAYA SESAMA TAHANAN DI DEPOK",
+      "start time": 725,
+      "end time": 742,
+      "duration": 17,
+      "repeat": 0
+   },
+   {
+      "text": "DEKLARASI DUKUNG GANJAR PRANOWO SEBAGAI BACAPRES, PULUHAN RIBU EMAK-EMAK JAWA TIMUR TITIPKAN 9 MANDAT UNTUK GANJAR",
+      "start time": 734,
+      "end time": 760,
+      "duration": 26,
+      "repeat": 0
+   },
+   {
+      "text": "LRT JABODEBEK UJI COBA 12 JULI 2023, KAI PASTIKAN KEAMANAN PENUMPANG MESKI TANPA MASINIS",
+      "start time": 752,
+      "end time": 773,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "PT LIB AKAN TINDAK TEGAS PELAKU RASISME DI LIGA RUSIA TEMBAK JATUH 4 RUDAL UKRAINA, SALAH SATUNYA DI ATAS CRIMEA",
+      "start time": 765,
+      "end time": 780,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DAN TERCEPAT DI OKEZONE COM",
+      "start time": 781,
+      "end time": 789,
+      "duration": 8,
+      "repeat": 0
+   },
+   {
+      "text": "PT LIB AKAN TINDAK TEGAS PELAKU RASISME DI LIGA RUSIA TEMBAK JATUH 4 RUDAL UKRAINA, SALAH SATUNYA DI ATAS CRIMEA",
+      "start time": 788,
+      "end time": 796,
+      "duration": 8,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DAN TERCEPAT DI OKEZONE COM",
+      "start time": 790,
+      "end time": 805,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "15 ORANG TEWAS AKIBAT BANJIR DAN TANAH LONGSOR DI INDIA",
+      "start time": 790,
+      "end time": 815,
+      "duration": 25,
+      "repeat": 0
+   },
+   {
+      "text": "PEMIMPIN ISIS USAMAH AL MUHAJIR TEWAS DALAM SERANGAN DRONE AS DI SURIAH",
+      "start time": 797,
+      "end time": 823,
+      "duration": 26,
+      "repeat": 0
+   },
+   {
+      "text": "LEDAKAN BOM MOBIL DI SURIAH, TEWASKAN 8 ORANG",
+      "start time": 808,
+      "end time": 835,
+      "duration": 27,
+      "repeat": 0
+   },
+   {
+      "text": "DILAPORKAN DIPECAT SEBAGAI PANGLIMA PERANG RUSIA , JENDERAL GERASIMOV MUNCUL DI VIDEO",
+      "start time": 815,
+      "end time": 849,
+      "duration": 34,
+      "repeat": 0
+   },
+   {
+      "text": "BERTEMU JOKOWI, PRABOWO LAPOR PERKEMBANGAN INDUSTRI PERTAHANAN HINGGA SITUASI GEOPOLITIK",
+      "start time": 827,
+      "end time": 861,
+      "duration": 34,
+      "repeat": 0
+   },
+   {
+      "text": "KOREA UTARA ANCAM TEMBAK JATUH PESAWAT MATA-MATA AS JIKA LANGGAR BATAS WILAYAH",
+      "start time": 841,
+      "end time": 872,
+      "duration": 31,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA-BERITA EKSKLUSIF INEWS, SUBSCRIBE CHANNEL YOUTUBE @OFFICIALINEWS",
+      "start time": 853,
+      "end time": 893,
+      "duration": 40,
+      "repeat": 0
+   },
+   {
+      "text": "PERUSAHAAN JASA DESAIN DAN KONSULTASI ASAL INGGRIS , BURO HAPPOLD, MENGKLARIFIKASI BAHWA SEJUMLAH ASPEK PEMBANGUNAN JIS TIDAK SESUAI PANDUAN",
+      "start time": 864,
+      "end time": 905,
+      "duration": 41,
+      "repeat": 0
+   },
+   {
+      "text": "PRAPERADILAN DITOLAK PN JAKSEL, SEKRETARIS MA HASBI HASAN SEGERA DIPERIKSA KPK LAGI",
+      "start time": 885,
+      "end time": 915,
+      "duration": 30,
+      "repeat": 0
+   },
+   {
+      "text": "KASUS PANJI GUMILANG, BARESKRIM PERIKSA SEJUMLAH AHLI PEKAN INI",
+      "start time": 897,
+      "end time": 921,
+      "duration": 24,
+      "repeat": 0
+   },
+   {
+      "text": "BACA BERITA CEPAT DAN LENGKAP DI INEWS.ID",
+      "start time": 907,
+      "end time": 933,
+      "duration": 26,
+      "repeat": 0
+   },
+   {
+      "text": "TEMBAKKAN AIR SOFT GUN DI JALAN ALTERNATIF PUNCAK, PENGENDARA MOTOR DITANGKAP POLISI",
+      "start time": 913,
+      "end time": 943,
+      "duration": 30,
+      "repeat": 0
+   },
+   {
+      "text": "POLISI SITA 2 TAS MEWAH TERSANGKA PENIPUAN SI KEMBAR RIHANA-RIHANI",
+      "start time": 925,
+      "end time": 955,
+      "duration": 30,
+      "repeat": 0
+   },
+   {
+      "text": "TOTAL 502 JEMAAH HAJI INDONESIA MENINGGAL DUNIA DI ARAB SAUDI PADA MUSIM HAJI 2023",
+      "start time": 935,
+      "end time": 968,
+      "duration": 33,
+      "repeat": 0
+   },
+   {
+      "text": "SURVEI LSN: ELEKTABILITAS PARTAI PERINDO TEMBUS 5,1 PERSEN, UNGGULI BEBERAPA PARPOL PARLEMEN",
+      "start time": 947,
+      "end time": 972,
+      "duration": 25,
+      "repeat": 0
+   },
+   {
+      "text": "KKHI MAKKAH PULANGKAN JEMAAH HAJI LANSIA KE TANAH AIR LEWAT MEKANISME TANAZUL",
+      "start time": 960,
+      "end time": 980,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "TERSANGKA PEMERKOSAAN TEWAS DIANIAYA SESAMA TAHANAN DI POLRES DEPOK",
+      "start time": 972,
+      "end time": 991,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "TIANG PENYANGGA HIDROLIK DI DERMAGA PELABUHAN KETAPANG BANYUWANGI RETAK SETELAH DITABRAK KAPAL KMP GERBANG SAMUDERA II",
+      "start time": 983,
+      "end time": 1009,
+      "duration": 26,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DENGAN PEMBAHASAN MENDALAM DI SINDONEWS.COM",
+      "start time": 1001,
+      "end time": 1019,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "SUHU DI MADINAH SANGAT PANAS, JEMAAH HAJI DIIMBAU TAK PAKSAKAN IBADAH ARBAIN",
+      "start time": 1011,
+      "end time": 1030,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "PEMKAB LUMAJANG TETAPKAN STATUS TANGGAP DARURAT BENCANA BANJIR DAN LONGSOR",
+      "start time": 1022,
+      "end time": 1042,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "PEMERKOSA ANAK KANDUNG TEWAS DIANIAYA SESAMA TAHANAN DI DEPOK",
+      "start time": 1034,
+      "end time": 1052,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "DEKLARASI DUKUNG GANJAR PRANOWO SEBAGAI BACAPRES, PULUHAN RIBU EMAK-EMAK JAWA TIMUR TITIPKAN 9 MANDAT UNTUK GANJAR",
+      "start time": 1044,
+      "end time": 1069,
+      "duration": 25,
+      "repeat": 0
+   },
+   {
+      "text": "LRT JABODEBEK UJI COBA 12 JULI 2023, KAI PASTIKAN KEAMANAN PENUMPANG MESKI TANPA MASINIS",
+      "start time": 1061,
+      "end time": 1082,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "PT LIB AKAN TINDAK TEGAS PELAKU RASISME DI LIGA 1",
+      "start time": 1074,
+      "end time": 1089,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "RUSIA TEMBAK JATUH 4 RUDAL UKRAINA, SALAH SATUNYA DI ATAS CRIMEA",
+      "start time": 1081,
+      "end time": 1099,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA TERKINI DAN TERCEPAT DI OKEZONE COM",
+      "start time": 1091,
+      "end time": 1106,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "15 ORANG TEWAS AKIBAT BANJIR DAN TANAH LONGSOR DI INDIA",
+      "start time": 1098,
+      "end time": 1114,
+      "duration": 16,
+      "repeat": 0
+   },
+   {
+      "text": "PEMIMPIN ISIS USAMAH AL MUHAJIR TEWAS DALAM SERANGAN DRONE AS DI SURIAH",
+      "start time": 1106,
+      "end time": 1125,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "LEDAKAN BOM MOBIL DI SURIAH, TEWASKAN 8 ORANG",
+      "start time": 1117,
+      "end time": 1132,
+      "duration": 15,
+      "repeat": 0
+   },
+   {
+      "text": "DILAPORKAN DIPECAT SEBAGAI PANGLIMA PERANG RUSIA , JENDERAL GERASIMOV MUNCUL DI VIDEO",
+      "start time": 1124,
+      "end time": 1145,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "BERTEMU JOKOWI, PRABOWO LAPOR PERKEMBANGAN INDUSTRI PERTAHANAN HINGGA SITUASI GEOPOLITIK",
+      "start time": 1137,
+      "end time": 1158,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "KOREA UTARA ANCAM TEMBAK JATUH PESAWAT MATA-MATA AS JIKA LANGGAR BATAS WILAYAH",
+      "start time": 1150,
+      "end time": 1170,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "IKUTI BERITA-BERITA EKSKLUSIF INEWS, SUBSCRIBE CHANNEL YOUTUBE @OFFICIALINEWS",
+      "start time": 1162,
+      "end time": 1181,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "PERUSAHAAN JASA DESAIN DAN KONSULTASI ASAL INGGRIS , BURO HAPPOLD, MENGKLARIFIKASI BAHWA SEJUMLAH ASPEK PEMBANGUNAN JIS TIDAK SESUAI PANDUAN",
+      "start time": 1173,
+      "end time": 1202,
+      "duration": 29,
+      "repeat": 0
+   },
+   {
+      "text": "PRAPERADILAN DITOLAK PN JAKSEL, SEKRETARIS MA HASBI HASAN SEGERA DIPERIKSA KPK LAGI",
+      "start time": 1194,
+      "end time": 1214,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "KASUS PANJI GUMILANG, BARESKRIM PERIKSA SEJUMLAH AHLI PEKAN INI",
+      "start time": 1206,
+      "end time": 1224,
+      "duration": 18,
+      "repeat": 0
+   },
+   {
+      "text": "BACA BERITA CEPAT DAN LENGKAP DI INEWS.ID",
+      "start time": 1216,
+      "end time": 1230,
+      "duration": 14,
+      "repeat": 0
+   },
+   {
+      "text": "TEMBAKKAN AIR SOFT GUN DI JALAN ALTERNATIF PUNCAK, PENGENDARA MOTOR DITANGKAP POLISI",
+      "start time": 1222,
+      "end time": 1243,
+      "duration": 21,
+      "repeat": 0
+   },
+   {
+      "text": "POLISI SITA 2 TAS MEWAH TERSANGKA PENIPUAN SI KEMBAR RIHANA-RIHANI",
+      "start time": 1235,
+      "end time": 1252,
+      "duration": 17,
+      "repeat": 0
+   },
+   {
+      "text": "TOTAL 502 JEMAAH HAJI INDONESIA MENINGGAL DUNIA DI ARAB SAUDI PADA MUSIM HAJI 2023",
+      "start time": 1244,
+      "end time": 1264,
+      "duration": 20,
+      "repeat": 0
+   },
+   {
+      "text": "SURVEI LSN: ELEKTABILITAS PARTAI PERINDO TEMBUS 5,1 PERSEN, UNGGULI BEBERAPA PARPOL PARLEMEN",
+      "start time": 1256,
+      "end time": 1275,
+      "duration": 19,
+      "repeat": 0
+   },
+   {
+      "text": "KKHI MAKKAH PULANGKAN JEMAAH",
+      "start time": 1270,
+      "end time": 1275,
+      "duration": 5,
       "repeat": 0
    }
 ]
