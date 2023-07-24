@@ -145,7 +145,7 @@ def cetak_json(news):
     for i in range(jml_berita):
         if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
             temp_json = {"text": news[i][0], "start time": news[i][1], "end time": news[i]
-                         [2], "duration": news[i][1] - news[i][2], "repeat": news[i][3]}
+                         [2], "duration": news[i][2] - news[i][1], "repeat": news[i][3]}
             input_json.append({})
             input_json[j] = temp_json
             j += 1
@@ -162,7 +162,7 @@ def cetak_json(news):
 
 def similar(arr, pjg):
     arr_repetition = []
-    arr_text = ['']
+    arr_text = []
     for i in range(pjg):
         arr_text.append(arr[i][0])
 
@@ -213,7 +213,7 @@ def similar(arr, pjg):
     return arr
 
 
-cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres.mp4")
+cap = cv2.VideoCapture("Videos/vidio-inews-tv.mkv")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -361,11 +361,11 @@ while cap.isOpened():
                 f_end = True
 
             # show video
-            cv2.imshow("frame", frame_2)
+            '''cv2.imshow("frame", frame_2)
             key = cv2.waitKey(10)
 
             frame_count += 1
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
             time += 1
         iter += 1
     else:
