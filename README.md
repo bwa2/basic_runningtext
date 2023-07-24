@@ -6,3 +6,5 @@ kode buat inews: running-text-inews.py
 
 github pc token:
 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
+
+git remote set-url origin https://intern22rkb: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@github.com/intern22rkb/basic_runningtext.git 
