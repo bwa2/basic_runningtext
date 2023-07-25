@@ -78,7 +78,7 @@ while cap.isOpened():
                     for i in range(1, element):
                         # disini taro if kalau bounding boxnya deket
                         # if distance antar bounding box tidak deket do the line below
-                        if arr_distance[i] < 30:
+                        if arr_distance[i] < 25:
                             temp_news += " " + result[i][1]
                             if i == 1:
                                 idx_bound = 1
