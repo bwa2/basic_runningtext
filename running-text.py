@@ -145,7 +145,7 @@ def cetak_json(news):
     for i in range(jml_berita):
         if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
             temp_json = {"text": news[i][0], "start time": news[i][1], "end time": news[i]
-                         [2], "duration": news[i][1] - news[i][2], "repeat": news[i][3]}
+                         [2], "duration": news[i][2] - news[i][1], "repeat": news[i][3]}
             input_json.append({})
             input_json[j] = temp_json
             j += 1
@@ -220,6 +220,12 @@ fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
+# preprocess
+height_process_top = round((24.5 / 27) * height)
+height_process_bottom = round((26 / 27) * height)
+width_process_left = round((1.25999/7.6) * width)
+width_process_right = round((7.6/7.6) * width)
+
 iter = 0
 frame_count = 0
 news = ["#*"]
@@ -235,24 +241,17 @@ f_end = True
 bound = 0
 idx_bound = 0
 
+reader = easyocr.Reader(['id'], gpu=True)
 while cap.isOpened():
     ret, frame = cap.read()
     if ret:
 
         if (iter % ((fps))) == 0:
-
-            # preprocess
-            height_process_top = round((24.5 / 27) * height)
-            height_process_bottom = round((26 / 27) * height)
-            width_process_left = round((1.25999/7.6) * width)
-            width_process_right = round((7.6/7.6) * width)
-
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
 
             # ocr
-            reader = easyocr.Reader(['id'], gpu=True)
             result = reader.readtext(frame_2)
 
             #
@@ -284,7 +283,7 @@ while cap.isOpened():
                     for i in range(1, element):
                         # disini taro if kalau bounding boxnya deket
                         # if distance antar bounding box tidak deket do the line below
-                        if arr_distance[i] < 25:
+                        if arr_distance[i] < 20:
                             temp_news += " " + result[i][1]
                             if i == 1:
                                 idx_bound = 1
