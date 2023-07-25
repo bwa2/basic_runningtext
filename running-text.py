@@ -160,6 +160,9 @@ while cap.isOpened():
             frame_count += 1
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
             time += 1
+            print("time:",time)
+            if time>760:
+                break
         iter += 1
     else:
         break
