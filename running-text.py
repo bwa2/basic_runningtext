@@ -50,6 +50,7 @@ while cap.isOpened():
             #
             element = len(result)
             temp_news = ""
+            test = []
             arr_distance = bounding_box(result)
 
             if element == 0:
@@ -140,8 +141,8 @@ while cap.isOpened():
                     if f_same == False and i == len_temp:
                         news = news[:-1]
 
-                # print("\nnews:")
-                # print(news)
+                print("\nnews:")
+                print(news)
                 # print("\nyolo:")
                 # print(yolo)
 
