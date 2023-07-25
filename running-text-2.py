@@ -83,13 +83,16 @@ while cap.isOpened():
                     flag_mulai = False
                     print("a")
                 else:
+                    i=0
+                    j=3
                     while(True):
-                        print(" ".join(news[-3:]))
-                        print(" ".join(temp_news))
-                        if sm(None, " ".join(news[-3:]), " ".join(temp_news[0:len_temp])).ratio() >= 0.915:
+                        # print(" ".join(news[-3:]))
+                        # print(" ".join(temp_news))
+                        if sm(None, " ".join(news[-3:]), " ".join(temp_news[i:j])).ratio() >= 0.915:
                             print("c")
                             break
-                        break
+                        i += 1
+                        j += 1
                     print("b")
                 
                 print("\nnews:")
