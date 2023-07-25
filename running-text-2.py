@@ -84,9 +84,12 @@ while cap.isOpened():
                     print("a")
                 else:
                     while(True):
+                        print(" ".join(news[-3:]))
+                        print(" ".join(temp_news))
                         if sm(None, " ".join(news[-3:]), " ".join(temp_news[0:len_temp])).ratio() >= 0.915:
                             print("c")
                             break
+                        break
                     print("b")
                 
                 print("\nnews:")
