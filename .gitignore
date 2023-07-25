@@ -1,6 +1,7 @@
 Videos/
 
-cobatime2.json
-running-text.py
-cobatime2.json
-running-text.py
+#ignore all .json
+*.json
+
+
+ __pycache__/
