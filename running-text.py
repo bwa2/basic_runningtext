@@ -213,7 +213,7 @@ def similar(arr, pjg):
     return arr
 
 
-cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres-cut.mp4")
+cap = cv2.VideoCapture("Videos/simulasi-pasangan-capres-cawapres2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
