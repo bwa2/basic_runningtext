@@ -53,7 +53,10 @@ while cap.isOpened():
             
             if element==0:
                 #nambah pager dan flag_mulaitrue
-
+                if (news[len(news)-1] != "#*"):
+                    news[len(news)-1] += "*"
+                    news.append("#*")
+                    flag_mulai = True
                 print("\nTidak ada kalimat!")
             else:
                 if flag_mulai == True:
