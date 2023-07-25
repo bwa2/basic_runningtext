@@ -140,7 +140,7 @@ def cetak_json(news):
             input_json[j] = temp_json
             j += 1
 
-    with open("cobatime2.json", "w") as f:
+    with open("cobatime2_3.json", "w") as f:
         json.dump(input_json, f, indent=3)
     f.close()
 

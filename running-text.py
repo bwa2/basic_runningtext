@@ -112,26 +112,26 @@ while cap.isOpened():
                     while (i < len_temp and f_same == False):
                         if sm(None, " ".join(news[-n:]), " ".join(temp_news[0:n])).ratio() >= 0.915:
                             news += temp_news[n:]
-                            # aw = find_sentence(news, element)
-                            # len_aw = len(aw)
-                            # if len_aw > 0:
-                            #     idx_dif = find_idx(yolo[len_yolo-1][0], aw)
-                            #     if idx_dif < len_aw-1:
-                            #         for idx in range(idx_dif+1, len_aw):
-                            #             if len(aw[idx]) > 1:
-                            #                 yolo[len_yolo][0] = aw[idx]
-                            #                 yolo, len_yolo = add_element(
-                            #                     yolo, len_yolo)
-                            #                 yolo[idx_start][1] = time
-                            #                 idx_start += 1
-                            #     elif idx_dif == len_aw:
-                            #         for idx in range(len_aw):
-                            #             if len(aw[idx]) > 1:
-                            #                 yolo[len_yolo][0] = aw[idx]
-                            #                 yolo, len_yolo = add_element(
-                            #                     yolo, len_yolo)
-                            #                 yolo[idx_start][1] = time
-                            #                 idx_start += 1
+                            aw = find_sentence(news, element)
+                            len_aw = len(aw)
+                            if len_aw > 0:
+                                idx_dif = find_idx(yolo[len_yolo-1][0], aw)
+                                if idx_dif < len_aw-1:
+                                    for idx in range(idx_dif+1, len_aw):
+                                        if len(aw[idx]) > 1:
+                                            yolo[len_yolo][0] = aw[idx]
+                                            yolo, len_yolo = add_element(
+                                                yolo, len_yolo)
+                                            yolo[idx_start][1] = time
+                                            idx_start += 1
+                                elif idx_dif == len_aw:
+                                    for idx in range(len_aw):
+                                        if len(aw[idx]) > 1:
+                                            yolo[len_yolo][0] = aw[idx]
+                                            yolo, len_yolo = add_element(
+                                                yolo, len_yolo)
+                                            yolo[idx_start][1] = time
+                                            idx_start += 1
                             f_same = True
                         else:
                             temp_news = temp_news[1:]
