@@ -89,7 +89,7 @@ while cap.isOpened():
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
                         if sm(None, " ".join(news[-3:]), " ".join(temp_news[i:j])).ratio() >= 0.915:
-                            print("c")
+                            news.append(temp_news[j+1:])
                             break
                         i += 1
                         j += 1
