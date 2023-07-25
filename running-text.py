@@ -1,4 +1,4 @@
-
+# KODE MAIN RUNNING-TEXT GESER
 
 import cv2
 import easyocr
