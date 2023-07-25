@@ -86,13 +86,13 @@ def bounding_box(result):
 
     if (len(arr_tx_arr)) == 1:
         distance = arr_tx_arr[0] - arr_bx_arr[0]
-        # print("jarak drawing bound : ",distance)
+        print("jarak drawing bound : ",distance)
         arr_distance.append(distance)
     elif (len(arr_tx_arr)) > 1:
         for j in range(len(arr_tx_arr)):
             if j != 0:
                 distance = arr_tx_arr[j] - arr_bx_arr[j]
-                # print(f"jarak drawing bound ke -{j} : {distance}")
+                print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
     return arr_distance
 

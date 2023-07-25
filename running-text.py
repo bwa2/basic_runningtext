@@ -52,6 +52,7 @@ while cap.isOpened():
             temp_news = ""
             test = []
             arr_distance = bounding_box(result)
+            print("arr distance: ",arr_distance)
 
             if element == 0:
                 if (news[len(news)-1] != "#*"):
@@ -141,8 +142,8 @@ while cap.isOpened():
                     if f_same == False and i == len_temp:
                         news = news[:-1]
 
-                print("\nnews:")
-                print(news)
+                # print("\nnews:")
+                # print(news)
                 # print("\nyolo:")
                 # print(yolo)
 
