@@ -298,8 +298,8 @@ while cap.isOpened():
                     f_bound = False
                 idx_bound = 0
 
-                # print("\ntemp_news:")
-                # print(temp_news)
+                print("\ntemp_news:")
+                print(temp_news)
                 # print("\nresult:")
                 # print(result)
 
@@ -369,6 +369,9 @@ while cap.isOpened():
             frame_count += 1
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
             time += 1
+            print("time:",time)
+            if time>780:
+                break
         iter += 1
     else:
         break
