@@ -8,7 +8,7 @@ kode main: running-text.py
 https://docs.google.com/presentation/d/1uT46h8e-D52uhlJnKPk6wt-T0V81LEN-wrc3GRWHvTY/edit?usp=sharing
 
 ### Link Log Book
-https://docs.google.com/document/d/1ZuIEfDKig_7JhB5wOIf6MBJ3fEMlySfAGmN0LGrgE2E/edit
+https://docs.google.com/document/d/1DTe3znzXMcUFMF54y-vJnsRVRLyXmwZu9eQJiY0EEug/edit?usp=sharing
 
 ### Run docker container
 ```
