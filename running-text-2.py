@@ -70,7 +70,7 @@ while cap.isOpened():
                                     idx_bound = 1
                             else:
                                 temp_news += "* " + result[i][1]
-
+                    temp_news = temp_news.split()
                 print("\ntemp_news:")
                 print(temp_news)
 
@@ -88,6 +88,9 @@ while cap.isOpened():
                             print("c")
                             break
                     print("b")
+                
+                print("\nnews:")
+                print(news)
 
 
 
