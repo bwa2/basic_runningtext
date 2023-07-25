@@ -213,7 +213,7 @@ def similar(arr, pjg):
     return arr
 
 
-cap = cv2.VideoCapture("Videos/vidio-inews-tv.mkv")
+cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres-cut.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -283,7 +283,7 @@ while cap.isOpened():
                     for i in range(1, element):
                         # disini taro if kalau bounding boxnya deket
                         # if distance antar bounding box tidak deket do the line below
-                        if arr_distance[i] < 20:
+                        if arr_distance[i] < 30:
                             temp_news += " " + result[i][1]
                             if i == 1:
                                 idx_bound = 1
@@ -298,10 +298,10 @@ while cap.isOpened():
                     f_bound = False
                 idx_bound = 0
 
-                print("\ntemp_news:")
-                print(temp_news)
-                print("\nresult:")
-                print(result)
+                # print("\ntemp_news:")
+                # print(temp_news)
+                # print("\nresult:")
+                # print(result)
 
             len_temp = len(temp_news)
             if (len_temp > 1):
@@ -318,6 +318,8 @@ while cap.isOpened():
                     n = find_same(news, temp_news)
                     while (i < len_temp and f_same == False):
                         if sm(None, " ".join(news[-n:]), " ".join(temp_news[0:n])).ratio() >= 0.915:
+                            if ''.join(temp_news[0:n]).count('*'):
+                                news[-n:] = temp_news[0:n]
                             news += temp_news[n:]
                             aw = find_sentence(news, element)
                             len_aw = len(aw)
@@ -349,8 +351,8 @@ while cap.isOpened():
 
                 print("\nnews:")
                 print(news)
-                print("\nyolo:")
-                print(yolo)
+                # print("\nyolo:")
+                # print(yolo)
 
             if f_bound:
                 if f_end:
@@ -377,7 +379,10 @@ for i in range(idx_end, len_yolo):
     yolo[i][2] = time
     idx_end += 1
 
+print("\nyolo:")
+print(yolo)
+
 cap.release()
 # cv2.destroyAllWindows()
-yolo = similar(yolo, len_yolo)
-cetak_json(yolo)
+# yolo = similar(yolo, len_yolo)
+# cetak_json(yolo)
