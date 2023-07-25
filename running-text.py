@@ -6,7 +6,7 @@ import torch
 from difflib import SequenceMatcher as sm
 from utils import *
 
-cap = cv2.VideoCapture("Videos/cek-iklan2-inews.mp4")
+cap = cv2.VideoCapture("Videos/simulasi-pasangan-capres-cawapres2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -163,8 +163,9 @@ while cap.isOpened():
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
             time += 1
             print("time:",time)
-            # if time>800:
-            #     break
+            print("\n--------\n")
+            if time>800:
+                break
         iter += 1
     else:
         break
