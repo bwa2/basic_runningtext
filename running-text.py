@@ -145,13 +145,13 @@ while cap.isOpened():
                 # print("\nyolo:")
                 # print(yolo)
 
-            if f_bound:
-                if f_end:
-                    yolo[idx_end][2] = time
-                    idx_end += 1
-                    f_end = False
-            else:
-                f_end = True
+            # if f_bound:
+                # if f_end:
+                #     yolo[idx_end][2] = time
+                #     idx_end += 1
+                #     f_end = False
+            # else:
+            #     f_end = True
 
             # show video
             '''cv2.imshow("frame", frame_2)
