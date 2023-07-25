@@ -1,8 +1,3 @@
-# sudah ada safety buat kalau ada jeda running-text dan ada salah baca easyocr
-# TODOTOM : count_mismatch tidak ke reset kalau tidak masuk ke kondisi if (DONE)
-# TODOAGAIN : check berapa persen yang sama antara tiap kalimat berita supaya bisa tau munculnya berapa kali
-# karena ada beberapa yang terputus akibat gagal identifikasi oleh ocr
-# TODOTWO : KALAU LAGI BREAK, langsung lanjut gausah ngecek ke belakang lagi (batasnya 15 detik)
 
 
 import cv2
