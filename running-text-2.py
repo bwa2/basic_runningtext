@@ -60,7 +60,8 @@ while cap.isOpened():
                 print("\nTidak ada kalimat!")
             else:
                 if flag_mulai == True:
-                    temp_news = result[1][1]
+                    if element==2:
+                        temp_news = result[1][1]
                 else:
                     temp_news = result[0][1]
                     if element > 1:
