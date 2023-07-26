@@ -133,3 +133,29 @@ while cap.isOpened():
 cap.release()
 # cv2.destroyAllWindows()
 
+# buat misahin per berita
+panjang_news = len(news)
+arr_text = ['']
+jml_berita = 0
+ada_titik = False
+for i in range(panjang_news):
+    temp_word = news[i]
+    for j in range(len(temp_word)):
+        if temp_word[j] == '*':
+            ada_titik = True
+            temp_word = temp_word[0:i]
+        else:
+            ada_titik = False
+    if arr_text == ['']:
+        arr_text[jml_berita] += temp_word
+    else:
+        arr_text[jml_berita] += " " + temp_word
+        
+    if ada_titik:
+        print("jml berita: ", jml_berita)
+        jml_berita += 1
+        arr_text.append('')
+jml_berita += 1
+
+print("\nberita:",arr_text)
+print("\njumlah berita:", jml_berita, "len berita:", len(arr_text))
