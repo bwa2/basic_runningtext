@@ -166,11 +166,11 @@ for i in range(len(arr_end)):
 arr_end.append(last_time)
 
 #ubah ke format time stamp
-for i in range (len(arr_start)):
-    arr_start[i] = converttimestamp(arr_start[i])
+# for i in range (len(arr_start)):
+#     arr_start[i] = converttimestamp(arr_start[i])
 
-for i in range (len(arr_end)):
-    arr_end[i] = converttimestamp(arr_end[i])
+# for i in range (len(arr_end)):
+#     arr_end[i] = converttimestamp(arr_end[i])
 
 print("arr start:",arr_start)
 print("arr end:",arr_end)
@@ -218,7 +218,7 @@ print("repeat: ",arr_repetition)
 input_json = [{}]
 
 for i in range(jml_berita):
-    temp_json = {"text": arr_text[i],"start time": arr_start[i], "end time": arr_end[i], "duration": 0,"repeat": arr_repetition[i] }
+    temp_json = {"text": arr_text[i],"start time": converttimestamp(arr_start[i]), "end time": converttimestamp(arr_end[i]), "duration": 0,"repeat": arr_repetition[i] }
     input_json[i] = temp_json
     #print(input_json)
     if(i != jml_berita-1):
