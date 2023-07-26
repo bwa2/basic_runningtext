@@ -14,7 +14,7 @@ import torch
 from difflib import SequenceMatcher as sm
 from utils import *
 
-cap = cv2.VideoCapture("Videos/cek-iklan2-inews.mp4")
+cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -130,7 +130,7 @@ while cap.isOpened():
             # timestamp extraction
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
-                if arr_bb_width[-1]<300 and arr_bb_width[-1]>150:
+                if arr_bb_width[-1]<280 and arr_bb_width[-1]>150:
                     flag_timer = True
 
             if flag_timer==True:
