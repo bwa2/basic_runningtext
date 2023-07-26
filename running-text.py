@@ -320,13 +320,13 @@ while cap.isOpened():
     else:
         break
 
-for i in range(idx_end, idx_start):
-    news[i][2] = time
+# for i in range(idx_end, idx_start):
+#     news[i][2] = time
 
 
 temp_news = ' '.join(temp_news).split('* ')
-for i in range(idx_start):
-    news[i][0] = temp_news[i]
+# for i in range(idx_start):
+#     news[i][0] = temp_news[i]
 
 print(f'\nnews:\n{news}')
 print(f'\ntemp_news:\n{" ".join(temp_news)}')
