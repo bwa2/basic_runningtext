@@ -139,7 +139,7 @@ while cap.isOpened():
                     flag_timer = True
                     print("---flag timer is true---")
 
-            if (flag_timer==True and counts>3) or (flag_timer_break==True):
+            if ((flag_timer==True) and (counts>3)) or (flag_timer_break==True):
                 arr_start.append(sec)
                 flag_timer=False
                 flag_timer_break=False
