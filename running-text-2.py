@@ -97,6 +97,8 @@ while cap.isOpened():
                             break
                         i += 1
                         j += 1
+                        if j>len_temp:
+                            news = news[:-3]
                     print("b")
                 
                 print("\nnews:")
