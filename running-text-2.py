@@ -2,9 +2,11 @@
 
 # UNSOLVEDCASE1: kalo ketika mulai ada tiga elemen
 # UNSOLVEDCASE2: kalo kebanyakan mundur
-# UNSOLVEDCASE3: double ** karena sebelum break sudah ada asterisk
 
 # SOLVED CASE: 
+# jika tiga kata pada news tdk sama dengan temp_news
+# double ** karena sebelum break sudah ada asterisk
+# 
 
 import cv2
 import easyocr
