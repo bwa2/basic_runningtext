@@ -33,6 +33,11 @@ sec = 0
 
 flag_mulai = True
 
+# timestamp
+arr_start = []
+arr_end = []
+flag_timer = False
+
 news = ["#*"]
 
 reader = easyocr.Reader(['id'], gpu=True)
@@ -94,6 +99,7 @@ while cap.isOpened():
                 if news[len(news)-1]=="#*":
                     news += temp_news
                     flag_mulai = False
+                    #starttime jalan pertama kali dan setelah break
                 else:
                     i=0
                     j=3
@@ -113,19 +119,31 @@ while cap.isOpened():
                 print("\nnews:")
                 print(news)
 
-
-
-            # show video
-            # cv2.imshow("frame", frame_2)
-            # key = cv2.waitKey(10)
-
-            frame_count += 1
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec += 1
             print("time:",sec)
             print("\n--------\n")
             # if sec>800:
             #     break
+
+            # timestamp extraction
+            # arr_bb_width, time, arr_start
+            if len(arr_bb_width)>1:
+                if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
+                    flag_timer = True
+
+            if flag_timer==True:
+                arr_start.append(sec)
+                flag_timer=False
+
+            print("starttime: ",arr_start)
+            # show video
+            # cv2.imshow("frame", frame_2)
+            # key = cv2.waitKey(10)
+
+            # frame_count += 1
+            # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            
+            
         iter += 1
     else:
         break
