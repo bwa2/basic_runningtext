@@ -12,7 +12,7 @@ import torch
 from difflib import SequenceMatcher as sm
 from utils import *
 
-cap = cv2.VideoCapture("Videos/simulasi-pasangan-capres-cawapres2.mp4")
+cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -58,7 +58,8 @@ while cap.isOpened():
             if element==0:
                 #nambah pager dan flag_mulaitrue
                 if (news[len(news)-1] != "#*"):
-                    news[len(news)-1] += "*"
+                    if (news[len(news)-1][-1] != "*"):
+                        news[len(news)-1] += "*"
                     news.append("#*")
                     flag_mulai = True
                 print("\nTidak ada kalimat!")
@@ -119,8 +120,8 @@ while cap.isOpened():
             sec += 1
             print("time:",sec)
             print("\n--------\n")
-            if sec>800:
-                break
+            # if sec>800:
+            #     break
         iter += 1
     else:
         break
