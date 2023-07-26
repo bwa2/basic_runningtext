@@ -121,14 +121,14 @@ while cap.isOpened():
 
             sec += 1
             print("time:",sec)
-            print("\n--------\n")
+            
             # if sec>800:
             #     break
 
             # timestamp extraction
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
-                if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
+                if arr_bb_width[-1]<300 and arr_bb_width[-1]>150:
                     flag_timer = True
 
             if flag_timer==True:
@@ -136,6 +136,7 @@ while cap.isOpened():
                 flag_timer=False
 
             print("starttime: ",arr_start)
+            print("\n--------\n")
             # show video
             # cv2.imshow("frame", frame_2)
             # key = cv2.waitKey(10)
