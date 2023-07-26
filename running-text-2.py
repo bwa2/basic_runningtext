@@ -200,5 +200,33 @@ for i in range(panjang_news):
         arr_text.append('')
 jml_berita += 1
 
+# cek repitisi
+arr_repetition = []
+for i in range(len(arr_text)):
+    arr_repetition.append(0)
+    for j in range(len(arr_text)):
+        if i != j:
+            if arr_text[i] == arr_text[j]:
+                arr_repetition[i] += 1
+    
+    #print(arr_repetition)
+
+print("text:\n",arr_text)
+print("repeat: ",arr_repetition)
+
+# masukin ke json
+input_json = [{}]
+
+for i in range(jml_berita):
+    temp_json = {"text": arr_text[i],"start time": arr_start[i], "end time": arr_end[i], "duration": arr_end[i] - arr_start[i],"repeat": arr_repetition[i] }
+    input_json[i] = temp_json
+    #print(input_json)
+    if(i != jml_berita-1):
+        input_json.append({})
+
+with open("cobatimefinal10_sejam.json", "w") as f:
+    json.dump(input_json,f, indent=3)
+f.close()
+
 print("\nberita:",arr_text)
 print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
