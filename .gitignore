@@ -2,6 +2,7 @@ Videos/
 
 *.json
 *.mp4
+*.jpg
 
 coba.py
 test.py
