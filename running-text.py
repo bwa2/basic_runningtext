@@ -11,48 +11,6 @@ import torch
 import json
 from difflib import SequenceMatcher as sm
 
-
-def find_idx(news, temp_news):
-    len_temp_news = len(temp_news)
-    idx = 0
-    f_match = True
-    while idx < len_temp_news and f_match:
-        if news == temp_news[idx]:
-            f_match = False
-            return idx
-        idx += 1
-
-    print(idx)
-    return idx
-
-
-def find_sentence(temp_news, n_sentence):
-    f_asterisk = 0
-    n_temp_news = len(temp_news)
-    idx_temp_news = n_temp_news - 1
-    sentence = []
-
-    i = 0
-    while (f_asterisk < n_sentence and idx_temp_news > -1):
-        if temp_news[idx_temp_news][len(temp_news[idx_temp_news])-1] == "*":
-            f_asterisk += 1
-
-        if f_asterisk > 0 and f_asterisk < n_sentence:
-            sentence.insert(0, temp_news[idx_temp_news])
-        idx_temp_news -= 1
-
-    yolo = ["" for i in range(n_sentence-1)]
-    idx_yolo = 0
-    for i in range(len(sentence)):
-        yolo[idx_yolo] += sentence[i] + " "
-
-        if sentence[i][len(sentence[i])-1] == "*":
-            yolo[idx_yolo] = yolo[idx_yolo][:-2]
-            idx_yolo += 1
-
-    return yolo
-
-
 def add_element(elm, n_elm):
     elm.append(["", 0, 0, 0])
     n_elm += 1
@@ -278,6 +236,7 @@ while cap.isOpened():
 
                 print("\ntemp_result:")
                 print(temp_result)
+                print(f'\nbound_start : bound = {bound_start} : {width_process_right - 360}')
 
             temp_result = temp_result.split()
             n_temp_result = len(temp_result)
