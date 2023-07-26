@@ -69,6 +69,14 @@ def find_same(str_1, str_2):
 
     return n
 
+def converttimestamp(sec):
+    #print('Time in Seconds:', sec)
+
+    td = timedelta(seconds=sec)
+    #print('Time in hh:mm:ss:', td)
+
+    str_sec = str(timedelta(seconds=sec))
+    return str_sec
 
 def cetak_json(news):
     input_json = []
@@ -77,7 +85,7 @@ def cetak_json(news):
 
     for i in range(jml_berita):
         if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
-            temp_json = {"text": news[i][0], "start time": news[i][1], "end time": news[i]
+            temp_json = {"text": news[i][0], "start time": converttimestamp(news[i][1]), "end time": news[i]
                          [2], "duration": news[i][2] - news[i][1], "repeat": news[i][3]}
             input_json.append({})
             input_json[j] = temp_json
@@ -145,14 +153,7 @@ def similar(arr, pjg):
 
     return arr
 
-def converttimestamp(sec):
-    #print('Time in Seconds:', sec)
 
-    td = timedelta(seconds=sec)
-    #print('Time in hh:mm:ss:', td)
-
-    str_sec = str(timedelta(seconds=sec))
-    return str_sec
 
 
 cap = cv2.VideoCapture("Videos/cek-iklan2-inews.mp4")
