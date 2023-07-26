@@ -53,7 +53,7 @@ while cap.isOpened():
             temp_news = ""
             arr_distance = bounding_box(result)
             print("arr distance: ",arr_distance)
-
+            
             
             if element==0:
                 #nambah pager dan flag_mulaitrue
