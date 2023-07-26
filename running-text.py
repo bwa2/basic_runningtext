@@ -270,8 +270,6 @@ while cap.isOpened():
                     else:
                         f_start = False
 
-                print(f'\nbound_start : width_process_right = {bound_start}: {width_process_right}')
-
                 bound_end = result_ocr[idx_bound_end][0][1][0]
                 if bound_end < 200:
                     f_end = True
