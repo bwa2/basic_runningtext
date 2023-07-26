@@ -105,6 +105,7 @@ while cap.isOpened():
                     flag_mulai = False
                     #starttime jalan pertama kali dan setelah break
                     flag_timer_break = True
+                    print("---flag timer break is true---")
                 else:
                     i=0
                     j=3
@@ -133,8 +134,9 @@ while cap.isOpened():
             # timestamp extraction
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
-                if arr_bb_width[-1]<300 and arr_bb_width[-1]>=100:
+                if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
                     flag_timer = True
+                    print("---flag timer is true---")
 
             if (flag_timer==True and counts>3) or (flag_timer_break==True):
                 arr_start.append(sec)
