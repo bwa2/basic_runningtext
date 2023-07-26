@@ -10,6 +10,8 @@ import easyocr
 import torch
 import json
 from difflib import SequenceMatcher as sm
+import argparse
+from datetime import datetime
 
 
 def find_idx(news, temp_news):
@@ -72,7 +74,7 @@ def bounding_box(result):
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
-        cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        #cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
         count_2 += 1
         arr_bx.append(bx)
         arr_tx.append(tx)
@@ -111,7 +113,7 @@ def find_same(str_1, str_2):
     return n
 
 
-def cetak_json(news):
+def cetak_json(news, channel):
     input_json = []
     j = 0
     jml_berita = len(news)
@@ -123,8 +125,8 @@ def cetak_json(news):
             input_json.append({})
             input_json[j] = temp_json
             j += 1
-
-    with open("cobatime2.json", "w") as f:
+    day = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    with open("{}-{}.json".format(channel,day), "w") as f:
         json.dump(input_json, f, indent=3)
     f.close()
 
@@ -187,172 +189,185 @@ def similar(arr, pjg):
     return arr
 
 
-cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres-cut.mp4")
+def main():
+    parser = argparse.ArgumentParser("Running News MNC or ")
+    parser.add_argument("-v", "--video", default="", help="path to video", required=True)
+    parser.add_argument("-c", "--channel", type=str, default=None, help="channel (mnc or inews)", required=True)
+    args = parser.parse_args()
 
-# get video property
-fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    video_path = args.video
+    channel = args.channel.upper()
 
-# preprocess
-height_process_top = round((24.5 / 27) * height)
-height_process_bottom = round((26 / 27) * height)
-width_process_left = round((1.25999/7.6) * width)
-width_process_right = round((7.6/7.6) * width)
+    print("video: {}".format(video_path))
+    print(channel)
 
-iter = 0
-frame_count = 0
+    cap = cv2.VideoCapture("{}".format(video_path))
 
-news = [["#*", 0, 0, 0], ["", 0, 0, 0]]
-temp_news = ["#*"]
-time = 0
+    # get video property
+    fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-idx_start = 1
-f_start = False
-f_insert_start = True
+    height_process_top = round((24.5 / 27) * height)
+    height_process_bottom = round((26 / 27) * height)
+    width_process_left = round((1.25999/7.6) * width)
+    width_process_right = round((7.6/7.6) * width)
 
-idx_end = 1
-f_end = False
-f_insert_end = True
+    iter = 0
+    frame_count = 0
 
-idx_bound_start = 0
-idx_bound_end = 0
+    news = [["#*", 0, 0, 0], ["", 0, 0, 0]]
+    temp_news = ["#*"]
+    time = 0
 
-reader = easyocr.Reader(['id'], gpu=True)
-while cap.isOpened():
-    ret, frame = cap.read()
-    if ret:
+    idx_start = 1
+    f_start = False
+    f_insert_start = True
 
-        if (iter % ((fps))) == 0:
-            frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame_2 = frame_2[height_process_top:height_process_bottom,
-                              width_process_left:width_process_right]
+    idx_end = 1
+    f_end = False
+    f_insert_end = True
 
-            # ocr
-            result_ocr = reader.readtext(frame_2)
-            n_result = len(result_ocr)
-            temp_result = ""
-            arr_distance = bounding_box(result_ocr)
-            f_initial = False
+    idx_bound_start = 0
+    idx_bound_end = 0
 
-            if n_result == 0:
-                if (temp_news[len(temp_news)-1] != '#*'):
-                    if temp_news[len(temp_news)-1][len(temp_news[len(temp_news)-1])-1] != '*':
-                        temp_news[len(temp_news)-1] += '*'
-                    temp_news.append('#*')
+    reader = easyocr.Reader(['id'], gpu=True)
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if ret:
 
-                    for i in range(idx_end, idx_start):
-                        news[i][2] = time
-                        news, idx_start = add_element(news, idx_start)
-                        
-                f_end = False
-                print("\nTidak ada kalimat!")
-            else:
-                temp_result = result_ocr[0][1]
-                idx_bound_start = n_result - 1
-                idx_bound_end = 0
-                if n_result > 1:
-                    for i in range(1, n_result):
-                        # disini taro if kalau bounding boxnya deket
-                        # if distance antar bounding box tidak deket do the line below
-                        if arr_distance[i] < 30:
-                            temp_result += " " + result_ocr[i][1]
-                            if i == 1:
-                                idx_bound_end = i
-                        else:
-                            temp_result += "* " + result_ocr[i][1]
-                            idx_bound_start = i
+            if (iter % ((fps))) == 0:
+                frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame_2 = frame_2[height_process_top:height_process_bottom,
+                                width_process_left:width_process_right]
 
-                if idx_bound_start != -1:
-                    bound_start = result_ocr[idx_bound_start][0][0][0]
-                    if bound_start < width_process_right - 360:
-                        f_start = True
-                    else:
-                        f_start = False
+                # ocr
+                result_ocr = reader.readtext(frame_2)
+                n_result = len(result_ocr)
+                temp_result = ""
+                arr_distance = bounding_box(result_ocr)
+                f_initial = False
 
-                print(f'\nbound_start : width_process_right = {bound_start}: {width_process_right}')
+                if n_result == 0:
+                    if (temp_news[len(temp_news)-1] != '#*'):
+                        if temp_news[len(temp_news)-1][len(temp_news[len(temp_news)-1])-1] != '*':
+                            temp_news[len(temp_news)-1] += '*'
+                        temp_news.append('#*')
 
-                bound_end = result_ocr[idx_bound_end][0][1][0]
-                if bound_end < 200:
-                    f_end = True
-                else:
+                        for i in range(idx_end, idx_start):
+                            news[i][2] = time
+                            news, idx_start = add_element(news, idx_start)
+                            
                     f_end = False
+                    print("\nTidak ada kalimat!")
+                else:
+                    temp_result = result_ocr[0][1]
+                    idx_bound_start = n_result - 1
+                    idx_bound_end = 0
+                    if n_result > 1:
+                        for i in range(1, n_result):
+                            # disini taro if kalau bounding boxnya deket
+                            # if distance antar bounding box tidak deket do the line below
+                            if arr_distance[i] < 30:
+                                temp_result += " " + result_ocr[i][1]
+                                if i == 1:
+                                    idx_bound_end = i
+                            else:
+                                temp_result += "* " + result_ocr[i][1]
+                                idx_bound_start = i
 
-                print("\ntemp_result:")
-                print(temp_result)
+                    if idx_bound_start != -1:
+                        bound_start = result_ocr[idx_bound_start][0][0][0]
+                        if bound_start < width_process_right - 360:
+                            f_start = True
+                        else:
+                            f_start = False
 
-            temp_result = temp_result.split()
-            n_temp_result = len(temp_result)
-            if (n_temp_result > 1):
-                # mengambil kalimat sampai kata kedua dari akhir
-                temp_result = temp_result[:-1]
+                    print(f'\nbound_start : width_process_right = {bound_start}: {width_process_right}')
 
-                if temp_news[len(temp_news)-1] == "#*":
-                    temp_news += temp_result
-                    for i in range(n_result):
+                    bound_end = result_ocr[idx_bound_end][0][1][0]
+                    if bound_end < 200:
+                        f_end = True
+                    else:
+                        f_end = False
+
+                    print("\ntemp_result:")
+                    print(temp_result)
+
+                temp_result = temp_result.split()
+                n_temp_result = len(temp_result)
+                if (n_temp_result > 1):
+                    # mengambil kalimat sampai kata kedua dari akhir
+                    temp_result = temp_result[:-1]
+
+                    if temp_news[len(temp_news)-1] == "#*":
+                        temp_news += temp_result
+                        for i in range(n_result):
+                            news[idx_start][1] = time
+                            news, idx_start = add_element(news, idx_start)
+                        f_initial = True
+                        f_insert_start = False
+                    else:
+                        i = 0
+                        f_same = False
+                        n = find_same(temp_news, temp_result)
+                        while (i < n_temp_result and f_same == False):
+                            temp_result_join = ' '.join(temp_result[:n])
+                            if sm(None, ' '.join(temp_news[-n:]), temp_result_join).ratio() >= 0.915:
+                                if temp_result_join.count('*') != 0:
+                                    temp_news[-n:] = temp_result[:n]
+                                temp_news += temp_result[n:]
+                                f_same = True
+                            else:
+                                temp_result = temp_result[1:]
+                            i += 1
+
+                        if f_same == False and i == n_temp_result:
+                            temp_news = temp_news[:-1]
+
+                if f_start:
+                    if f_insert_start and f_initial == False:
                         news[idx_start][1] = time
                         news, idx_start = add_element(news, idx_start)
-                    f_initial = True
-                    f_insert_start = False
+                        f_insert_start = False
                 else:
-                    i = 0
-                    f_same = False
-                    n = find_same(temp_news, temp_result)
-                    while (i < n_temp_result and f_same == False):
-                        temp_result_join = ' '.join(temp_result[:n])
-                        if sm(None, ' '.join(temp_news[-n:]), temp_result_join).ratio() >= 0.915:
-                            if temp_result_join.count('*') != 0:
-                                temp_news[-n:] = temp_result[:n]
-                            temp_news += temp_result[n:]
-                            f_same = True
-                        else:
-                            temp_result = temp_result[1:]
-                        i += 1
+                    f_insert_start = True
 
-                    if f_same == False and i == n_temp_result:
-                        temp_news = temp_news[:-1]
+                if f_end:
+                    if f_insert_end:
+                        news[idx_end][2] = time
+                        idx_end += 1
+                        f_insert_end = False
+                else:
+                    f_insert_end = True
 
-            if f_start:
-                if f_insert_start and f_initial == False:
-                    news[idx_start][1] = time
-                    news, idx_start = add_element(news, idx_start)
-                    f_insert_start = False
-            else:
-                f_insert_start = True
+                # show video
+                '''cv2.imshow("frame", frame_2)
+                key = cv2.waitKey(10)
 
-            if f_end:
-                if f_insert_end:
-                    news[idx_end][2] = time
-                    idx_end += 1
-                    f_insert_end = False
-            else:
-                f_insert_end = True
+                frame_count += 1
+                cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
+                time += 1
+                print("time:",time)
+            iter += 1
+        else:
+            break
 
-            # show video
-            '''cv2.imshow("frame", frame_2)
-            key = cv2.waitKey(10)
+    for i in range(idx_end, idx_start):
+        news[i][2] = time
 
-            frame_count += 1
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
-            time += 1
-            print("time:",time)
-        iter += 1
-    else:
-        break
+    temp_news = ' '.join(temp_news).split('* ')
+    for i in range(idx_start):
+        news[i][0] = temp_news[i]
 
-for i in range(idx_end, idx_start):
-    news[i][2] = time
+    print(f'\nnews:\n{news}')
+    print(f'\ntemp_news:\n{" ".join(temp_news)}')
+    print(f'\nlen_news:\n{len(news)}')
+    print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
 
-temp_news = ' '.join(temp_news).split('* ')
-for i in range(idx_start):
-    news[i][0] = temp_news[i]
+    cap.release()
+    cv2.destroyAllWindows()
+    news = similar(news, idx_start)
+    cetak_json(news, channel)
 
-print(f'\nnews:\n{news}')
-print(f'\ntemp_news:\n{" ".join(temp_news)}')
-print(f'\nlen_news:\n{len(news)}')
-print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
-
-cap.release()
-cv2.destroyAllWindows()
-news = similar(news, idx_start)
-cetak_json(news)
+main()
