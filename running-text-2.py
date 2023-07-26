@@ -40,7 +40,7 @@ arr_end = [0]
 flag_timer = False
 flag_timer_break = False
 sec2 = 0
-counts = 0
+counter = 0
 
 news = ["#*"]
 
@@ -127,7 +127,7 @@ while cap.isOpened():
 
             sec += 1
             print("time:",sec)
-            print("counter starttime:",counts)
+            print("counter starttime:",counter)
             
             # if sec>800:
             #     break
@@ -136,17 +136,18 @@ while cap.isOpened():
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
                 if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
-                    flag_timer = True
-                    print("---flag timer is true---")
+                    if counter>3:
+                        flag_timer = True
+                        print("---flag timer is true---")
 
-            if ((flag_timer==True) and (counts>3)) or (flag_timer_break==True):
+            if (flag_timer==True) or (flag_timer_break==True):
                 arr_start.append(sec)
                 flag_timer=False
                 flag_timer_break=False
-                counts = 0
+                counter = 0
 
             
-            counts += 1
+            counter += 1
             
             print("starttime: ",arr_start)
             print("\n--------\n")
