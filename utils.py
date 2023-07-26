@@ -71,7 +71,7 @@ def time_bbox(result):
     arr_tx_arr = []
     arr_distance = []
     # show video
-    for (coord, text, prob) in result:
+    for (coord, text) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
@@ -113,7 +113,7 @@ def bounding_box(result):
     arr_tx_arr = []
     arr_distance = [0]
     # show video
-    for (coord, text, prob) in result:
+    for (coord, text) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
