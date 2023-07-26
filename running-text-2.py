@@ -218,7 +218,7 @@ print("repeat: ",arr_repetition)
 input_json = [{}]
 
 for i in range(jml_berita):
-    temp_json = {"text": arr_text[i],"start time": arr_start[i], "end time": arr_end[i], "duration": arr_end[i] - arr_start[i],"repeat": arr_repetition[i] }
+    temp_json = {"text": arr_text[i],"start time": arr_start[i], "end time": arr_end[i], "duration": 0,"repeat": arr_repetition[i] }
     input_json[i] = temp_json
     #print(input_json)
     if(i != jml_berita-1):
