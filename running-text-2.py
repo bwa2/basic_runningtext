@@ -4,6 +4,7 @@
 # UNSOLVEDCASE2: kalo kebanyakan mundur
 # UNSOLVEDCASE3: kebaca sama ocr tiga elemen padahal harusnya dua elemen 
 #    sehingga berpengaruh ke perhitungan bound box starttime
+# UNSOLVEDCASE4: elemennya kepisah dan tetep masuk news
 
 # SOLVED CASE: 
 # jika tiga kata pada news tdk sama dengan temp_news
