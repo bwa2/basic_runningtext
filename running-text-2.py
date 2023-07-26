@@ -37,6 +37,7 @@ flag_mulai = True
 arr_start = []
 arr_end = []
 flag_timer = False
+sec2 = 0
 
 news = ["#*"]
 
@@ -132,7 +133,8 @@ while cap.isOpened():
                     flag_timer = True
 
             if flag_timer==True:
-                arr_start.append(sec)
+                sec2 = converttimestamp(sec)
+                arr_start.append(sec2)
                 flag_timer=False
 
             print("starttime: ",arr_start)
