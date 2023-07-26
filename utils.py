@@ -83,17 +83,23 @@ def time_bbox(result):
         for i in range(count_2-1):
             arr_bx_arr.append(arr_bx[i])
             arr_tx_arr.append(arr_tx[i])
-
-    if (len(arr_tx_arr)) == 1:
-        distance = arr_tx_arr[0] - arr_bx_arr[0]
-        #print("jarak drawing bound : ",distance)
+    print("len arr_tx_arr", len(arr_tx_arr))
+    print("len arr_bx_arr", len(arr_bx_arr))
+    
+    for i in range(len(arr_tx_arr)):
+        distance = arr_bx_arr[i] - arr_tx_arr[i]
         arr_distance.append(distance)
-    elif (len(arr_tx_arr)) > 1:
-        for j in range(len(arr_tx_arr)):
-            if j != 0:
-                distance = arr_tx_arr[j] - arr_bx_arr[j]
-                #print(f"jarak drawing bound ke -{j} : {distance}")
-                arr_distance.append(distance)
+
+    # if (len(arr_tx_arr)) == 1:
+    #     distance = arr_tx_arr[0] - arr_bx_arr[0]
+    #     #print("jarak drawing bound : ",distance)
+    #     arr_distance.append(distance)
+    # elif (len(arr_tx_arr)) > 1:
+    #     for j in range(len(arr_tx_arr)):
+    #         if j != 0:
+    #             distance = arr_tx_arr[j] - arr_bx_arr[j]
+    #             #print(f"jarak drawing bound ke -{j} : {distance}")
+    #             arr_distance.append(distance)
     return arr_distance
 
 
