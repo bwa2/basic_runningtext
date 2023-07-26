@@ -1,6 +1,7 @@
 import cv2
 import json
 from difflib import SequenceMatcher as sm
+from datetime import timedelta
 
 def find_idx(news, temp_news):
     len_temp_news = len(temp_news)
@@ -201,3 +202,13 @@ def similar(arr, pjg):
             arr[i][0] = arr_text[i]
 
     return arr
+
+
+def converttimestamp(sec):
+    #print('Time in Seconds:', sec)
+
+    td = timedelta(seconds=sec)
+    #print('Time in hh:mm:ss:', td)
+
+    str_sec = str(timedelta(seconds=sec))
+    return str_sec

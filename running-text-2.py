@@ -2,6 +2,7 @@
 
 # UNSOLVEDCASE1: kalo ketika mulai ada tiga elemen
 # UNSOLVEDCASE2: kalo kebanyakan mundur
+# UNSOLVEDCASE3: double ** karena sebelum break sudah ada asterisk
 
 # SOLVED CASE: 
 
