@@ -157,7 +157,15 @@ while cap.isOpened():
 cap.release()
 # cv2.destroyAllWindows()
 
-
+# post processing
+last_time = sec
+temp_arr_end = arr_start[2:]
+arr_end += temp_arr_end
+for i in range(len(arr_end)):
+    if i!=0:
+        arr_end[i] += 9
+arr_end.append(last_time)
+print("arr end:",arr_end)
 
 
 # buat misahin per berita
@@ -185,4 +193,4 @@ for i in range(panjang_news):
 jml_berita += 1
 
 print("\nberita:",arr_text)
-print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start))
+print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
