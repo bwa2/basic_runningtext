@@ -55,6 +55,8 @@ while cap.isOpened():
             temp_news = ""
             arr_distance = bounding_box(result)
             print("arr distance: ",arr_distance)
+            arr_bb_width = time_bbox(result)
+            print("width of bound box: ",arr_bb_width)
             
             
             if element==0:
@@ -114,11 +116,11 @@ while cap.isOpened():
 
 
             # show video
-            '''cv2.imshow("frame", frame_2)
-            key = cv2.waitKey(10)
+            # cv2.imshow("frame", frame_2)
+            # key = cv2.waitKey(10)
 
             frame_count += 1
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
+            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec += 1
             print("time:",sec)
             print("\n--------\n")
@@ -132,6 +134,9 @@ while cap.isOpened():
 
 cap.release()
 # cv2.destroyAllWindows()
+
+
+
 
 # buat misahin per berita
 panjang_news = len(news)
