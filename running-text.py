@@ -10,6 +10,7 @@ import easyocr
 import torch
 import json
 from difflib import SequenceMatcher as sm
+from datetime import timedelta
 
 def add_element(elm, n_elm):
     elm.append(["", 0, 0, 0])
@@ -144,7 +145,19 @@ def similar(arr, pjg):
 
     return arr
 
+def converttimestamp(sec):
+    #print('Time in Seconds:', sec)
 
+<<<<<<< HEAD
+=======
+    td = timedelta(seconds=sec)
+    #print('Time in hh:mm:ss:', td)
+
+    str_sec = str(timedelta(seconds=sec))
+    return str_sec
+
+
+>>>>>>> 6cadfd8adf85f7c313a7fb6a7c89411f9e394498
 cap = cv2.VideoCapture("Videos/cek-iklan2-inews.mp4")
 
 # get video property
