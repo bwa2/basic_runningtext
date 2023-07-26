@@ -134,7 +134,6 @@ while cap.isOpened():
                     flag_timer = True
 
             if flag_timer==True:
-                sec2 = converttimestamp(sec)
                 arr_start.append(sec2)
                 flag_timer=False
 
@@ -165,6 +164,15 @@ for i in range(len(arr_end)):
     if i!=0:
         arr_end[i] += 9
 arr_end.append(last_time)
+
+#ubah ke format time stamp
+for i in range (len(arr_start)):
+    arr_start[i] = converttimestamp(arr_start[i])
+
+for i in range (len(arr_end)):
+    arr_end[i] = converttimestamp(arr_end[i])
+    
+print("arr start:",arr_start)
 print("arr end:",arr_end)
 
 
