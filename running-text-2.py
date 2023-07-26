@@ -8,7 +8,7 @@ import torch
 from difflib import SequenceMatcher as sm
 from utils import *
 
-cap = cv2.VideoCapture("Videos/cek-iklan2-inews.mp4")
+cap = cv2.VideoCapture("Videos/simulasi-pasangan-capres-cawapres2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -85,7 +85,6 @@ while cap.isOpened():
                 if news[len(news)-1]=="#*":
                     news += temp_news
                     flag_mulai = False
-                    print("a")
                 else:
                     i=0
                     j=3
@@ -99,7 +98,8 @@ while cap.isOpened():
                         j += 1
                         if j>len_temp:
                             news = news[:-3]
-                    print("b")
+                            break
+                    
                 
                 print("\nnews:")
                 print(news)
