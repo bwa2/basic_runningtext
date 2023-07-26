@@ -212,8 +212,10 @@ while cap.isOpened():
 
                     for i in range(idx_end, idx_start):
                         news[i][2] = time
+                        idx_end += 1
 
                     news, idx_start = add_element(news, idx_start)
+                    idx_end += 1
                         
                 f_end = False
                 print("\nTidak ada kalimat!")
