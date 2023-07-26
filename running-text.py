@@ -241,7 +241,7 @@ while cap.isOpened():
                         f_start = False
 
                 bound_end = result_ocr[idx_bound_end][0][1][0]
-                if bound_end < 200:
+                if bound_end < 0.3*width_process_right:
                     f_end = True
                 else:
                     f_end = False
