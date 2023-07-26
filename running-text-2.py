@@ -127,6 +127,7 @@ while cap.isOpened():
 
             sec += 1
             print("time:",sec)
+            print("counter starttime:",counts)
             
             # if sec>800:
             #     break
@@ -144,8 +145,9 @@ while cap.isOpened():
                 flag_timer_break=False
                 counts = 0
 
+            
             counts += 1
-            print("counter starttime:",counts)
+            
             print("starttime: ",arr_start)
             print("\n--------\n")
             # show video
