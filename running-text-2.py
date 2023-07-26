@@ -1,6 +1,9 @@
 # KODE MAIN RUNNING-TEXT GESER
 
 # UNSOLVEDCASE1: kalo ketika mulai ada tiga elemen
+# UNSOLVEDCASE2: kalo kebanyakan mundur
+
+# SOLVED CASE: 
 
 import cv2
 import easyocr
