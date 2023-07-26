@@ -326,6 +326,6 @@ print(f'\nlen_news:\n{len(news)}')
 print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
 
 cap.release()
-cv2.destroyAllWindows()
+#cv2.destroyAllWindows()
 news = similar(news, idx_start)
 cetak_json(news)
