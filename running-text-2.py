@@ -34,8 +34,8 @@ sec = 0
 flag_mulai = True
 
 # timestamp
-arr_start = []
-arr_end = []
+arr_start = [0]
+arr_end = [0]
 flag_timer = False
 sec2 = 0
 
@@ -101,6 +101,7 @@ while cap.isOpened():
                     news += temp_news
                     flag_mulai = False
                     #starttime jalan pertama kali dan setelah break
+                    flag_timer = True
                 else:
                     i=0
                     j=3
