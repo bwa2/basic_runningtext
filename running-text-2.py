@@ -59,7 +59,7 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2)
+            result = reader.readtext(frame_2,paragraph=True)
 
             # main processing
             element = len(result) # kalimat berita
@@ -88,12 +88,13 @@ while cap.isOpened():
                         for i in range(1, element):
                             # disini taro if kalau bounding boxnya deket
                             # if distance antar bounding box tidak deket do the line below
-                            if arr_distance[i] < 25:
-                                temp_news += " " + result[i][1]
-                                if i == 1:
-                                    idx_bound = 1
-                            else:
-                                temp_news += "* " + result[i][1]
+                            # if arr_distance[i] < 25:
+                            #     temp_news += " " + result[i][1]
+                            #     if i == 1:
+                            #         idx_bound = 1
+                            # else:
+                            #     temp_news += "* " + result[i][1]
+                            temp_news += "* " + result[i][1]
                 temp_news = temp_news.split()
                 print("\ntemp_news:")
                 print(temp_news)
@@ -138,7 +139,7 @@ while cap.isOpened():
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
                 if arr_bb_width[-1]<250 and arr_bb_width[-1]>50:
-                    if counter>4:
+                    if counter>3:
                         flag_timer = True
                         print("---flag timer is true---")
 
