@@ -59,19 +59,6 @@ def add_element(elm, n_elm):
     return elm, n_elm
 
 
-def last_temp(temp):
-    n_temp = len(temp)
-    result = []
-    found = False
-    while (n_temp > 0 and found == False):
-        if temp[n_temp-1][len(temp[n_temp-1])-1] == "*":
-            found = True
-        else:
-            result.insert(0, temp[n_temp-1])
-        n_temp -= 1
-    return result
-
-
 def bounding_box(result):
     # cek bounding box
     count_2 = 0
@@ -105,19 +92,6 @@ def bounding_box(result):
                 # print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
     return arr_distance
-
-
-def find_asterisk(str):
-    asterisk = False
-    n_str = len(str)
-    i = 0
-
-    while i < n_str and asterisk == False:
-        if str[i] == "*":
-            asterisk = True
-
-        i += 1
-    return asterisk
 
 
 def find_same(str_1, str_2):
@@ -213,7 +187,7 @@ def similar(arr, pjg):
     return arr
 
 
-cap = cv2.VideoCapture("Videos/simulasi-pasangan-capres-cawapres2.mp4")
+cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres-cut.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -228,18 +202,21 @@ width_process_right = round((7.6/7.6) * width)
 
 iter = 0
 frame_count = 0
-news = ["#*"]
-yolo = [["#*", 0, 0, 0], ["", 0, 0, 0]]
-len_yolo = 1
-last_sentence = ""
+
+news = [["#*", 0, 0, 0], ["", 0, 0, 0]]
+temp_news = ["#*"]
 time = 0
 
 idx_start = 1
+f_start = False
+f_insert_start = True
+
 idx_end = 1
-f_bound = False
-f_end = True
-bound = 0
-idx_bound = 0
+f_end = False
+f_insert_end = True
+
+idx_bound_start = 0
+idx_bound_end = 0
 
 reader = easyocr.Reader(['id'], gpu=True)
 while cap.isOpened():
@@ -252,115 +229,105 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2)
+            result_ocr = reader.readtext(frame_2)
+            n_result = len(result_ocr)
+            temp_result = ""
+            arr_distance = bounding_box(result_ocr)
+            f_initial = False
 
-            #
-            element = len(result)
-            temp_news = ""
-            arr_distance = bounding_box(result)
+            if n_result == 0:
+                if (temp_news[len(news)-1] != "#*"):
+                    temp_news[len(news)-1] += "*"
+                    temp_news.append("#*")
 
-            if element == 0:
-                if (news[len(news)-1] != "#*"):
-                    news[len(news)-1] += "*"
-                    yolo, len_yolo = add_element(yolo, len_yolo)
-                    yo = find_sentence(news, 2)
-                    yolo[len_yolo-1][0] = yo[0]
-
-                    for i in range(idx_end, len_yolo):
-                        yolo[i][2] = time
-                        idx_end += 1
-                    news.append("#*")
-                    yolo, len_yolo = add_element(yolo, len_yolo)
-                    yo = find_sentence(news, 2)
-                    yolo[len_yolo-1][0] = yo[0]
-                    idx_start += 1
-
-                f_bound = False
+                    for i in range(idx_end, idx_start):
+                        news[i][2] = time
+                        news, idx_start = add_element(news, idx_start)
+                        
+                f_end = False
                 print("\nTidak ada kalimat!")
             else:
-                temp_news = result[0][1]
-                if element > 1:
-                    for i in range(1, element):
+                temp_result = result_ocr[0][1]
+                idx_bound_start = n_result - 1
+                idx_bound_end = 0
+                if n_result > 1:
+                    for i in range(1, n_result):
                         # disini taro if kalau bounding boxnya deket
                         # if distance antar bounding box tidak deket do the line below
                         if arr_distance[i] < 30:
-                            temp_news += " " + result[i][1]
+                            temp_result += " " + result_ocr[i][1]
                             if i == 1:
-                                idx_bound = 1
+                                idx_bound_end = i
+
+                            if i == n_result:
+                                idx_bound_start = -1
                         else:
-                            temp_news += "* " + result[i][1]
-                temp_news = temp_news.split()
-                f_asterisk = find_asterisk("".join(temp_news[:2]))
-                bound = result[idx_bound][0][1][0]
-                if bound < 200:
-                    f_bound = True
+                            temp_result += "* " + result_ocr[i][1]
+
+                if idx_bound_start != -1:
+                    bound_start = result_ocr[idx_bound_start][0][0][0]
+                    if bound_start < width_process_right - 360:
+                        f_start = True
+                    else:
+                        f_start = False
+
+                print(f'\nbound_start : width_process_right = {bound_start}: {width_process_right}')
+
+                bound_end = result_ocr[idx_bound_end][0][1][0]
+                if bound_end < 200:
+                    f_end = True
                 else:
-                    f_bound = False
-                idx_bound = 0
+                    f_end = False
 
-                print("\ntemp_news:")
-                print(temp_news)
-                # print("\nresult:")
-                # print(result)
+                print("\ntemp_result:")
+                print(temp_result)
 
-            len_temp = len(temp_news)
-            if (len_temp > 1):
+            temp_result = temp_result.split()
+            n_temp_result = len(temp_result)
+            if (n_temp_result > 1):
                 # mengambil kalimat sampai kata kedua dari akhir
-                temp_news = temp_news[:-1]
+                temp_result = temp_result[:-1]
 
-                if news[len(news)-1] == "#*":
-                    news += temp_news
-                    yolo[idx_start][1] = time
-                    idx_start += 1
+                if temp_news[len(temp_news)-1] == "#*":
+                    temp_news += temp_result
+                    for i in range(n_result-1):
+                        news[idx_start][1] = time
+                        news, idx_start = add_element(news, idx_start)
+                    f_initial = True
+                    f_insert_start = False
                 else:
                     i = 0
                     f_same = False
-                    n = find_same(news, temp_news)
-                    while (i < len_temp and f_same == False):
-                        if sm(None, " ".join(news[-n:]), " ".join(temp_news[0:n])).ratio() >= 0.915:
-                            if ''.join(temp_news[0:n]).count('*'):
-                                news[-n:] = temp_news[0:n]
-                            news += temp_news[n:]
-                            aw = find_sentence(news, element)
-                            len_aw = len(aw)
-                            if len_aw > 0:
-                                idx_dif = find_idx(yolo[len_yolo-1][0], aw)
-                                if idx_dif < len_aw-1:
-                                    for idx in range(idx_dif+1, len_aw):
-                                        if len(aw[idx]) > 1:
-                                            yolo[len_yolo][0] = aw[idx]
-                                            yolo, len_yolo = add_element(
-                                                yolo, len_yolo)
-                                            yolo[idx_start][1] = time
-                                            idx_start += 1
-                                elif idx_dif == len_aw:
-                                    for idx in range(len_aw):
-                                        if len(aw[idx]) > 1:
-                                            yolo[len_yolo][0] = aw[idx]
-                                            yolo, len_yolo = add_element(
-                                                yolo, len_yolo)
-                                            yolo[idx_start][1] = time
-                                            idx_start += 1
+                    n = find_same(temp_news, temp_result)
+                    while (i < n_temp_result and f_same == False):
+                        temp_result_join = ' '.join(temp_result[:n])
+                        if sm(None, ' '.join(temp_news[-n:]), temp_result_join).ratio() >= 0.915:
+                            if temp_result_join.count('*') != 0:
+                                temp_news[-n:] = temp_result[:n]
+                            temp_news += temp_result[n:]
                             f_same = True
                         else:
-                            temp_news = temp_news[1:]
-
+                            temp_result = temp_result[1:]
                         i += 1
-                    if f_same == False and i == len_temp:
-                        news = news[:-1]
 
-                print("\nnews:")
-                print(news)
-                # print("\nyolo:")
-                # print(yolo)
+                    if f_same == False and i == n_temp_result:
+                        temp_news = temp_news[:-1]
 
-            if f_bound:
-                if f_end:
-                    yolo[idx_end][2] = time
-                    idx_end += 1
-                    f_end = False
+            if f_start:
+                if f_insert_start and f_initial == False:
+                    news[idx_start][1] = time
+                    news, idx_start = add_element(news, idx_start)
+                    f_insert_start = False
             else:
-                f_end = True
+                f_insert_start = True
+
+            if f_end:
+                if f_insert_end:
+                    news[idx_end][2] = time
+                    idx_end += 1
+                    f_insert_end = False
+            else:
+                f_insert_end = True
 
             # show video
             '''cv2.imshow("frame", frame_2)
@@ -370,22 +337,16 @@ while cap.isOpened():
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)'''
             time += 1
             print("time:",time)
-            if time>800:
-                break
         iter += 1
     else:
         break
 
-yolo[len_yolo][0] = "#*"
-
-for i in range(idx_end, len_yolo):
-    yolo[i][2] = time
-    idx_end += 1
-
-print("\nyolo:")
-print(yolo)
+print(f'\nnews:\n{news}')
+print(f'\ntemp_news:\n{" ".join(temp_news)}')
+print(f'\nlen_news:\n{len(news)}')
+print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
 
 cap.release()
-# cv2.destroyAllWindows()
+cv2.destroyAllWindows()
 # yolo = similar(yolo, len_yolo)
 # cetak_json(yolo)
