@@ -316,7 +316,7 @@ while cap.isOpened():
 #     news[i][2] = time
 
 
-temp_news = ' '.join(temp_news).split('* ')
+# temp_news = ' '.join(temp_news).split('* ')
 # for i in range(idx_start):
 #     news[i][0] = temp_news[i]
 
