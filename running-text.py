@@ -101,7 +101,7 @@ def find_same(str_1, str_2):
     while n < 4 and match:
         i = 0
         while i < len_str_2-n:
-            if str_1[-n:] == str_2[i:i+n]:
+            if sm(None, ' '.join(str_1[-n:]), ' '.join(str_2[i:i+n])).ratio() >= 0.915:
                 n += 1
             i += 1
 
@@ -236,9 +236,10 @@ while cap.isOpened():
             f_initial = False
 
             if n_result == 0:
-                if (temp_news[len(news)-1] != "#*"):
-                    temp_news[len(news)-1] += "*"
-                    temp_news.append("#*")
+                if (temp_news[len(temp_news)-1] != '#*'):
+                    if temp_news[len(temp_news)-1][len(temp_news[len(temp_news)-1])-1] != '*':
+                        temp_news[len(temp_news)-1] += '*'
+                    temp_news.append('#*')
 
                     for i in range(idx_end, idx_start):
                         news[i][2] = time
@@ -258,11 +259,9 @@ while cap.isOpened():
                             temp_result += " " + result_ocr[i][1]
                             if i == 1:
                                 idx_bound_end = i
-
-                            if i == n_result:
-                                idx_bound_start = -1
                         else:
                             temp_result += "* " + result_ocr[i][1]
+                            idx_bound_start = i
 
                 if idx_bound_start != -1:
                     bound_start = result_ocr[idx_bound_start][0][0][0]
@@ -290,7 +289,7 @@ while cap.isOpened():
 
                 if temp_news[len(temp_news)-1] == "#*":
                     temp_news += temp_result
-                    for i in range(n_result-1):
+                    for i in range(n_result):
                         news[idx_start][1] = time
                         news, idx_start = add_element(news, idx_start)
                     f_initial = True
@@ -341,6 +340,13 @@ while cap.isOpened():
     else:
         break
 
+for i in range(idx_end, idx_start):
+    news[i][2] = time
+
+temp_news = ' '.join(temp_news).split('* ')
+for i in range(idx_start):
+    news[i][0] = temp_news[i]
+
 print(f'\nnews:\n{news}')
 print(f'\ntemp_news:\n{" ".join(temp_news)}')
 print(f'\nlen_news:\n{len(news)}')
@@ -348,5 +354,5 @@ print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
 
 cap.release()
 cv2.destroyAllWindows()
-# yolo = similar(yolo, len_yolo)
-# cetak_json(yolo)
+news = similar(news, idx_start)
+cetak_json(news)
