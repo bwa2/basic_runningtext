@@ -2,6 +2,7 @@
 
 # UNSOLVEDCASE1: kalo ketika mulai ada tiga elemen
 # UNSOLVEDCASE2: kalo kebanyakan mundur
+# UNSOLVEDCASE3: boundnya pake count aja
 
 # SOLVED CASE: 
 # jika tiga kata pada news tdk sama dengan temp_news
@@ -37,7 +38,9 @@ flag_mulai = True
 arr_start = [0]
 arr_end = [0]
 flag_timer = False
+flag_timer_break = False
 sec2 = 0
+counts = 0
 
 news = ["#*"]
 
@@ -101,7 +104,7 @@ while cap.isOpened():
                     news += temp_news
                     flag_mulai = False
                     #starttime jalan pertama kali dan setelah break
-                    flag_timer = True
+                    flag_timer_break = True
                 else:
                     i=0
                     j=3
@@ -130,13 +133,17 @@ while cap.isOpened():
             # timestamp extraction
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
-                if arr_bb_width[-1]<250 and arr_bb_width[-1]>=150:
+                if arr_bb_width[-1]<300 and arr_bb_width[-1]>=100:
                     flag_timer = True
 
-            if flag_timer==True:
+            if (flag_timer==True and counts>3) or (flag_timer_break==True):
                 arr_start.append(sec)
                 flag_timer=False
+                flag_timer_break=False
+                counts = 0
 
+            counts += 1
+            print("counter starttime:",counts)
             print("starttime: ",arr_start)
             print("\n--------\n")
             # show video
