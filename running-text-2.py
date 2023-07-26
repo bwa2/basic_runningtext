@@ -227,6 +227,10 @@ for i in range(len(arr_text)):
 print("text:\n",arr_text)
 print("repeat: ",arr_repetition)
 
+print("\nberita:",arr_text)
+print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
+
+
 # masukin ke json
 input_json = [{}]
 
@@ -241,5 +245,3 @@ with open("cobatime-20min.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
 
-print("\nberita:",arr_text)
-print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
