@@ -145,7 +145,7 @@ def similar(arr, pjg):
     return arr
 
 
-cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres-cut.mp4")
+cap = cv2.VideoCapture("Videos/cek-iklan2-inews.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -201,7 +201,8 @@ while cap.isOpened():
 
                     for i in range(idx_end, idx_start):
                         news[i][2] = time
-                        news, idx_start = add_element(news, idx_start)
+
+                    news, idx_start = add_element(news, idx_start)
                         
                 f_end = False
                 print("\nTidak ada kalimat!")
@@ -223,7 +224,7 @@ while cap.isOpened():
 
                 if idx_bound_start != -1:
                     bound_start = result_ocr[idx_bound_start][0][0][0]
-                    if bound_start < width_process_right - 360:
+                    if bound_start < 0.7 * width_process_right:
                         f_start = True
                     else:
                         f_start = False
@@ -236,11 +237,12 @@ while cap.isOpened():
 
                 print("\ntemp_result:")
                 print(temp_result)
-                print(f'\nbound_start : bound = {bound_start} : {width_process_right - 360}')
+                print(f'\nbound_start : bound = {bound_start} : {width_process_right}')
 
             temp_result = temp_result.split()
             n_temp_result = len(temp_result)
-            if (n_temp_result > 1):
+            print(f'n_temp_result: {n_temp_result}')
+            if (n_temp_result > 5):
                 # mengambil kalimat sampai kata kedua dari akhir
                 temp_result = temp_result[:-1]
 
@@ -268,6 +270,8 @@ while cap.isOpened():
 
                     if f_same == False and i == n_temp_result:
                         temp_news = temp_news[:-1]
+            else:
+                f_initial = True
 
             if f_start:
                 if f_insert_start and f_initial == False:
@@ -299,6 +303,7 @@ while cap.isOpened():
 
 for i in range(idx_end, idx_start):
     news[i][2] = time
+
 
 temp_news = ' '.join(temp_news).split('* ')
 for i in range(idx_start):
