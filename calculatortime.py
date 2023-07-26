@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-sec = 337
+sec = 962
 print('Time in Seconds:', sec)
 
 td = timedelta(seconds=sec)

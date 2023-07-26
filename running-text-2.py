@@ -122,8 +122,8 @@ while cap.isOpened():
                             break
                     
                 
-                print("\nnews:")
-                print(news)
+                # print("\nnews:")
+                # print(news)
 
             sec += 1
             print("time:",sec)
