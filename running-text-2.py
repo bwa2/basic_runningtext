@@ -134,7 +134,7 @@ while cap.isOpened():
                     flag_timer = True
 
             if flag_timer==True:
-                arr_start.append(sec2)
+                arr_start.append(sec)
                 flag_timer=False
 
             print("starttime: ",arr_start)
@@ -171,7 +171,7 @@ for i in range (len(arr_start)):
 
 for i in range (len(arr_end)):
     arr_end[i] = converttimestamp(arr_end[i])
-    
+
 print("arr start:",arr_start)
 print("arr end:",arr_end)
 
