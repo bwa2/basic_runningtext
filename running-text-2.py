@@ -2,12 +2,13 @@
 
 # UNSOLVEDCASE1: kalo ketika mulai ada tiga elemen
 # UNSOLVEDCASE2: kalo kebanyakan mundur
-# UNSOLVEDCASE3: boundnya pake count aja
+# UNSOLVEDCASE3: kebaca sama ocr tiga elemen padahal harusnya dua elemen 
+#    sehingga berpengaruh ke perhitungan bound box starttime
 
 # SOLVED CASE: 
 # jika tiga kata pada news tdk sama dengan temp_news
 # double ** karena sebelum break sudah ada asterisk
-# 
+# boundnya pake count aja
 
 import cv2
 import easyocr
@@ -135,7 +136,7 @@ while cap.isOpened():
             # timestamp extraction
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
-                if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
+                if arr_bb_width[-1]<200 and arr_bb_width[-1]>35:
                     if counter>3:
                         flag_timer = True
                         print("---flag timer is true---")
