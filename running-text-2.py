@@ -136,8 +136,8 @@ while cap.isOpened():
             # timestamp extraction
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
-                if arr_bb_width[-1]<200 and arr_bb_width[-1]>35:
-                    if counter>3:
+                if arr_bb_width[-1]<250 and arr_bb_width[-1]>50:
+                    if counter>6:
                         flag_timer = True
                         print("---flag timer is true---")
 
