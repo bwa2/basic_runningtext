@@ -185,4 +185,4 @@ for i in range(panjang_news):
 jml_berita += 1
 
 print("\nberita:",arr_text)
-print("\njumlah berita:", jml_berita, "len berita:", len(arr_text))
+print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start))
