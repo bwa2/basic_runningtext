@@ -144,8 +144,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
             
-            # if sec>800:
-            #     break
+            if sec>70:
+                break
 
             # timestamp extraction
             # arr_bb_width, time, arr_start
@@ -160,6 +160,9 @@ while cap.isOpened():
                 flag_timer=False
                 flag_timer_break=False
                 flag_timer_prebreak=False
+                if flag_timer_prebreak_toggle!=False:
+                    flag_timer_prebreak_toggle=False
+                    print("---flag timer pre break toggle is false---")
                 counter = 0
 
             
@@ -171,8 +174,8 @@ while cap.isOpened():
             # cv2.imshow("frame", frame_2)
             # key = cv2.waitKey(10)
 
-            frame_count += 1
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            # frame_count += 1
+            # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             
             
         iter += 1
