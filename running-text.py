@@ -11,8 +11,7 @@ import torch
 import json
 from difflib import SequenceMatcher as sm
 import argparse
-import time
-import datetime
+from datetime import datetime
 import os
 import config
 
@@ -160,9 +159,7 @@ def cetak_json(news):
             input_json[j] = temp_json
             j += 1
 
-    timestamp = time.time()
-
-    waktu = datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%dT%H:%M:%S')
+    waktu =  datetime.now().strftime("%Y-%m-%d")
 
     name = args.channel
     name = name.upper()
@@ -170,15 +167,13 @@ def cetak_json(news):
 
     if not os.path.exists(filename) :
         with open(filename,'w', newline='') as f :
-            with open("cobatime2.json", "w") as f:
-                json.dump(input_json, f, indent=3)
-            f.close()
+            json.dump(input_json, f, indent=3)
+        f.close()
     else :
         with open(filename,'a', newline='') as f :
-            with open("cobatime2.json", "w") as f:
-                json.dump(input_json, f, indent=3)
-            f.close()
-    
+            json.dump(input_json, f, indent=3)
+        f.close()
+
     print("idx j")
     print(j)
     print("jml berita")
@@ -248,6 +243,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 frame_1 = args.frame
 frame_1 = frame_1.lower()
+
 if frame_1 == 'inews' :
     height_process_top, height_process_bottom,  width_process_left, width_process_right = config.inews(width, height)
 elif frame_1 == 'mnctv' :
@@ -414,4 +410,4 @@ print(yolo)
 cap.release()
 # cv2.destroyAllWindows()
 # yolo = similar(yolo, len_yolo)
-# cetak_json(yolo)
+cetak_json(yolo)
