@@ -10,7 +10,15 @@ import easyocr
 import torch
 import json
 from difflib import SequenceMatcher as sm
+import argparse
+import time
+import datetime
+import os
 
+a = argparse.ArgumentParser(description='input data')
+a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
+a.add_argument("-v", "--video", required=True, help="Video path. Example: -v Videos/vidio-inews-long.mp4")
+args = a.parse_args()
 
 def find_idx(news, temp_news):
     len_temp_news = len(temp_news)
@@ -150,10 +158,25 @@ def cetak_json(news):
             input_json[j] = temp_json
             j += 1
 
-    with open("cobatime2.json", "w") as f:
-        json.dump(input_json, f, indent=3)
-    f.close()
+    timestamp = time.time()
 
+    waktu = datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%dT%H:%M:%S')
+
+    name = args.channel
+    name = name.upper()
+    filename = name + "-" + waktu + ".json"
+
+    if not os.path.exists(filename) :
+        with open(filename,'w', newline='') as f :
+            with open("cobatime2.json", "w") as f:
+                json.dump(input_json, f, indent=3)
+            f.close()
+    else :
+        with open(filename,'a', newline='') as f :
+            with open("cobatime2.json", "w") as f:
+                json.dump(input_json, f, indent=3)
+            f.close()
+    
     print("idx j")
     print(j)
     print("jml berita")
@@ -212,8 +235,9 @@ def similar(arr, pjg):
 
     return arr
 
+path = args.video
 
-cap = cv2.VideoCapture("Videos/simulasi-pasangan-capres-cawapres2.mp4")
+cap = cv2.VideoCapture(f"{path}")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
