@@ -15,6 +15,8 @@ from datetime import datetime
 import os
 import config
 
+tambah = "tambah"
+
 a = argparse.ArgumentParser(description='input data')
 a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
 a.add_argument("-v", "--video", required=True, help="Video path. Example: -v Videos/vidio-inews-long.mp4")
