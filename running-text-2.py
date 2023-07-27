@@ -59,7 +59,8 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,text_threshold=0.9)
+            result = reader.readtext(frame_2,text_threshold=0.9)
+            print(result)
 
             # main processing
             element = len(result) # kalimat berita
