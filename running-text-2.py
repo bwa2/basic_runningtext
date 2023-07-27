@@ -159,10 +159,11 @@ while cap.isOpened():
                 arr_start.append(sec)
                 flag_timer=False
                 flag_timer_break=False
-                flag_timer_prebreak=False
-                if flag_timer_prebreak_toggle!=False:
+                
+                if flag_timer_prebreak!=False:
                     flag_timer_prebreak_toggle=False
                     print("---flag timer pre break toggle is false---")
+                flag_timer_prebreak=False
                 counter = 0
 
             
