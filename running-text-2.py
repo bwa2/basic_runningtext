@@ -155,8 +155,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
             
-            if sec>1570:
-                break
+            # if sec>1570:
+            #     break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
@@ -255,9 +255,9 @@ for i in range(len(arr_text)):
     print("\ntext:",arr_text[i])
 
 for i in range(len(arr_start)):
-    print("\ntext:",converttimestamp(arr_start[i]))
+    print("\ntimestamp:",converttimestamp(arr_start[i]))
 
-print("repeat: ",arr_repetition)
+print("\nrepeat: ",arr_repetition)
 
 # print("\nberita:",arr_text)
 print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
