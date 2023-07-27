@@ -17,7 +17,7 @@ import easyocr
 import torch
 from difflib import SequenceMatcher as sm
 from utils import *
-import winsound
+
 
 
 cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
@@ -277,8 +277,5 @@ with open("cobatime-20min.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
 
-# nandain proses run sudah selesai
-duration = 1000  # milliseconds
-freq = 440  # Hz
-winsound.Beep(freq, duration)
+
 
