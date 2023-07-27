@@ -104,7 +104,7 @@ def time_bbox(result):
     return arr_distance
 
 
-def bounding_box(result):
+def bounding_box(result,frame_2):
     # cek bounding box
     count_2 = 0
     arr_tx = []
@@ -117,7 +117,7 @@ def bounding_box(result):
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
-        #cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
         count_2 += 1
         arr_bx.append(bx)
         arr_tx.append(tx)
@@ -136,7 +136,7 @@ def bounding_box(result):
                 distance = arr_tx_arr[j] - arr_bx_arr[j]
                 print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
-    return arr_distance
+    return arr_distance, frame_2
 
 
 def find_asterisk(str):
