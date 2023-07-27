@@ -5,6 +5,7 @@
 # UNSOLVEDCASE3: kebaca sama ocr tiga elemen padahal harusnya dua elemen 
 #    sehingga berpengaruh ke perhitungan bound box starttime
 # UNSOLVEDCASE4: elemennya kepisah dan tetep masuk news
+# UNSOLVEDCASE5: time saat break belum ada
 
 # SOLVED CASE: 
 # jika tiga kata pada news tdk sama dengan temp_news
@@ -17,7 +18,7 @@ import torch
 from difflib import SequenceMatcher as sm
 from utils import *
 
-cap = cv2.VideoCapture("Videos/simulasi-pasangan-capres-cawapres2.mp4")
+cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -40,7 +41,9 @@ flag_mulai = True
 arr_start = [0]
 arr_end = [0]
 flag_timer = False
-flag_timer_break = False
+flag_timer_break = False # setelah break atau pertama kali
+flag_timer_prebreak = False # flag timer buat break itu sendiri
+flag_timer_prebreak_toggle = True
 sec2 = 0
 counter = 0
 
@@ -79,10 +82,17 @@ while cap.isOpened():
                     news.append("#*")
                     flag_mulai = True
                 print("\nTidak ada kalimat!")
+
+                #masukin flag timer buat break
+                if flag_timer_prebreak_toggle==True:
+                    flag_timer_prebreak = True
+                    print("---flag timer prebreak is true---")
             else:
                 if flag_mulai == True:
                     if element==2:
                         temp_news = result[1][1]
+
+                        # flag_timer_prebreak_toggle=True
                 else:
                     temp_news = result[0][1]
                     if element > 1:
@@ -108,6 +118,7 @@ while cap.isOpened():
                     news += temp_news
                     flag_mulai = False
                     #starttime jalan pertama kali dan setelah break
+                    flag_timer_prebreak_toggle = True
                     flag_timer_break = True
                     print("---flag timer break is true---")
                 else:
@@ -140,14 +151,15 @@ while cap.isOpened():
             # arr_bb_width, time, arr_start
             if len(arr_bb_width)>1:
                 if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
-                    if counter>3:
+                    if counter>4:
                         flag_timer = True
                         print("---flag timer is true---")
 
-            if (flag_timer==True) or (flag_timer_break==True):
+            if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
                 flag_timer=False
                 flag_timer_break=False
+                flag_timer_prebreak=False
                 counter = 0
 
             
