@@ -135,6 +135,15 @@ while cap.isOpened():
                         if j>len_temp:
                             news = news[:-3]
                             break
+                
+                    # normal timestamp extraction
+                    # arr_bb_width, time, arr_start
+                    if len(arr_bb_width)>1:
+                        if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
+                            if counter>4:
+                                flag_timer = True
+                                print("---flag timer is true---")
+
                     
                 
                 # print("\nnews:")
@@ -144,16 +153,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
             
-            if sec>70:
+            if sec>1250:
                 break
-
-            # timestamp extraction
-            # arr_bb_width, time, arr_start
-            if len(arr_bb_width)>1:
-                if arr_bb_width[-1]<300 and arr_bb_width[-1]>100:
-                    if counter>4:
-                        flag_timer = True
-                        print("---flag timer is true---")
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
@@ -204,6 +205,7 @@ arr_end.append(last_time)
 # for i in range (len(arr_end)):
 #     arr_end[i] = converttimestamp(arr_end[i])
 
+print("news:",news)
 print("arr start:",arr_start)
 print("arr end:",arr_end)
 
