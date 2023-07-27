@@ -14,10 +14,12 @@ import argparse
 import time
 import datetime
 import os
+import config
 
 a = argparse.ArgumentParser(description='input data')
 a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
 a.add_argument("-v", "--video", required=True, help="Video path. Example: -v Videos/vidio-inews-long.mp4")
+a.add_argument("-f", "--frame", required=True, help="frame of the channel. Example: -v inews")
 args = a.parse_args()
 
 def find_idx(news, temp_news):
@@ -244,11 +246,12 @@ fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# preprocess
-height_process_top = round((24.5 / 27) * height)
-height_process_bottom = round((26 / 27) * height)
-width_process_left = round((1.25999/7.6) * width)
-width_process_right = round((7.6/7.6) * width)
+frame_1 = args.frame
+frame_1 = frame_1.lower()
+if frame_1 == 'inews' :
+    height_process_top, height_process_bottom,  width_process_left, width_process_right = config.inews(width, height)
+elif frame_1 == 'mnctv' :
+    height_process_top, height_process_bottom,  width_process_left, width_process_right = config.mnc(width, height)
 
 iter = 0
 frame_count = 0
@@ -269,7 +272,6 @@ reader = easyocr.Reader(['id'], gpu=True)
 while cap.isOpened():
     ret, frame = cap.read()
     if ret:
-
         if (iter % ((fps))) == 0:
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_2 = frame_2[height_process_top:height_process_bottom,
