@@ -167,6 +167,7 @@ def cetak_json(news):
     name = name.upper()
     filename = name + "-" + waktu + ".json"
 
+    
     if name == "INEWS" :
         # Pastikan folder tujuan ada atau buat jika belum ada
         if not os.path.exists('Hasil/Inews'):
@@ -179,7 +180,7 @@ def cetak_json(news):
             json.dump(input_json, f, indent=3)
         f.close()
     
-    if name == "MNC" :
+    elif name == "MNC" :
         # Pastikan folder tujuan ada atau buat jika belum ada
         if not os.path.exists('Hasil/MNC'):
             os.makedirs('Hasil/MNC')
@@ -258,13 +259,17 @@ fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-frame_1 = args.frame
-frame_1 = frame_1.lower()
+mapping = {
+    "inews": config.inews,
+    "mnc": config.mnc,
+}
 
-if frame_1 == 'inews' :
-    height_process_top, height_process_bottom,  width_process_left, width_process_right = config.inews(width, height)
-elif frame_1 == 'mnc' :
-    height_process_top, height_process_bottom,  width_process_left, width_process_right = config.mnc(width, height)
+format_frame = args.frame
+format_frame = format_frame.lower()
+
+selected_func = mapping[format_frame]
+
+height_process_top, height_process_bottom,  width_process_left, width_process_right = selected_func(width, height)
 
 iter = 0
 frame_count = 0
