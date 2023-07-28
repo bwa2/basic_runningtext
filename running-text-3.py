@@ -21,8 +21,8 @@ from utils import *
 
 
 
-#cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-7juli.mp4")
-cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
+cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-7juli.mp4")
+#cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -141,7 +141,7 @@ while cap.isOpened():
                         i += 1
                         j += 1
                         if j>len_temp:
-                            news = news[:-3]
+                            #news = news[:-3]
                             break
 
                     # normal timestamp extraction
@@ -154,8 +154,9 @@ while cap.isOpened():
 
 
 
-                # print("\nnews:")
-                # print(news)
+                if (len(news)>20):
+                    print("\nnews:")
+                    print(news[-15:])
 
             sec += 1
             print("time:",sec)
