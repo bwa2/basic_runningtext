@@ -86,21 +86,21 @@ while cap.isOpened():
             acc_rbound = 900 # bisa diatur juga
 
             # (news[len(news)-1]!="#START#*")
-            if top_mostleft<acc_lbound and top_mostright>acc_rbound:
-                if element==0:
-                    #nambah pager dan flag_mulai=true
-                    if (news[len(news)-1] != "#*"):
-                        if (news[len(news)-1][-1] != "*"):
-                            news[len(news)-1] += "*"
-                        news.append("#*")
-                        flag_mulai = True
-                    print("\nTidak ada kalimat!")
+            if element==0:
+                #nambah pager dan flag_mulai=true
+                if (news[len(news)-1] != "#*"):
+                    if (news[len(news)-1][-1] != "*"):
+                        news[len(news)-1] += "*"
+                    news.append("#*")
+                    flag_mulai = True
+                print("\nTidak ada kalimat!")
 
-                    #masukin flag timer buat break
-                    if flag_timer_prebreak_toggle==True and flag_barumulai==False:
-                        flag_timer_prebreak = True
-                        print("---flag timer prebreak is true---")
-                else:
+                #masukin flag timer buat break
+                if flag_timer_prebreak_toggle==True and flag_barumulai==False:
+                    flag_timer_prebreak = True
+                    print("---flag timer prebreak is true---")
+            else:
+                if top_mostleft<acc_lbound and top_mostright>acc_rbound:
                     if flag_mulai == True:
                         if element==2:
                             temp_news = result[1][1]
