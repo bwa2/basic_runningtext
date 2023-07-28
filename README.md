@@ -4,6 +4,11 @@ UNTUK MENDETEKSI RUNNING TEXT PADA BERITA DENGAN TIPE GESER
 
 kode main: running-text.py
 
+```
+python3 <namafile>.py -c <namachannel> -v <pathvideo> -f <channelconfig>
+```
+
+
 ### Link PPT Progress Report
 https://docs.google.com/presentation/d/1uT46h8e-D52uhlJnKPk6wt-T0V81LEN-wrc3GRWHvTY/edit?usp=sharing
 
