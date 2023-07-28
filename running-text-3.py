@@ -63,11 +63,11 @@ while cap.isOpened():
         if (iter % ((fps))) == 0:
             # preprocessing
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame_3 = frame_2[height_process_top:height_process_bottom,
+                              0:width_process_right]
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
-            frame_3 = frame_3[height_process_top:height_process_bottom,
-                              0:width_process_right]
-
+            
             # ocr
             result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.3)
             print(result)
