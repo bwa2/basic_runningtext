@@ -65,9 +65,11 @@ while cap.isOpened():
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
+            frame_3 = frame_3[height_process_top:height_process_bottom,
+                              0:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.2)
+            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.3)
             print(result)
 
             # main processing
@@ -82,7 +84,7 @@ while cap.isOpened():
             
 
             acc_lbound = 100 # bisa diatur sesuai frame maks video
-            acc_rbound = 900 # bisa diatur juga
+            acc_rbound = 1000 # bisa diatur juga
 
             # (news[len(news)-1]!="#START#*")
             if element==0:
@@ -144,7 +146,7 @@ while cap.isOpened():
                     while(True):
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
-                        if sm(None, " ".join(news[-3:]), " ".join(temp_news[i:j])).ratio() >= 0.85:
+                        if sm(None, "".join(news[-3:]), "".join(temp_news[i:j])).ratio() >= 0.85:
                             news += temp_news[j:]
                             break
                         i += 1
@@ -200,7 +202,7 @@ while cap.isOpened():
 
             frame_count += 1
             # if frame_count>3600:
-            #     cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            cv2.imwrite(f'frame_{frame_count}.jpg', frame_3)
 
 
         iter += 1
