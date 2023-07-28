@@ -186,8 +186,9 @@ while cap.isOpened():
             # cv2.imshow("frame", frame_2)
             # key = cv2.waitKey(10)
 
-            # frame_count += 1
-            # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            frame_count += 1
+            if frame_count>3600:
+                cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             
             
         iter += 1
