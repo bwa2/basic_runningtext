@@ -1,5 +1,6 @@
 Videos/
 
+<<<<<<< HEAD
 
 *.mp4
 *.jpg
@@ -11,3 +12,10 @@ test.py
 ssh-info.txt
 
  __pycache__/
+=======
+cobatime2.json
+running-text.py
+cobatime2.json
+running-text.py
+frame_2.jpg
+>>>>>>> 5a03eceed17cbb11a03a18f3963f58dcab9e76d7

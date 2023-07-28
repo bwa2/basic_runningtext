@@ -18,11 +18,21 @@ import easyocr
 import torch
 from difflib import SequenceMatcher as sm
 from utils import *
+import argparse
+from datetime import datetime
+import os
+import config
 
 
+a = argparse.ArgumentParser(description='input data')
+a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
+a.add_argument("-v", "--video", required=True, help="Video path. Example: -v Videos/vidio-inews-long.mp4")
+a.add_argument("-f", "--frame", required=True, help="frame of the channel. Example: -v inews")
+args = a.parse_args()
 
-cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-7juli.mp4")
-#cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
+path = args.video
+
+cap = cv2.VideoCapture(f"{path}")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -30,10 +40,13 @@ width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 # preprocess
-height_process_top = round((24.5 / 27) * height)
-height_process_bottom = round((26 / 27) * height)
-width_process_left = round((1.25999/7.6) * width)
-width_process_right = round((7.6/7.6) * width)
+frame_1 = args.frame
+frame_1 = frame_1.lower()
+
+if frame_1 == 'inews' :
+    height_process_top, height_process_bottom,  width_process_left, width_process_right = config.inews(width, height)
+elif frame_1 == 'mnctv' :
+    height_process_top, height_process_bottom,  width_process_left, width_process_right = config.mnc(width, height)
 
 iter = 0
 frame_count = 0
@@ -280,9 +293,20 @@ for i in range(jml_berita):
     if(i != jml_berita-1):
         input_json.append({})
 
-with open("cobatime-sejam7juli.json", "w") as f:
-    json.dump(input_json,f, indent=3)
-f.close()
+waktu =  datetime.now().strftime("%Y-%m-%d")
+
+name = args.channel
+name = name.upper()
+filename = name + "-" + waktu + ".json"
+
+if not os.path.exists(filename) :
+    with open(filename,'w', newline='') as f :
+        json.dump(input_json, f, indent=3)
+    f.close()
+else :
+    with open(filename,'a', newline='') as f :
+        json.dump(input_json, f, indent=3)
+    f.close()
 
 
 
