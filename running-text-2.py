@@ -160,8 +160,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
             
-            # if sec>1570:
-            #     break
+            if sec>3700:
+                break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
