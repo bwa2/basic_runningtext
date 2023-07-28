@@ -21,7 +21,8 @@ from utils import *
 
 
 
-cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-20juli.mp4")
+cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-7juli.mp4")
+#cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -66,7 +67,7 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,x_ths=1.1,mag_ratio=1.3)
+            result = reader.readtext(frame_2,paragraph=True,x_ths=1.05,mag_ratio=1.05)
             print(result)
 
             # main processing
@@ -279,7 +280,7 @@ for i in range(jml_berita):
     if(i != jml_berita-1):
         input_json.append({})
 
-with open("cobatime-sejam20juli2.json", "w") as f:
+with open("cobatime-sejam7juli.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
 
