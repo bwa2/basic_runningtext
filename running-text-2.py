@@ -5,12 +5,13 @@
 # UNSOLVEDCASE3: kebaca sama ocr tiga elemen padahal harusnya dua elemen 
 #    sehingga berpengaruh ke perhitungan bound box starttime
 # UNSOLVEDCASE4: elemennya kepisah dan tetep masuk news
-# UNSOLVEDCASE5: time saat break belum ada
+# UNSOLVEDCASE5: berita baru mulai tetapi belum ada running-text
 
 # SOLVED CASE: 
 # jika tiga kata pada news tdk sama dengan temp_news
 # double ** karena sebelum break sudah ada asterisk
 # boundnya pake count aja
+# time saat break belum ada
 
 import cv2
 import easyocr
@@ -46,10 +47,11 @@ flag_timer = False
 flag_timer_break = False # setelah break atau pertama kali
 flag_timer_prebreak = False # flag timer buat break itu sendiri
 flag_timer_prebreak_toggle = True
+flag_barumulai = True
 sec2 = 0
 counter = 0
 
-news = ["#START#*"]
+news = ["#*"]
 
 reader = easyocr.Reader(['id'], gpu=True)
 
@@ -75,10 +77,11 @@ while cap.isOpened():
             arr_bb_width = time_bbox(result)
             print("width of bound box: ",arr_bb_width)
             
-            
+            # (news[len(news)-1]!="#START#*")
+
             if element==0:
                 #nambah pager dan flag_mulai=true
-                if (news[len(news)-1] != "#*") or (news[len(news)-1]!="#START#*"):
+                if (news[len(news)-1] != "#*"):
                     if (news[len(news)-1][-1] != "*"):
                         news[len(news)-1] += "*"
                     news.append("#*")
@@ -86,7 +89,7 @@ while cap.isOpened():
                 print("\nTidak ada kalimat!")
 
                 #masukin flag timer buat break
-                if flag_timer_prebreak_toggle==True and (news[len(news)-1]!="#START#*"):
+                if flag_timer_prebreak_toggle==True and flag_barumulai==False:
                     flag_timer_prebreak = True
                     print("---flag timer prebreak is true---")
             else:
@@ -119,6 +122,8 @@ while cap.isOpened():
                 if news[len(news)-1]=="#*":
                     news += temp_news
                     flag_mulai = False
+                    flag_barumulai = False
+                    print("---flag baru mulai is false---")
                     #starttime jalan pertama kali dan setelah break
                     flag_timer_prebreak_toggle = True
                     flag_timer_break = True
