@@ -20,7 +20,7 @@ from utils import *
 
 
 
-cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
+cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam20juli.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -273,7 +273,7 @@ for i in range(jml_berita):
     if(i != jml_berita-1):
         input_json.append({})
 
-with open("cobatime-20min.json", "w") as f:
+with open("cobatime-sejam20juli2.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
 
