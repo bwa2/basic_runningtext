@@ -4,6 +4,11 @@ UNTUK MENDETEKSI RUNNING TEXT PADA BERITA DENGAN TIPE GESER
 
 kode main: running-text.py
 
+```
+python3 <namafile>.py -c <namachannel> -v <pathvideo> -f <channelconfig>
+```
+
+
 ### Link PPT Progress Report
 https://docs.google.com/presentation/d/1uT46h8e-D52uhlJnKPk6wt-T0V81LEN-wrc3GRWHvTY/edit?usp=sharing
 
@@ -27,3 +32,8 @@ risetai/image2text:latest tail -f /dev/null
 ```
 docker exec -it nolimit_image2text_engine bash
 ```
+
+### Output EasyOCR
+[[[[top left], [top right], [bottom right], [bottom left]], 'TEKS'], [selanjutnya]]
+
+[[[[0(x), 7(y)], [1705, 7], [1705, 67], [0, 67]], 'AKAL DIBANGUN USAI AKSES MALANG LUMAJANG TERPUTUS']]
