@@ -141,7 +141,7 @@ while cap.isOpened():
                         i += 1
                         j += 1
                         if j>len_temp:
-                            news = news[:-3]
+                            news = news[:-1]
                             break
 
                     # normal timestamp extraction
