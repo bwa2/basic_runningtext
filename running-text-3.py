@@ -292,6 +292,6 @@ for i in range(jml_berita):
     if(i != jml_berita-1):
         input_json.append({})
 
-with open("cobatime-sejamaja.json", "w") as f:
+with open("cobatime-7juli.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
