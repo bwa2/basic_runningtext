@@ -161,18 +161,33 @@ def cetak_json(news):
             input_json[j] = temp_json
             j += 1
 
-    waktu =  datetime.now().strftime("%Y-%m-%d")
+    waktu =  datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
     name = args.channel
     name = name.upper()
     filename = name + "-" + waktu + ".json"
 
-    if not os.path.exists(filename) :
-        with open(filename,'w', newline='') as f :
+    if name == "INEWS" :
+        # Pastikan folder tujuan ada atau buat jika belum ada
+        if not os.path.exists('Hasil/Inews'):
+            os.makedirs('Hasil/Inews')
+
+        # Gabungkan path folder tujuan dengan nama file untuk mendapatkan path lengkap
+        path_lengkap = os.path.join('Hasil/Inews', filename)
+
+        with open(path_lengkap,'w', newline='') as f :
             json.dump(input_json, f, indent=3)
         f.close()
-    else :
-        with open(filename,'a', newline='') as f :
+    
+    if name == "MNC" :
+        # Pastikan folder tujuan ada atau buat jika belum ada
+        if not os.path.exists('Hasil/MNC'):
+            os.makedirs('Hasil/MNC')
+
+        # Gabungkan path folder tujuan dengan nama file untuk mendapatkan path lengkap
+        path_lengkap = os.path.join('Hasil/MNC', filename)
+
+        with open(path_lengkap,'w', newline='') as f :
             json.dump(input_json, f, indent=3)
         f.close()
 
@@ -248,7 +263,7 @@ frame_1 = frame_1.lower()
 
 if frame_1 == 'inews' :
     height_process_top, height_process_bottom,  width_process_left, width_process_right = config.inews(width, height)
-elif frame_1 == 'mnctv' :
+elif frame_1 == 'mnc' :
     height_process_top, height_process_bottom,  width_process_left, width_process_right = config.mnc(width, height)
 
 iter = 0
