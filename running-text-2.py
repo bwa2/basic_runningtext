@@ -20,7 +20,7 @@ from utils import *
 
 
 
-cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam20juli.mp4")
+cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-20juli.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -49,7 +49,7 @@ flag_timer_prebreak_toggle = True
 sec2 = 0
 counter = 0
 
-news = ["#*"]
+news = ["#START#*"]
 
 reader = easyocr.Reader(['id'], gpu=True)
 
@@ -77,8 +77,8 @@ while cap.isOpened():
             
             
             if element==0:
-                #nambah pager dan flag_mulaitrue
-                if (news[len(news)-1] != "#*"):
+                #nambah pager dan flag_mulai=true
+                if (news[len(news)-1] != "#*") or (news[len(news)-1]!="#START#*"):
                     if (news[len(news)-1][-1] != "*"):
                         news[len(news)-1] += "*"
                     news.append("#*")
@@ -86,7 +86,7 @@ while cap.isOpened():
                 print("\nTidak ada kalimat!")
 
                 #masukin flag timer buat break
-                if flag_timer_prebreak_toggle==True:
+                if flag_timer_prebreak_toggle==True and (news[len(news)-1]!="#START#*"):
                     flag_timer_prebreak = True
                     print("---flag timer prebreak is true---")
             else:
