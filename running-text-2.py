@@ -161,8 +161,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
             
-            if sec>3700:
-                break
+            # if sec>3700:
+            #     break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
@@ -188,8 +188,8 @@ while cap.isOpened():
             # key = cv2.waitKey(10)
 
             frame_count += 1
-            if frame_count>3600:
-                cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            # if frame_count>3600:
+            #     cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             
             
         iter += 1
