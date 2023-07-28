@@ -78,43 +78,50 @@ while cap.isOpened():
             arr_bb_width = time_bbox(result)
             print("width of bound box: ",arr_bb_width)
 
+            # biar iklan pendek ga kebaca
+            top_mostleft = result[0][0][0][0]
+            top_mostright = result[-1][0][1][0]
+
+            acc_lbound = 100 # bisa diatur sesuai frame maks video
+            acc_rbound = 900 # bisa diatur juga
+
             # (news[len(news)-1]!="#START#*")
+            if top_mostleft<acc_lbound and top_mostright>acc_rbound:
+                if element==0:
+                    #nambah pager dan flag_mulai=true
+                    if (news[len(news)-1] != "#*"):
+                        if (news[len(news)-1][-1] != "*"):
+                            news[len(news)-1] += "*"
+                        news.append("#*")
+                        flag_mulai = True
+                    print("\nTidak ada kalimat!")
 
-            if element==0:
-                #nambah pager dan flag_mulai=true
-                if (news[len(news)-1] != "#*"):
-                    if (news[len(news)-1][-1] != "*"):
-                        news[len(news)-1] += "*"
-                    news.append("#*")
-                    flag_mulai = True
-                print("\nTidak ada kalimat!")
-
-                #masukin flag timer buat break
-                if flag_timer_prebreak_toggle==True and flag_barumulai==False:
-                    flag_timer_prebreak = True
-                    print("---flag timer prebreak is true---")
-            else:
-                if flag_mulai == True:
-                    if element==2:
-                        temp_news = result[1][1]
-
-                        # flag_timer_prebreak_toggle=True
+                    #masukin flag timer buat break
+                    if flag_timer_prebreak_toggle==True and flag_barumulai==False:
+                        flag_timer_prebreak = True
+                        print("---flag timer prebreak is true---")
                 else:
-                    temp_news = result[0][1]
-                    if element > 1:
-                        for i in range(1, element):
-                            # disini taro if kalau bounding boxnya deket
-                            # if distance antar bounding box tidak deket do the line below
-                            # if arr_distance[i] < 25:
-                            #     temp_news += " " + result[i][1]
-                            #     if i == 1:
-                            #         idx_bound = 1
-                            # else:
-                            #     temp_news += "* " + result[i][1]
-                            temp_news += "* " + result[i][1]
-                temp_news = temp_news.split()
-                print("\ntemp_news:")
-                print(temp_news)
+                    if flag_mulai == True:
+                        if element==2:
+                            temp_news = result[1][1]
+
+                            # flag_timer_prebreak_toggle=True
+                    else:
+                        temp_news = result[0][1]
+                        if element > 1:
+                            for i in range(1, element):
+                                # disini taro if kalau bounding boxnya deket
+                                # if distance antar bounding box tidak deket do the line below
+                                # if arr_distance[i] < 25:
+                                #     temp_news += " " + result[i][1]
+                                #     if i == 1:
+                                #         idx_bound = 1
+                                # else:
+                                #     temp_news += "* " + result[i][1]
+                                temp_news += "* " + result[i][1]
+                    temp_news = temp_news.split()
+                    print("\ntemp_news:")
+                    print(temp_news)
 
             len_temp = len(temp_news)
             if len_temp>5:

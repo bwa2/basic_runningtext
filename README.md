@@ -32,3 +32,8 @@ risetai/image2text:latest tail -f /dev/null
 ```
 docker exec -it nolimit_image2text_engine bash
 ```
+
+### Output EasyOCR
+[[[[top left], [top right], [bottom right], [bottom left]], 'TEKS'], [selanjutnya]]
+
+[[[[0(x), 7(y)], [1705, 7], [1705, 67], [0, 67]], 'AKAL DIBANGUN USAI AKSES MALANG LUMAJANG TERPUTUS']]
