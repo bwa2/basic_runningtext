@@ -135,13 +135,13 @@ while cap.isOpened():
                     while(True):
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
-                        if sm(None, " ".join(news[-3:]), " ".join(temp_news[i:j])).ratio() >= 0.915:
+                        if sm(None, " ".join(news[-3:]), " ".join(temp_news[i:j])).ratio() >= 0.85:
                             news += temp_news[j:]
                             break
                         i += 1
                         j += 1
                         if j>len_temp:
-                            #news = news[:-3]
+                            news = news[:-3]
                             break
 
                     # normal timestamp extraction
@@ -156,7 +156,8 @@ while cap.isOpened():
 
                 if (len(news)>20):
                     print("\nnews:")
-                    print(news[-15:])
+                    news2=news
+                    print(news2[-15:])
 
             sec += 1
             print("time:",sec)
