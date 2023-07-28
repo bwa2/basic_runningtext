@@ -67,7 +67,7 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,x_ths=1.05,mag_ratio=1.05)
+            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.2)
             print(result)
 
             # main processing
@@ -141,7 +141,7 @@ while cap.isOpened():
                         i += 1
                         j += 1
                         if j>len_temp:
-                            news = news[:-3]
+                            news=news[-3:]
                             break
                 
                     # normal timestamp extraction
@@ -153,9 +153,9 @@ while cap.isOpened():
                                 print("---flag timer is true---")
 
                     
-                
-                # print("\nnews:")
-                # print(news)
+                if (len(news)>20):
+                    print("\nnews:")
+                    print(news[-15:])
 
             sec += 1
             print("time:",sec)
