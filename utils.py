@@ -117,7 +117,7 @@ def bounding_box(result,frame_2):
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
-        cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        #cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
         count_2 += 1
         arr_bx.append(bx)
         arr_tx.append(tx)

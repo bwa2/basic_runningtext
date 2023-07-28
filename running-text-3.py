@@ -63,7 +63,7 @@ while cap.isOpened():
         if (iter % ((fps))) == 0:
             # preprocessing
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame_3 = frame_2[height_process_top:height_process_bottom,
+            frame_3 = frame[height_process_top:height_process_bottom,
                               0:width_process_right]
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
