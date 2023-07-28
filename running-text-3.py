@@ -101,6 +101,7 @@ while cap.isOpened():
             else:
                 top_mostleft = result[0][0][0][0]
                 top_mostright = result[-1][0][1][0]
+                print("top left and top right:", top_mostleft," ",top_mostright)
                 if top_mostleft<acc_lbound and top_mostright>acc_rbound:
                     if flag_mulai == True:
                         if element==2:
