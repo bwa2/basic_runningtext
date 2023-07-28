@@ -79,8 +79,7 @@ while cap.isOpened():
             print("width of bound box: ",arr_bb_width)
 
             # biar iklan pendek ga kebaca
-            top_mostleft = result[0][0][0][0]
-            top_mostright = result[-1][0][1][0]
+            
 
             acc_lbound = 100 # bisa diatur sesuai frame maks video
             acc_rbound = 900 # bisa diatur juga
@@ -100,6 +99,8 @@ while cap.isOpened():
                     flag_timer_prebreak = True
                     print("---flag timer prebreak is true---")
             else:
+                top_mostleft = result[0][0][0][0]
+                top_mostright = result[-1][0][1][0]
                 if top_mostleft<acc_lbound and top_mostright>acc_rbound:
                     if flag_mulai == True:
                         if element==2:
