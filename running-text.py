@@ -161,36 +161,32 @@ def cetak_json(news):
             input_json[j] = temp_json
             j += 1
 
+    # Kamus untuk menghubungkan nama channel dengan folder tujuan
+    channel_folders = {
+        "INEWS": "Hasil/Inews",
+        "MNC": "Hasil/MNC"
+    }
+
     waktu =  datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
     name = args.channel
     name = name.upper()
     filename = name + "-" + waktu + ".json"
 
-    
-    if name == "INEWS" :
-        # Pastikan folder tujuan ada atau buat jika belum ada
-        if not os.path.exists('Hasil/Inews'):
-            os.makedirs('Hasil/Inews')
+    if name in channel_folders:
+        folder_path = channel_folders[name]
+
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
 
         # Gabungkan path folder tujuan dengan nama file untuk mendapatkan path lengkap
-        path_lengkap = os.path.join('Hasil/Inews', filename)
+        path_lengkap = os.path.join(folder_path, filename)
 
-        with open(path_lengkap,'w', newline='') as f :
+        with open(path_lengkap, 'w', newline='') as f:
             json.dump(input_json, f, indent=3)
         f.close()
-    
-    elif name == "MNC" :
-        # Pastikan folder tujuan ada atau buat jika belum ada
-        if not os.path.exists('Hasil/MNC'):
-            os.makedirs('Hasil/MNC')
-
-        # Gabungkan path folder tujuan dengan nama file untuk mendapatkan path lengkap
-        path_lengkap = os.path.join('Hasil/MNC', filename)
-
-        with open(path_lengkap,'w', newline='') as f :
-            json.dump(input_json, f, indent=3)
-        f.close()
+    else:
+        print("Nama channel tidak valid.")
 
     print("idx j")
     print(j)
