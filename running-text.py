@@ -316,12 +316,12 @@ for i in range(idx_end, idx_start):
 # for i in range(idx_start):
 #     news[i][0] = temp_news[i]
 
-print(f'\nnews:\n{news}')
-print(f'\ntemp_news:\n{" ".join(temp_news)}')
-print(f'\nlen_news:\n{len(news)}')
-print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
+# print(f'\nnews:\n{news}')
+# print(f'\ntemp_news:\n{" ".join(temp_news)}')
+# print(f'\nlen_news:\n{len(news)}')
+# print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
 
 cap.release()
 #cv2.destroyAllWindows()
-news = similar(news, idx_start)
+# news = similar(news, idx_start)
 # cetak_json(news)
