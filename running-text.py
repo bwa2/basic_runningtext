@@ -11,6 +11,8 @@ import torch
 import json
 from difflib import SequenceMatcher as sm
 from datetime import timedelta
+import pandas as pd
+import openpyxl
 
 def add_element(elm, n_elm):
     elm.append(["", 0, 0, 0])
@@ -52,20 +54,27 @@ def bounding_box(result):
     return arr_distance
 
 def find_same(str_1, str_2):
-    n = 2
-    len_str_2 = len(str_2)
-    match = True
-    while n < 4 and match:
+    n_word = 1
+    n_duplicate = 0
+    n_str_2 = len(str_2)
+    matching = True
+    while n_word < 4 and matching:
         i = 0
-        while i < len_str_2-n:
-            if sm(None, ' '.join(str_1[-n:]), ' '.join(str_2[i:i+n])).ratio() >= 0.915:
-                n += 1
+        while i < n_str_2-n_word+1:
+            if sm(None, ' '.join(str_1[-n_word:]), ' '.join(str_2[i:i+n_word])).ratio() >= 0.915:
+                n_duplicate += 1
             i += 1
 
-        if i == len_str_2-n:
-            match = False
+        if n_duplicate == 1:
+            matching = False
+        elif n_duplicate > 1:
+            n_duplicate = 0
+            n_word += 1
+        else:
+            n_word = 0
+            matching = False
 
-    return n
+    return n_word
 
 def converttimestamp(sec):
     #print('Time in Seconds:', sec)
@@ -150,9 +159,6 @@ def similar(arr, pjg):
 
     return arr
 
-<<<<<<< HEAD
-cap = cv2.VideoCapture("../INEWS/cek-iklan2-inews.mp4")
-=======
 def check_area(res_ocr, width):
     n_res_ocr = len(res_ocr)
     if n_res_ocr == 0:
@@ -160,14 +166,15 @@ def check_area(res_ocr, width):
     
     left_bound = res_ocr[0][0][0][0]
     right_bound = res_ocr[n_res_ocr-1][0][1][0]
-    if left_bound > 0 and left_bound < 0.1 * width and right_bound > 0.9 * width and right_bound < width:
-        return False
+    print(f'left-bound : min-size {left_bound} : {width * 0.1}')
+    print(f'right bound : max-size {right_bound} : {width * 0.75}')
+    if left_bound >= 0 and left_bound < 0.1 * width and right_bound > 0.75 * width and right_bound <= width:
+        return True
     else:
         return False
 
 
-cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres-cut.mp4")
->>>>>>> 173b140c26e39cd6327dd9137e9f57ee3cf0d8fb
+cap = cv2.VideoCapture("../videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -198,6 +205,9 @@ f_insert_end = True
 idx_bound_start = 0
 idx_bound_end = 0
 
+# for debug purpose
+res_all = []
+
 reader = easyocr.Reader(['id'], gpu=True)
 while cap.isOpened():
     ret, frame = cap.read()
@@ -215,7 +225,7 @@ while cap.isOpened():
             arr_distance = bounding_box(result_ocr)
             f_initial = False
 
-            print(f'news: {news}')
+            # print(f'news: {news}')
 
             # ocr tidak membaca apa-apa
             if n_result == 0:
@@ -250,10 +260,13 @@ while cap.isOpened():
                             temp_result += "* " + result_ocr[i][1]
 
                 temp_result = temp_result.split()
-                # print("\ntemp_result:")
-                # print(temp_result)
+                
+                for i in range(n_result):
+                    res_all += [result_ocr[i][1], time]
             n_temp_result = len(temp_result)
-            # print(f'n_temp_result: {n_temp_result}')
+            print(f'temp_result: {temp_result}')
+            print(f'result_ocr: {result_ocr}')
+
             if check_area(result_ocr, width_process_right):
                 if ''.join(temp_result[-6:]).count('*') != 0:
                     f_start = True
@@ -278,6 +291,7 @@ while cap.isOpened():
                     i = 0
                     f_same = False
                     n = find_same(temp_news, temp_result)
+                    print(f'n : {n}')
                     while (i < n_temp_result and f_same == False):
                         temp_result_join = ' '.join(temp_result[:n])    
                         if sm(None, ' '.join(temp_news[-n:]), temp_result_join).ratio() >= 0.9:
@@ -321,7 +335,12 @@ while cap.isOpened():
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             '''
             time += 1
+            print(f'temp_news: {temp_news}')
             print(f"time: {time}\n")
+            '''
+            if time == 450:
+                break
+            '''
         iter += 1
     else:
         break
@@ -338,8 +357,19 @@ print(f'\nnews:\n{news}')
 print(f'\ntemp_news:\n{" ".join(temp_news)}')
 print(f'\nlen_news:\n{len(news)}')
 print(f'len_temp_news:\n{" ".join(temp_news).count("*")}')
-
 cap.release()
 #cv2.destroyAllWindows()
 # news = similar(news, idx_start)
 # cetak_json(news)
+
+
+# initiate dataframe
+df1 = pd.DataFrame(news)
+df2 = pd.DataFrame(' '.join(temp_news).split('* '))
+#df3 = pd.DataFrame(res_all)
+# export to excel for debugging
+with pd.ExcelWriter('debug.xlsx') as writer:
+    df1.to_excel(writer, sheet_name='news')
+    df2.to_excel(writer, sheet_name='temp_news')
+    #df3.to_excel(writer, sheet_name='result_ocr')
+
