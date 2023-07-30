@@ -150,7 +150,24 @@ def similar(arr, pjg):
 
     return arr
 
+<<<<<<< HEAD
 cap = cv2.VideoCapture("../INEWS/cek-iklan2-inews.mp4")
+=======
+def check_area(res_ocr, width):
+    n_res_ocr = len(res_ocr)
+    if n_res_ocr == 0:
+        return False
+    
+    left_bound = res_ocr[0][0][0][0]
+    right_bound = res_ocr[n_res_ocr-1][0][1][0]
+    if left_bound > 0 and left_bound < 0.1 * width and right_bound > 0.9 * width and right_bound < width:
+        return False
+    else:
+        return False
+
+
+cap = cv2.VideoCapture("simulasi-pasangan-capres-cawapres-cut.mp4")
+>>>>>>> 173b140c26e39cd6327dd9137e9f57ee3cf0d8fb
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -237,7 +254,7 @@ while cap.isOpened():
                 # print(temp_result)
             n_temp_result = len(temp_result)
             # print(f'n_temp_result: {n_temp_result}')
-            if (n_temp_result > 5):
+            if check_area(result_ocr, width_process_right):
                 if ''.join(temp_result[-6:]).count('*') != 0:
                     f_start = True
                 else:
