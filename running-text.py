@@ -233,6 +233,11 @@ while cap.isOpened():
                             temp_result += "* " + result_ocr[i][1]
 
                 temp_result = temp_result.split()
+                # print("\ntemp_result:")
+                # print(temp_result)
+            n_temp_result = len(temp_result)
+            # print(f'n_temp_result: {n_temp_result}')
+            if (n_temp_result > 5):
                 if ''.join(temp_result[-6:]).count('*') != 0:
                     f_start = True
                 else:
@@ -243,12 +248,6 @@ while cap.isOpened():
                 else:
                     f_end = False
 
-                # print(f'bound_start : {bound_start}')
-                print("\ntemp_result:")
-                print(temp_result)
-            n_temp_result = len(temp_result)
-            # print(f'n_temp_result: {n_temp_result}')
-            if (n_temp_result > 5):
                 # mengambil kalimat sampai kata kedua dari akhir
                 temp_result = temp_result[:-1]
 
