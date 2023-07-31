@@ -21,7 +21,7 @@ from utils import *
 
 
 
-cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-20juli.mp4")
+cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-7juli.mp4")
 #cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
@@ -93,9 +93,9 @@ while cap.isOpened():
                     if (news[len(news)-1][-1] != "*"):
                         news[len(news)-1] += "*"
 
-                    if flag_check_iklan==True:
-                        news.append("KEPOTONG*")
-                        flag_check_iklan=False
+                    # if flag_check_iklan==True:
+                    #     news.append("KEPOTONG*")
+                    #     flag_check_iklan=False
 
                     news.append("#*")
                     flag_mulai = True
@@ -158,9 +158,9 @@ while cap.isOpened():
                         j += 1
                         if j>len_temp:
                             news = news[:-1]
-                            if news[-1][-1]=="*":
-                                flag_check_iklan = True
-                                print("---FLAG CHECK ADA IKLAN IS TRUE---")
+                            # if news[-1][-1]=="*":
+                            #     flag_check_iklan = True
+                            #     print("---FLAG CHECK ADA IKLAN IS TRUE---")
                             break
 
                     # normal timestamp extraction
@@ -301,6 +301,6 @@ for i in range(jml_berita):
     if(i != jml_berita-1):
         input_json.append({})
 
-with open("cobatime-sejam20juli.json", "w") as f:
+with open("cobatime-sejam7juli3.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
