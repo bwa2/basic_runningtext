@@ -94,7 +94,9 @@ while cap.isOpened():
                         news[len(news)-1] += "*"
 
                     if flag_check_iklan==True:
-                        news.append("---")
+                        news.append("KEPOTONG*")
+                        flag_check_iklan=False
+
                     news.append("#*")
                     flag_mulai = True
                 print("\nTidak ada kalimat!")
@@ -180,8 +182,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
 
-            #if sec>1550:
-            #    break
+            if sec>3650:
+                break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
