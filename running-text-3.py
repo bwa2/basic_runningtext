@@ -171,11 +171,11 @@ while cap.isOpened():
                     #             flag_timer = True
                     #             print("---flag timer is true---")
                     # using asterisk instead:
-                    temp_start = "".join(news[-5:-2])
+                    temp_start = "".join(news[-4:-1])
                     print("temp_start:",temp_start)
                     for huruf in temp_start:
                         if huruf=="*":
-                            if counter>4:
+                            if counter>3:
                                 flag_timer = True
                                 print("---flag timer is true---")
 
