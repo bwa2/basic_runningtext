@@ -165,8 +165,15 @@ while cap.isOpened():
 
                     # normal timestamp extraction
                     # arr_bb_width, time, arr_start
-                    if len(arr_bb_width)>1:
-                        if arr_bb_width[-1]<400 and arr_bb_width[-1]>100:
+                    # if len(arr_bb_width)>1:
+                    #     if arr_bb_width[-1]<400 and arr_bb_width[-1]>100:
+                    #         if counter>4:
+                    #             flag_timer = True
+                    #             print("---flag timer is true---")
+                    # using asterisk instead:
+                    temp_start = "".join(news[-5:-2])
+                    for huruf in temp_start:
+                        if huruf=="*":
                             if counter>4:
                                 flag_timer = True
                                 print("---flag timer is true---")
