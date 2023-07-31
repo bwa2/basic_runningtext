@@ -21,8 +21,8 @@ from utils import *
 
 
 
-#cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-7juli.mp4")
-cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
+cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-20juli.mp4")
+#cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -49,6 +49,7 @@ flag_timer_break = False # setelah break atau pertama kali
 flag_timer_prebreak = False # flag timer buat break itu sendiri
 flag_timer_prebreak_toggle = True
 flag_barumulai = True
+flag_check_iklan = False
 sec2 = 0
 counter = 0
 
@@ -66,9 +67,9 @@ while cap.isOpened():
             frame_3 = frame
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
-            
+
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.3)
+            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.5,blocklist='.')
             print(result)
 
             # main processing
@@ -80,7 +81,7 @@ while cap.isOpened():
             print("width of bound box: ",arr_bb_width)
 
             # biar iklan pendek ga kebaca
-            
+
 
             acc_lbound = 100 # bisa diatur sesuai frame maks video
             acc_rbound = 1000 # bisa diatur juga
@@ -91,6 +92,9 @@ while cap.isOpened():
                 if (news[len(news)-1] != "#*"):
                     if (news[len(news)-1][-1] != "*"):
                         news[len(news)-1] += "*"
+
+                    if flag_check_iklan==True:
+                        news.append("---")
                     news.append("#*")
                     flag_mulai = True
                 print("\nTidak ada kalimat!")
@@ -145,13 +149,16 @@ while cap.isOpened():
                     while(True):
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
-                        if sm(None, "".join(news[-3:]), "".join(temp_news[i:j])).ratio() >= 0.85:
+                        if sm(None, "".join(news[-3:]), "".join(temp_news[i:j])).ratio() >= 0.91:
                             news += temp_news[j:]
                             break
                         i += 1
                         j += 1
                         if j>len_temp:
                             news = news[:-1]
+                            if news[-1][-1]=="*":
+                                flag_check_iklan = True
+                                print("---FLAG CHECK ADA IKLAN IS TRUE---")
                             break
 
                     # normal timestamp extraction
@@ -173,8 +180,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
 
-            # if sec>3700:
-            #     break
+            #if sec>1550:
+            #    break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
@@ -199,9 +206,9 @@ while cap.isOpened():
             # cv2.imshow("frame", frame_2)
             # key = cv2.waitKey(10)
 
-            frame_count += 1
+            # frame_count += 1
             # if frame_count>3600:
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_3)
+            # cv2.imwrite(f'frame_{frame_count}.jpg', frame_3)
 
 
         iter += 1
@@ -292,6 +299,6 @@ for i in range(jml_berita):
     if(i != jml_berita-1):
         input_json.append({})
 
-with open("cobatime-sejamaja.json", "w") as f:
+with open("cobatime-sejam20juli.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
