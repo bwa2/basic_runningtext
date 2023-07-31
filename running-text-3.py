@@ -175,7 +175,7 @@ while cap.isOpened():
                     print("temp_start:",temp_start)
                     for huruf in temp_start:
                         if huruf=="*":
-                            if counter>3:
+                            if counter>4:
                                 flag_timer = True
                                 print("---flag timer is true---")
 
