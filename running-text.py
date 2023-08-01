@@ -21,37 +21,23 @@ def add_element(elm, n_elm):
 
 def bounding_box(result):
     # cek bounding box
-    count_2 = 0
-    arr_tx = []
+    n_result = len(result)
+    arr_distance = []
     arr_bx = []
-    arr_bx_arr = []
-    arr_tx_arr = []
-    arr_distance = [0]
+    i = 0
     # show video
     for (coord, text, prob) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
         cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
-        count_2 += 1
         arr_bx.append(bx)
-        arr_tx.append(tx)
+        if i > 0:
+            arr_distance.append(tx-arr_bx[i-1])
+        i += 1
 
-        for i in range(count_2-1):
-            arr_bx_arr.append(arr_bx[i])
-            arr_tx_arr.append(arr_tx[i+1])
-
-    if (len(arr_tx_arr)) == 1:
-        distance = arr_tx_arr[0] - arr_bx_arr[0]
-        # print("jarak drawing bound : ",distance)
-        arr_distance.append(distance)
-    elif (len(arr_tx_arr)) > 1:
-        for j in range(len(arr_tx_arr)):
-            if j != 0:
-                distance = arr_tx_arr[j] - arr_bx_arr[j]
-                # print(f"jarak drawing bound ke -{j} : {distance}")
-                arr_distance.append(distance)
     return arr_distance
+        
 
 def find_same(str_1, str_2):
     n_word = 1
@@ -173,8 +159,8 @@ def check_area(res_ocr, width):
     else:
         return False
 
-
-cap = cv2.VideoCapture("../videosejam-720p2.mp4")
+filename = 'inews-sejam-20juli'
+cap = cv2.VideoCapture(f"../../INEWSSEJAM/{filename}.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -219,13 +205,11 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result_ocr = reader.readtext(frame_2, contrast_ths = 1)
+            result_ocr = reader.readtext(frame_2)
             n_result = len(result_ocr)
             temp_result = ""
             arr_distance = bounding_box(result_ocr)
             f_initial = False
-
-            # print(f'news: {news}')
 
             # ocr tidak membaca apa-apa
             if n_result == 0:
@@ -248,24 +232,25 @@ while cap.isOpened():
                 print("\nTidak ada kalimat!")
             else:
                 temp_result = result_ocr[0][1]
-                idx_bound_start = 0
-                idx_bound_end = 0
                 if n_result > 1:
                     for i in range(1, n_result):
                         # disini taro if kalau bounding boxnya deket
-                        # if distance antar bounding box tidak deket do the line below
+                        # if distance antar bounding box tidak deket do the line belowi`
                         if arr_distance[i] < 30:
                             temp_result += " " + result_ocr[i][1]
                         else:
                             temp_result += "* " + result_ocr[i][1]
 
                 temp_result = temp_result.split()
-                
+               
+                # res_all
                 for i in range(n_result):
-                    res_all += [result_ocr[i][1], time]
+                    res_all += [[result_ocr[i][1], time]]
+
             n_temp_result = len(temp_result)
-            print(f'temp_result: {temp_result}')
             print(f'result_ocr: {result_ocr}')
+            print(f'arr_distance: {arr_distance}')
+            print(f'temp_result: {temp_result}')
 
             if check_area(result_ocr, width_process_right):
                 if ''.join(temp_result[-6:]).count('*') != 0:
@@ -335,12 +320,13 @@ while cap.isOpened():
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             '''
             time += 1
+            print(f'news: {news}')
             print(f'temp_news: {temp_news}')
             print(f"time: {time}\n")
-            '''
-            if time == 450:
+        
+            if time == 512:
                 break
-            '''
+            
         iter += 1
     else:
         break
@@ -366,10 +352,10 @@ cap.release()
 # initiate dataframe
 df1 = pd.DataFrame(news)
 df2 = pd.DataFrame(' '.join(temp_news).split('* '))
-#df3 = pd.DataFrame(res_all)
+df3 = pd.DataFrame(res_all)
 # export to excel for debugging
-with pd.ExcelWriter('debug.xlsx') as writer:
+with pd.ExcelWriter(f'debug-{filename}.xlsx') as writer:
     df1.to_excel(writer, sheet_name='news')
     df2.to_excel(writer, sheet_name='temp_news')
-    #df3.to_excel(writer, sheet_name='result_ocr')
+    df3.to_excel(writer, sheet_name='result_ocr')
 
