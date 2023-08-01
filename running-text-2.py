@@ -1,18 +1,5 @@
 # KODE MAIN RUNNING-TEXT GESER
 
-# UNSOLVEDCASE1: kalo ketika mulai ada tiga elemen
-# UNSOLVEDCASE2: kalo kebanyakan mundur
-# UNSOLVEDCASE3: kebaca sama ocr tiga elemen padahal harusnya dua elemen 
-#    sehingga berpengaruh ke perhitungan bound box starttime
-# UNSOLVEDCASE4: elemennya kepisah dan tetep masuk news
-# UNSOLVEDCASE5: berita baru mulai tetapi belum ada running-text
-
-# SOLVED CASE: 
-# jika tiga kata pada news tdk sama dengan temp_news
-# double ** karena sebelum break sudah ada asterisk
-# boundnya pake count aja
-# time saat break belum ada
-
 import cv2
 import easyocr
 import torch
@@ -23,7 +10,6 @@ from datetime import datetime
 import os
 import config
 
-
 a = argparse.ArgumentParser(description='input data')
 a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
 a.add_argument("-v", "--video", required=True, help="Video path. Example: -v Videos/vidio-inews-long.mp4")
@@ -31,7 +17,6 @@ a.add_argument("-f", "--frame", required=True, help="frame of the channel. Examp
 args = a.parse_args()
 
 path = args.video
-
 cap = cv2.VideoCapture(f"{path}")
 
 # get video property
@@ -48,6 +33,7 @@ if frame_1 == 'inews' :
 elif frame_1 == 'mnctv' :
     height_process_top, height_process_bottom,  width_process_left, width_process_right = config.mnc(width, height)
 
+
 iter = 0
 frame_count = 0
 sec = 0
@@ -62,6 +48,7 @@ flag_timer_break = False # setelah break atau pertama kali
 flag_timer_prebreak = False # flag timer buat break itu sendiri
 flag_timer_prebreak_toggle = True
 flag_barumulai = True
+flag_check_iklan = False
 sec2 = 0
 counter = 0
 
@@ -76,11 +63,12 @@ while cap.isOpened():
         if (iter % ((fps))) == 0:
             # preprocessing
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame_3 = frame
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.2)
+            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.4,blocklist='.')
             print(result)
 
             # main processing
@@ -90,14 +78,24 @@ while cap.isOpened():
             print("arr distance: ",arr_distance)
             arr_bb_width = time_bbox(result)
             print("width of bound box: ",arr_bb_width)
-            
-            # (news[len(news)-1]!="#START#*")
 
+            # biar iklan pendek ga kebaca
+
+
+            acc_lbound = 100 # bisa diatur sesuai frame maks video
+            acc_rbound = 1000 # bisa diatur juga
+
+            # (news[len(news)-1]!="#START#*")
             if element==0:
                 #nambah pager dan flag_mulai=true
                 if (news[len(news)-1] != "#*"):
                     if (news[len(news)-1][-1] != "*"):
                         news[len(news)-1] += "*"
+
+                    # if flag_check_iklan==True:
+                    #     news.append("KEPOTONG*")
+                    #     flag_check_iklan=False
+
                     news.append("#*")
                     flag_mulai = True
                 print("\nTidak ada kalimat!")
@@ -107,27 +105,31 @@ while cap.isOpened():
                     flag_timer_prebreak = True
                     print("---flag timer prebreak is true---")
             else:
-                if flag_mulai == True:
-                    if element==2:
-                        temp_news = result[1][1]
+                top_mostleft = result[0][0][0][0]
+                top_mostright = result[-1][0][1][0]
+                print("top left and top right:", top_mostleft," ",top_mostright)
+                if top_mostleft<acc_lbound and top_mostright>acc_rbound:
+                    if flag_mulai == True:
+                        if element==2:
+                            temp_news = result[1][1]
 
-                        # flag_timer_prebreak_toggle=True
-                else:
-                    temp_news = result[0][1]
-                    if element > 1:
-                        for i in range(1, element):
-                            # disini taro if kalau bounding boxnya deket
-                            # if distance antar bounding box tidak deket do the line below
-                            # if arr_distance[i] < 25:
-                            #     temp_news += " " + result[i][1]
-                            #     if i == 1:
-                            #         idx_bound = 1
-                            # else:
-                            #     temp_news += "* " + result[i][1]
-                            temp_news += "* " + result[i][1]
-                temp_news = temp_news.split()
-                print("\ntemp_news:")
-                print(temp_news)
+                            # flag_timer_prebreak_toggle=True
+                    else:
+                        temp_news = result[0][1]
+                        if element > 1:
+                            for i in range(1, element):
+                                # disini taro if kalau bounding boxnya deket
+                                # if distance antar bounding box tidak deket do the line below
+                                # if arr_distance[i] < 25:
+                                #     temp_news += " " + result[i][1]
+                                #     if i == 1:
+                                #         idx_bound = 1
+                                # else:
+                                #     temp_news += "* " + result[i][1]
+                                temp_news += "* " + result[i][1]
+                    temp_news = temp_news.split()
+                    print("\ntemp_news:")
+                    print(temp_news)
 
             len_temp = len(temp_news)
             if len_temp>5:
@@ -143,38 +145,82 @@ while cap.isOpened():
                     flag_timer_break = True
                     print("---flag timer break is true---")
                 else:
+                    idx_same = 1
+                    count_same=0
+                    while True:
+                        #print(news[-idx_same:])
+                        for z in range(len(temp_news)):
+                            if sm(None, "".join(news[-idx_same:]), "".join(temp_news[z:z+idx_same])).ratio() >= 0.92:
+                                #print("YES")
+                                count_same+=1
+                                
+                        if count_same>1:
+                            idx_same+=1
+                            #print(idx_same)
+                            count_same=0
+                        else:
+                            break
+                    n=idx_same
                     i=0
-                    j=3
+                    j=n
+                    print("news ke -n:",news[-n:])
+                    
                     while(True):
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
-                        if sm(None, " ".join(news[-3:]), " ".join(temp_news[i:j])).ratio() >= 0.915:
+                        if sm(None, "".join(news[-n:]), "".join(temp_news[i:j])).ratio() >= 0.91:
+                            # perlu dicek apakah ada kata pada temp_news yang memiliki * sedangkan pada news tidak punya
+                            temp_check = temp_news[i:j]
+                            #temp_check2 = news[-3:]
+                            #print(temp_check)
+                            for k in range (len(temp_check)):
+                                #print(kata)
+                                if temp_check[k][-1]=="*":
+                                    news=news[:-n]
+                                    #print(news)
+                                    news+=temp_check
+                                    #print("THERE IS")
                             news += temp_news[j:]
+                            #print("YES")
                             break
                         i += 1
                         j += 1
                         if j>len_temp:
-                            news=news[-3:]
+                            print("YESSS")
+                            news = news[:-1]
+                            # if news[-1][-1]=="*":
+                            #     flag_check_iklan = True
+                            #     print("---FLAG CHECK ADA IKLAN IS TRUE---")
                             break
-                
+
                     # normal timestamp extraction
                     # arr_bb_width, time, arr_start
-                    if len(arr_bb_width)>1:
-                        if arr_bb_width[-1]<300: #and arr_bb_width[-1]>100
-                            if counter>4:
+                    # if len(arr_bb_width)>1:
+                    #     if arr_bb_width[-1]<400 and arr_bb_width[-1]>100:
+                    #         if counter>4:
+                    #             flag_timer = True
+                    #             print("---flag timer is true---")
+                    # using asterisk instead:
+                    temp_start = "".join(temp_news[-4:-1])
+                    print("temp_start:",temp_start)
+                    for huruf in temp_start:
+                        if huruf=="*":
+                            if counter>6:
                                 flag_timer = True
                                 print("---flag timer is true---")
 
-                    
+
+
                 if (len(news)>20):
                     print("\nnews:")
-                    print(news[-15:])
+                    news2=news
+                    print(news2[-15:])
 
             sec += 1
             print("time:",sec)
             print("counter starttime:",counter)
-            
-            # if sec>3700:
+
+            # if sec>3170:
             #     break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
@@ -189,22 +235,22 @@ while cap.isOpened():
                     flag_timer_prebreak=False
                     counter = 0
 
-                
 
-            
+
+
             counter += 1
-            
+
             print("starttime: ",arr_start)
             print("\n--------\n")
             # show video
             # cv2.imshow("frame", frame_2)
             # key = cv2.waitKey(10)
 
-            frame_count += 1
+            # frame_count += 1
             # if frame_count>3600:
-            #     cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
-            
-            
+            # cv2.imwrite(f'frame_{frame_count}.jpg', frame_3)
+
+
         iter += 1
     else:
         break
@@ -223,13 +269,6 @@ for i in range(len(arr_end)):
     if i!=0:
         arr_end[i] += 9
 arr_end.append(last_time)
-
-#ubah ke format time stamp
-# for i in range (len(arr_start)):
-#     arr_start[i] = converttimestamp(arr_start[i])
-
-# for i in range (len(arr_end)):
-#     arr_end[i] = converttimestamp(arr_end[i])
 
 print("news:",news)
 print("arr start:",arr_start)
@@ -253,7 +292,7 @@ for i in range(panjang_news):
         arr_text[jml_berita] += temp_word
     else:
         arr_text[jml_berita] += " " + temp_word
-        
+
     if ada_titik:
         print("jml berita: ", jml_berita)
         jml_berita += 1
@@ -268,7 +307,7 @@ for i in range(len(arr_text)):
         if i != j:
             if arr_text[i] == arr_text[j]:
                 arr_repetition[i] += 1
-    
+
     #print(arr_repetition)
 
 for i in range(len(arr_text)):
@@ -307,6 +346,3 @@ else :
     with open(filename,'a', newline='') as f :
         json.dump(input_json, f, indent=3)
     f.close()
-
-
-
