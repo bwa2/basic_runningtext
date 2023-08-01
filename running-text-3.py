@@ -69,8 +69,7 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            #result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.4,blocklist='.')
-            result = reader.readtext(frame_2,mag_ratio=1.4,blocklist='.')
+            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.4,blocklist='.')
             print(result)
 
             # main processing
@@ -122,13 +121,13 @@ while cap.isOpened():
                             for i in range(1, element):
                                 # disini taro if kalau bounding boxnya deket
                                 # if distance antar bounding box tidak deket do the line below
-                                if arr_distance[i] < 25:
-                                    temp_news += " " + result[i][1]
-                                    if i == 1:
-                                        idx_bound = 1
-                                else:
-                                    temp_news += "* " + result[i][1]
-                                # temp_news += "* " + result[i][1]
+                                # if arr_distance[i] < 25:
+                                #     temp_news += " " + result[i][1]
+                                #     if i == 1:
+                                #         idx_bound = 1
+                                # else:
+                                #     temp_news += "* " + result[i][1]
+                                temp_news += "* " + result[i][1]
                     temp_news = temp_news.split()
                     print("\ntemp_news:")
                     print(temp_news)
@@ -153,7 +152,19 @@ while cap.isOpened():
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
                         if sm(None, "".join(news[-3:]), "".join(temp_news[i:j])).ratio() >= 0.91:
+                            # perlu dicek apakah ada kata pada temp_news yang memiliki * sedangkan pada news tidak punya
+                            temp_check = temp_news[i:j]
+                            #temp_check2 = news[-3:]
+                            print(temp_check)
+                            for i in range (len(temp_check)):
+                                #print(kata)
+                                if temp_check[i][-1]=="*":
+                                    news=news[:-3]
+                                    print(news)
+                                    news+=temp_check
+                                    #print("THERE IS")
                             news += temp_news[j:]
+                            #print("YES")
                             break
                         i += 1
                         j += 1
