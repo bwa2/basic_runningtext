@@ -146,7 +146,21 @@ while cap.isOpened():
                     flag_timer_break = True
                     print("---flag timer break is true---")
                 else:
-                    idx_same = find_duplicate(temp_news,news)
+                    idx_same = 1
+                    count_same=0
+                    while True:
+                        #print(news[-idx_same:])
+                        for z in range(len(temp_news)):
+                            if sm(None, "".join(news[-idx_same:]), "".join(temp_news[z:z+idx_same])).ratio() >= 0.92:
+                                #print("YES")
+                                count_same+=1
+                                
+                        if count_same>1:
+                            idx_same+=1
+                            #print(idx_same)
+                            count_same=0
+                        else:
+                            break
                     n=idx_same
                     i=0
                     j=n
