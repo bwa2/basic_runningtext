@@ -164,7 +164,7 @@ while cap.isOpened():
                             for i in range (len(temp_check)):
                                 #print(kata)
                                 if temp_check[i][-1]=="*":
-                                    news=news[:-3]
+                                    news=news[:-n]
                                     #print(news)
                                     news+=temp_check
                                     #print("THERE IS")
