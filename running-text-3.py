@@ -21,7 +21,7 @@ from utils import *
 
 
 
-cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-7juli.mp4")
+cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-24juli.mp4")
 #cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
@@ -69,7 +69,8 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.5,blocklist='.')
+            #result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.4,blocklist='.')
+            result = reader.readtext(frame_2,mag_ratio=1.4,blocklist='.')
             print(result)
 
             # main processing
@@ -121,13 +122,13 @@ while cap.isOpened():
                             for i in range(1, element):
                                 # disini taro if kalau bounding boxnya deket
                                 # if distance antar bounding box tidak deket do the line below
-                                # if arr_distance[i] < 25:
-                                #     temp_news += " " + result[i][1]
-                                #     if i == 1:
-                                #         idx_bound = 1
-                                # else:
-                                #     temp_news += "* " + result[i][1]
-                                temp_news += "* " + result[i][1]
+                                if arr_distance[i] < 25:
+                                    temp_news += " " + result[i][1]
+                                    if i == 1:
+                                        idx_bound = 1
+                                else:
+                                    temp_news += "* " + result[i][1]
+                                # temp_news += "* " + result[i][1]
                     temp_news = temp_news.split()
                     print("\ntemp_news:")
                     print(temp_news)
@@ -171,11 +172,11 @@ while cap.isOpened():
                     #             flag_timer = True
                     #             print("---flag timer is true---")
                     # using asterisk instead:
-                    temp_start = "".join(news[-4:-1])
+                    temp_start = "".join(temp_news[-4:-1])
                     print("temp_start:",temp_start)
                     for huruf in temp_start:
                         if huruf=="*":
-                            if counter>4:
+                            if counter>6:
                                 flag_timer = True
                                 print("---flag timer is true---")
 
@@ -190,8 +191,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
 
-            # if sec>3650:
-            #     break
+            if sec>3170:
+                break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
@@ -309,6 +310,6 @@ for i in range(jml_berita):
     if(i != jml_berita-1):
         input_json.append({})
 
-with open("cobatime-sejam7juli3.json", "w") as f:
+with open("1.json", "w") as f:
     json.dump(input_json,f, indent=3)
 f.close()
