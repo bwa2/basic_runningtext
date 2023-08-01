@@ -84,7 +84,7 @@ while cap.isOpened():
 
 
             acc_lbound = 100 # bisa diatur sesuai frame maks video
-            acc_rbound = 500 # bisa diatur juga
+            acc_rbound = 1000 # bisa diatur juga
 
             # (news[len(news)-1]!="#START#*")
             if element==0:
