@@ -21,8 +21,8 @@ from utils import *
 
 
 
-cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-24juli.mp4")
-#cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
+#cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-24juli.mp4")
+cap = cv2.VideoCapture("Videos/videosejam-720p2.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -146,12 +146,8 @@ while cap.isOpened():
                     flag_timer_break = True
                     print("---flag timer break is true---")
                 else:
-                    idx_same = 0
-                    for kata in temp_news:
-                        if sm(None, "".join(news[-1]), "".join(kata)).ratio() >= 0.9:
-                            idx_same+=1
+                    idx_same = find_duplicate(temp_news,news)
                     n=idx_same
-                    i=0
                     j=n
                     while(True):
                         # print(" ".join(news[-3:]))
@@ -161,9 +157,9 @@ while cap.isOpened():
                             temp_check = temp_news[i:j]
                             #temp_check2 = news[-3:]
                             #print(temp_check)
-                            for i in range (len(temp_check)):
+                            for k in range (len(temp_check)):
                                 #print(kata)
-                                if temp_check[i][-1]=="*":
+                                if temp_check[k][-1]=="*":
                                     news=news[:-n]
                                     #print(news)
                                     news+=temp_check
