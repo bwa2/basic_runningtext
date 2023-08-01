@@ -254,20 +254,19 @@ def converttimestamp(sec):
     str_sec = str(timedelta(seconds=sec))
     return str_sec
 
-def find_duplicate(temp,news):
+def find_duplicate(temp_news,news):
     idx_same = 1
-    count=0
+    count_same=0
     while True:
-        print(news[-idx_same:])
-        for i in range(len(temp)):
-            if sm(None, "".join(news[-idx_same:]), "".join(temp[i:i+idx_same])).ratio() >= 0.92:
-                print("YES")
-                count+=1
+        #print(news[-idx_same:])
+        for z in range(len(temp_news)):
+            if sm(None, "".join(news[-idx_same:]), "".join(temp_news[z:z+idx_same])).ratio() >= 0.92:
+                #print("YES")
+                count_same+=1
                 
-        if count>1:
+        if count_same>1:
             idx_same+=1
-            print(idx_same)
-            count=0
+            #print(idx_same)
+            count_same=0
         else:
             break
-    return idx_same

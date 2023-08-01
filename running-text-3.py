@@ -84,7 +84,7 @@ while cap.isOpened():
 
 
             acc_lbound = 100 # bisa diatur sesuai frame maks video
-            acc_rbound = 1000 # bisa diatur juga
+            acc_rbound = 500 # bisa diatur juga
 
             # (news[len(news)-1]!="#START#*")
             if element==0:
@@ -148,7 +148,10 @@ while cap.isOpened():
                 else:
                     idx_same = find_duplicate(temp_news,news)
                     n=idx_same
+                    i=0
                     j=n
+                    print("news ke -n:",news[-n:])
+                    
                     while(True):
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
@@ -170,6 +173,7 @@ while cap.isOpened():
                         i += 1
                         j += 1
                         if j>len_temp:
+                            print("YESSS")
                             news = news[:-1]
                             # if news[-1][-1]=="*":
                             #     flag_check_iklan = True
