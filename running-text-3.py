@@ -146,21 +146,26 @@ while cap.isOpened():
                     flag_timer_break = True
                     print("---flag timer break is true---")
                 else:
+                    idx_same = 0
+                    for kata in temp_news:
+                        if sm(None, "".join(news[-1]), "".join(kata)).ratio() >= 0.9:
+                            idx_same+=1
+                    n=idx_same
                     i=0
-                    j=3
+                    j=n
                     while(True):
                         # print(" ".join(news[-3:]))
                         # print(" ".join(temp_news))
-                        if sm(None, "".join(news[-3:]), "".join(temp_news[i:j])).ratio() >= 0.91:
+                        if sm(None, "".join(news[-n:]), "".join(temp_news[i:j])).ratio() >= 0.91:
                             # perlu dicek apakah ada kata pada temp_news yang memiliki * sedangkan pada news tidak punya
                             temp_check = temp_news[i:j]
                             #temp_check2 = news[-3:]
-                            print(temp_check)
+                            #print(temp_check)
                             for i in range (len(temp_check)):
                                 #print(kata)
                                 if temp_check[i][-1]=="*":
                                     news=news[:-3]
-                                    print(news)
+                                    #print(news)
                                     news+=temp_check
                                     #print("THERE IS")
                             news += temp_news[j:]
@@ -202,8 +207,8 @@ while cap.isOpened():
             print("time:",sec)
             print("counter starttime:",counter)
 
-            if sec>3170:
-                break
+            # if sec>3170:
+            #     break
 
             if (flag_timer==True) or (flag_timer_break==True) or (flag_timer_prebreak==True):
                 arr_start.append(sec)
