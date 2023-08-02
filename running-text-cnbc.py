@@ -9,7 +9,7 @@ from utils import *
 
 
 #cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-24juli.mp4")
-cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
+cap = cv2.VideoCapture("Videos/video-cnbc-10sec.flv")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -28,12 +28,13 @@ sec = 0
 
 flag_mulai = True
 
-
-temp_result = ""
+temp_result_atas = ""
+temp_result_bawah = ""
 temp_news = ["#&"]
 
 reader = easyocr.Reader(['id'], gpu=True)
 
+result_diff = []
 while cap.isOpened():
     ret, frame = cap.read()
     if ret:
@@ -52,8 +53,22 @@ while cap.isOpened():
 
             # ocr
             result = reader.readtext(frame_2,mag_ratio=1.3)
-            print(result)
             
+            indeks = 0
+            while indeks < len(result):
+                if result[indeks][0][2][1] > 50:
+                    result_diff.append(result.pop(indeks))
+                else:
+                    indeks += 1
+
+            # for i in range (len(result)) :
+            #     temp_result_1 += " " + result[i][1]
+            
+            # for i in range (len(result_diff)) :
+            #     temp_result_2 += " " + result_diff[i][1]
+
+            # print("temp_news 1:",temp_result_1)
+            # print("temp_news 2:",temp_result_2)
             temp_result = result[-2][1]
             
             if sm(None, "".join(temp_news[-1]), "".join(temp_result)).ratio() < 0.85:
@@ -61,13 +76,10 @@ while cap.isOpened():
 
             if temp_news[-1][-1]==")":
                 temp_news[-1] += "&"
-
-
             print("temp_news:",temp_news)
             arr_distance, frame_2 = bounding_box(result,frame_2)
             print("arr distance: ",arr_distance)
             print("----------------")
-
 
             frame_count += 1
             # if frame_count>3600:
