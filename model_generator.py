@@ -24,19 +24,19 @@ val_datagen = ImageDataGenerator(
 
 train_gen = train_datagen.flow_from_directory(
                   train_dir,  # direktori data latih
-                  target_size=(1920, 1080),  # 640x360 karena video resolusi 16:9
+                  target_size=(300, 300),  # 640x360 karena video resolusi 16:9
                   batch_size=32,      # batch akan mengambil 32 gambar sekli epoch
                   class_mode='categorical')
 
 val_gen = val_datagen.flow_from_directory(
                   val_dir,  # direktori data validasi
-                  target_size=(1920, 1080),  # 640x360 karena video resolusi 16:9
+                  target_size=(300, 300),  # 640x360 karena video resolusi 16:9
                   batch_size=32,    # semakin besar batch, semakin cepat program berjalan, namun semakin rendah akurasi
                   class_mode='categorical')
 
 model = tf.keras.models.Sequential([
     # layer 1
-    tf.keras.layers.Conv2D(32, (3,3), activation='relu',padding="same", input_shape=(1920,1080,3)),
+    tf.keras.layers.Conv2D(32, (3,3), activation='relu',padding="same", input_shape=(300,300,3)),
     tf.keras.layers.MaxPooling2D(2, 2),
     # layer 2
     tf.keras.layers.Conv2D(64, (3,3), activation='relu',padding="same"),
