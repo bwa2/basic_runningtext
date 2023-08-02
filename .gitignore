@@ -1,12 +1,16 @@
 Videos/
 
-cobatime2.json
-running-text.py
-cobatime2.json
-running-text.py
-frame_2.jpg
-Hasil/
-INEWS-2023-07-27.json
-INEWS-2023-07-28.json
-__pycache__/
-config_try.py
+
+
+*.mp4
+*.jpg
+*.json
+
+coba.py
+test.py
+
+
+ssh-info.txt
+
+ __pycache__/
+

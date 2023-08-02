@@ -117,7 +117,7 @@ def bounding_box(result,frame_2):
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
-        cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        #cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
         count_2 += 1
         arr_bx.append(bx)
         arr_tx.append(tx)
@@ -253,3 +253,20 @@ def converttimestamp(sec):
 
     str_sec = str(timedelta(seconds=sec))
     return str_sec
+
+def find_duplicate(temp_news,news):
+    idx_same = 1
+    count_same=0
+    while True:
+        #print(news[-idx_same:])
+        for z in range(len(temp_news)):
+            if sm(None, "".join(news[-idx_same:]), "".join(temp_news[z:z+idx_same])).ratio() >= 0.92:
+                #print("YES")
+                count_same+=1
+                
+        if count_same>1:
+            idx_same+=1
+            #print(idx_same)
+            count_same=0
+        else:
+            break

@@ -1,0 +1,5 @@
+print(len(news))
+# temp = "".join(temp)
+# news = "".join(news)
+# print(temp)
+# print(news)
