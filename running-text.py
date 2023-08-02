@@ -88,8 +88,6 @@ while cap.isOpened():
             print("width of bound box: ",arr_bb_width)
 
             # biar iklan pendek ga kebaca
-
-
             acc_lbound = 100 # bisa diatur sesuai frame maks video
             acc_rbound = 1000 # bisa diatur juga
 

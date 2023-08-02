@@ -1,3 +1,3 @@
-ount += 1
-            # # if frame_count>3600:
-            # cv2.im
+
+            # for i in range (len(result_diff)) :
+            #     temp_result_bawah += " " + re

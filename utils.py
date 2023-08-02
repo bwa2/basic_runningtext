@@ -126,6 +126,7 @@ def bounding_box(result,frame_2):
             arr_bx_arr.append(arr_bx[i])
             arr_tx_arr.append(arr_tx[i+1])
 
+    print(arr_tx_arr,arr_bx_arr)
     if (len(arr_tx_arr)) == 1:
         distance = arr_tx_arr[0] - arr_bx_arr[0]
         print("jarak drawing bound : ",distance)
