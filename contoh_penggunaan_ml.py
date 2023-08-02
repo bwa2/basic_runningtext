@@ -1,3 +1,8 @@
+# CARA PENGGUNAAN
+# Download terlebih dahulu model di https://drive.google.com/file/d/1wapNSst2IlPui8HIki7PWYkfGWW7Nmc5/view?usp=sharing
+# jangan lupa install tensorflow, numpy, dan
+# pip install pyyaml h5py  (untuk mengakses model .h5)
+
 import cv2
 import tensorflow as tf
 import os
@@ -10,7 +15,7 @@ iter = 0
 
 cap = cv2.VideoCapture('cek-iklan2-inews.mp4')
 
-# mengimport file model yang ada di gdrive https://drive.google.com/file/d/1wapNSst2IlPui8HIki7PWYkfGWW7Nmc5/view?usp=sharing
+# mengimport file model yang ada di gdrive 
 model = tf.keras.models.load_model('modelv2.h5')
 
 while cap.isOpened():
