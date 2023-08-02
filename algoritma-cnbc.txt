@@ -1,0 +1,10 @@
+open cv mulai capture
+diambil per sedetik
+easyocr membaca layar dan mengeluarkan result
+dibuat temp_result dan temp_news
+temp_result=result[-2][1], elemen kedua dari akhir
+if temp_news[-1]==temp_result
+    continue atau diskip
+else
+    temp_result dimasukkan ke array temp_news
+    temp_news += " " + temp_result
