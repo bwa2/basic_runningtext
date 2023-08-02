@@ -35,7 +35,6 @@ while cap.isOpened():
             # mengekstrak hasil prediksi
             if classes[0][0] == 1:
                 print("IKLAN")
-                detik_iklan.append(detik)
             elif classes[0][1] == 1:
                 print("INEWS")
                 
