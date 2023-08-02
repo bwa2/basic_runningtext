@@ -1,7 +1,9 @@
 # KODE MAIN RUNNING-TEXT GESER
 
 #UNSOLVED: EASYOCR NGELUARIN RESULT GA BERURUTAN AKIBAT MENGGUNAKAN PARAGRAPH=True
+#UNSOLVED2: semua yang masuk if sm..>0.91 harus di uppercase dulu
 
+#UNDONE: testing kalau threshold easyocr 0.6
 
 import cv2
 import easyocr
@@ -71,7 +73,7 @@ while cap.isOpened():
                               width_process_left:width_process_right]
 
             # ocr
-            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.4,blocklist='.')
+            result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.4,blocklist='.',low_text=0.6)
             print(result)
 
             # main processing
@@ -123,13 +125,13 @@ while cap.isOpened():
                             for i in range(1, element):
                                 # disini taro if kalau bounding boxnya deket
                                 # if distance antar bounding box tidak deket do the line below
-                                # if arr_distance[i] < 25:
-                                #     temp_news += " " + result[i][1]
-                                #     if i == 1:
-                                #         idx_bound = 1
-                                # else:
-                                #     temp_news += "* " + result[i][1]
-                                temp_news += "* " + result[i][1]
+                                if arr_distance[i] < 35:
+                                    temp_news += " " + result[i][1]
+                                    if i == 1:
+                                        idx_bound = 1
+                                else:
+                                    temp_news += "* " + result[i][1]
+                                #temp_news += "* " + result[i][1]
                     temp_news = temp_news.split()
                     print("\ntemp_news:")
                     print(temp_news)
