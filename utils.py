@@ -122,9 +122,9 @@ def bounding_box(result,frame_2):
         arr_bx.append(bx)
         arr_tx.append(tx)
 
-        for i in range(count_2-1):
-            arr_bx_arr.append(arr_bx[i])
-            arr_tx_arr.append(arr_tx[i+1])
+    for i in range(count_2-1):
+        arr_bx_arr.append(arr_bx[i])
+        arr_tx_arr.append(arr_tx[i+1])
 
     print(arr_tx_arr,arr_bx_arr)
     if (len(arr_tx_arr)) == 1:
