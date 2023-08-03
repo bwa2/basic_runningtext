@@ -103,7 +103,7 @@ while cap.isOpened():
             
 
             print("temp news bawah:",temp_news_bawah)
-            print("----------------")
+            
 
             frame_count += 1
             # if frame_count>3600:
@@ -112,6 +112,7 @@ while cap.isOpened():
             if sec>600:
                 break
             print("sec:",sec)
+            print("----------------")
         iter += 1
     else:
         break
