@@ -74,8 +74,9 @@ while cap.isOpened():
             
 
             # ini untuk jarak antar boundbox
-            result_diff, arr_distance = distance_bbox(result_diff)
-            print("arr distance: ",arr_distance)
+            if len(result_diff) != 0:
+                result_diff, arr_distance = distance_bbox(result_diff)
+                print("arr distance: ",arr_distance)
             # print(result_diff)
             frame_2 = bounding_box(result_diff,frame_2)
             
@@ -105,9 +106,9 @@ while cap.isOpened():
             print("temp news bawah:",temp_news_bawah)
             
 
-            frame_count += 1
+            # frame_count += 1
             # if frame_count>3600:
-            cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
+            # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
             if sec>600:
                 break
