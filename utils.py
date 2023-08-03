@@ -3,65 +3,6 @@ import json
 from difflib import SequenceMatcher as sm
 from datetime import timedelta
 
-def find_idx(news, temp_news):
-    len_temp_news = len(temp_news)
-    idx = 0
-    f_match = True
-    while idx < len_temp_news and f_match:
-        if news == temp_news[idx]:
-            f_match = False
-            return idx
-        idx += 1
-
-    print(idx)
-    return idx
-
-
-def find_sentence(temp_news, n_sentence):
-    f_asterisk = 0
-    n_temp_news = len(temp_news)
-    idx_temp_news = n_temp_news - 1
-    sentence = []
-
-    i = 0
-    while (f_asterisk < n_sentence and idx_temp_news > -1):
-        if temp_news[idx_temp_news][len(temp_news[idx_temp_news])-1] == "*":
-            f_asterisk += 1
-
-        if f_asterisk > 0 and f_asterisk < n_sentence:
-            sentence.insert(0, temp_news[idx_temp_news])
-        idx_temp_news -= 1
-
-    yolo = ["" for i in range(n_sentence-1)]
-    idx_yolo = 0
-    for i in range(len(sentence)):
-        yolo[idx_yolo] += sentence[i] + " "
-
-        if sentence[i][len(sentence[i])-1] == "*":
-            yolo[idx_yolo] = yolo[idx_yolo][:-2]
-            idx_yolo += 1
-
-    return yolo
-
-
-def add_element(elm, n_elm):
-    elm.append(["", 0, 0, 0])
-    n_elm += 1
-    return elm, n_elm
-
-
-def last_temp(temp):
-    n_temp = len(temp)
-    result = []
-    found = False
-    while (n_temp > 0 and found == False):
-        if temp[n_temp-1][len(temp[n_temp-1])-1] == "*":
-            found = True
-        else:
-            result.insert(0, temp[n_temp-1])
-        n_temp -= 1
-    return result
-
 
 def time_bbox(result):
     count_2 = 0
@@ -137,37 +78,6 @@ def bounding_box(result,frame_2):
                 print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
     return arr_distance, frame_2
-
-
-def find_asterisk(str):
-    asterisk = False
-    n_str = len(str)
-    i = 0
-
-    while i < n_str and asterisk == False:
-        if str[i] == "*":
-            asterisk = True
-
-        i += 1
-    return asterisk
-
-
-def find_same(str_1, str_2):
-    n = 2
-    len_str_2 = len(str_2)
-    match = True
-    while n < 4 and match:
-        i = 0
-        while i < len_str_2-n:
-            if str_1[-n:] == str_2[i:i+n]:
-                n += 1
-            i += 1
-
-        if i == len_str_2-n:
-            match = False
-
-    return n
-
 
 def cetak_json(news):
     input_json = []
@@ -253,20 +163,3 @@ def converttimestamp(sec):
 
     str_sec = str(timedelta(seconds=sec))
     return str_sec
-
-def find_duplicate(temp_news,news):
-    idx_same = 1
-    count_same=0
-    while True:
-        #print(news[-idx_same:])
-        for z in range(len(temp_news)):
-            if sm(None, "".join(news[-idx_same:]), "".join(temp_news[z:z+idx_same])).ratio() >= 0.92:
-                #print("YES")
-                count_same+=1
-                
-        if count_same>1:
-            idx_same+=1
-            #print(idx_same)
-            count_same=0
-        else:
-            break
