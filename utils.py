@@ -14,7 +14,7 @@ def distance_bbox(result):
         distance = result[i+1][0][3][0] - result[i][0][2][0]
         arr.append(distance)
         # print(arr)
-        if distance < 16:
+        if distance < 10:
             temp1 = result[i][1]
             temp1 = temp1.split()
             temp2 = result[i+1][1]

@@ -111,6 +111,7 @@ while cap.isOpened():
             sec+=1
             if sec>600:
                 break
+            print("sec:",sec)
         iter += 1
     else:
         break
