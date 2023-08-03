@@ -303,30 +303,13 @@ print("news:",news)
 print("arr start:",arr_start)
 print("arr end:",arr_end)
 
-
+# OUTPUTTING
 # buat misahin per berita
-panjang_news = len(news)
-arr_text = ['']
-jml_berita = 0
-ada_titik = False
-for i in range(panjang_news):
-    temp_word = news[i]
-    for j in range(len(temp_word)):
-        if temp_word[j] == '*':
-            ada_titik = True
-            temp_word = temp_word[0:i]
-        else:
-            ada_titik = False
-    if arr_text == ['']:
-        arr_text[jml_berita] += temp_word
-    else:
-        arr_text[jml_berita] += " " + temp_word
-
-    if ada_titik:
-        print("jml berita: ", jml_berita)
-        jml_berita += 1
-        arr_text.append('')
-jml_berita += 1
+arr_text = []
+news = " ".join(news)
+arr_text = news.split("*")
+if len(arr_text[-1])==0:
+    arr_text = arr_text[:-1]
 
 # cek repitisi
 arr_repetition = []
@@ -348,17 +331,17 @@ for i in range(len(arr_start)):
 print("\nrepeat: ",arr_repetition)
 
 # print("\nberita:",arr_text)
-print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
+print("\njumlah berita:", len(arr_text), "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
 
 
 # masukin ke json
 input_json = [{}]
 
-for i in range(jml_berita):
+for i in range(len(arr_text)):
     temp_json = {"text": arr_text[i],"start time": converttimestamp(arr_start[i]), "end time": converttimestamp(arr_end[i]), "duration": arr_end[i] - arr_start[i],"repeat": arr_repetition[i] }
     input_json[i] = temp_json
     #print(input_json)
-    if(i != jml_berita-1):
+    if(i != len(arr_text)-1):
         input_json.append({})
 
 channel_folders = {
