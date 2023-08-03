@@ -18,106 +18,122 @@
 # print("Array sumber setelah dipindahkan:", array_sumber)
 # print("Array tujuan:", array_tujuan[0])
 
-# KODE MAIN RUNNING-TEXT GESER CNBC
-
 import cv2
 import easyocr
 import torch
-from difflib import SequenceMatcher as sm
-from utils import *
+import json
+import numpy as np
 
 
 
-#cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-24juli.mp4")
-cap = cv2.VideoCapture("Videos/3mnt-cnbc-cut.mp4")
+
+cap = cv2.VideoCapture('Videos/vidio-inews-tv.mkv')
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# preprocess
-height_process_top = round((23.5 / 27) * height)
-height_process_bottom = round((25 / 27) * height) #26.5
-width_process_left = round((1/7.6) * width)
-width_process_right = round((6.2/7.6) * width)
-
 iter = 0
 frame_count = 0
-sec = 0
-
-flag_mulai = True
-
-temp_result_atas = ""
-temp_result_bawah = ""
-temp_news = ["#&"]
-
-reader = easyocr.Reader(['id'], gpu=True)
-
-result_diff = []
+news = []
 while cap.isOpened():
     ret, frame = cap.read()
     if ret:
 
-        if (iter % ((fps))) == 0:
-            # preprocessing
+        if (iter % (7*fps)) == 0:
+
+            # preprocess
+            height_process_top = round((24.5 / 27) * height)
+            height_process_bottom = round((26 / 27) * height)
+            width_process_left = round((1.25999/7.6) * width)
+            width_process_right = round((7.6/7.6) * width)
+
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
 
-            # preprocessing tambahan
-            # frame_2 = cv2.GaussianBlur(frame_2,(5,5),0)
-            # #img = cv2.medianBlur(img, 3)
-            # a, frame_2 = cv2.threshold(frame_2, 120, 255, cv2.THRESH_BINARY)
-            # frame_2 = cv2.fastNlMeansDenoisingColored(frame_2, None, 10, 10, 7, 15)    
-
             # ocr
-            result = reader.readtext(frame_2,mag_ratio=1.3)
-            
-            print(result)
-            # indeks = 0
-            # while indeks < len(result):
-            #     if result[indeks][0][2][1] > 50:
-            #         result_diff.append(result.pop(indeks))
-            #     else:
-            #         indeks += 1
+            reader = easyocr.Reader(['id'], gpu=False)
+            result = reader.readtext(frame_2)
 
-            # for i in range (len(result)) :
-            #     temp_result_1 += " " + result[i][1]
-            
-            # for i in range (len(result_diff)) :
-            #     temp_result_2 += " " + result_diff[i][1]
 
-            # print("temp_news 1:",temp_result_1)
-            # print("temp_news 2:",temp_result_2)
-            # temp_result = result[-2][1]
-            
-            # if sm(None, "".join(temp_news[-1]), "".join(temp_result)).ratio() < 0.85:
-            #     temp_news.append(temp_result)
+            #
+            element = len(result)
+            temp_news = ""
 
-            # if temp_news[-1][-1]==")":
-            #     temp_news[-1] += "&"
-            # print("temp_news:",temp_news)
-            # arr_distance, frame_2 = bounding_box(result,frame_2)
-            # print("arr distance: ",arr_distance)
-            # print("----------------")
+            if element == 0:
+                print("Tidak ada kalimat!")
+            else:
+                temp_news = result[0][1]
+                if element > 1:
+                    for i in range(1, element):
+                        box1 = result[0][1]
+                        box2 = result[1][1]
+
+                        temp_news += "* " + result[i][1]
+                     
+
+                temp_news = temp_news.split()
+                print("\ntemp_news:")
+                print(temp_news)
+
+            temp_news = temp_news[:-1]
+            len_temp = len(temp_news)
+            if len(news) == 0:
+                news = temp_news
+            else:
+                i = 1
+                while (i):
+                    if news[-1:] == temp_news[0:1]:
+                        news += temp_news[1:]
+                        i = 0
+                    else:
+                        temp_news = temp_news[1:]
+                        i=1
+                    
+            print("\nnews:")
+            print(news)
+
+            count = 0
+            arr_tx = []
+            arr_bx = []
+            arr_bx_arr = []
+            arr_tx_arr = []
+            # show video
+            for (coord, text, prob) in result:
+                (topleft, topright, bottomright, bottofleft) = coord
+                tx, ty = (int(topleft[0]), int(topleft[1]))
+                bx, by = (int(bottomright[0]), int(bottomright[1]))
+                cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+                count += 1
+                arr_bx.append(bx)
+                arr_tx.append(tx)
+
+                for i in range (count-1) :
+                    arr_bx_arr.append(arr_bx[i])
+                    arr_tx_arr.append(arr_tx [i+1])
+            
+            print (arr_bx_arr, arr_tx_arr)
+
+            if (len(arr_tx_arr)) == 1 :
+                distance = arr_tx_arr[0] - arr_bx_arr[0]
+                print(f"jarak drawing bound : {distance}")
+            elif (len(arr_tx_arr)) > 1 :
+                for j in range (len(arr_tx_arr)) :
+                    if j != 0 :
+                        distance = arr_tx_arr[j] - arr_bx_arr[j]
+                        print(f"jarak drawing bound ke -{j} : {distance}")
+
+
+        
 
             frame_count += 1
-            # if frame_count>3600:
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
-            sec+=1
-            if sec>15:
-                break
+
         iter += 1
     else:
         break
 
 cap.release()
-# cv2.destroyAllWindows()
-
-# buat misahin per berita
-news = " ".join(temp_news)
-news = news.split("&")
-if len(news[-1])==0:
-    news = news[:-1]
-print(news)
+cv2.destroyAllWindows()
