@@ -8,8 +8,8 @@ from utils import *
 
 
 
-#cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-24juli.mp4")
-cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
+cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-duel2021.mp4")
+#cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
@@ -54,56 +54,59 @@ while cap.isOpened():
 
             # ocr
             result = reader.readtext(frame_2,mag_ratio=1.3)
-            result_diff = []
-            indeks = 0
-            # ini untuk pisah teks yang atas dan teks yang bawah
-            while indeks < len(result):
-                if result[indeks][0][2][1] > 60:
-                    result_diff.append(result.pop(indeks))
-                else:
-                    indeks += 1
-            
-            # ini untuk ketinggian
-            diff = 0
-            while diff < len(result_diff) :
-                if result_diff[diff][0][2][1] - result_diff[diff][0][1][1] < 30:
-                    result_diff.pop(diff)
-                else:
-                    diff += 1
+            element = len(result)
 
-            
+            if element!=0:
+                result_diff = []
+                indeks = 0
+                # ini untuk pisah teks yang atas dan teks yang bawah
+                while indeks < len(result):
+                    if result[indeks][0][2][1] > 60:
+                        result_diff.append(result.pop(indeks))
+                    else:
+                        indeks += 1
+                
+                # ini untuk ketinggian
+                diff = 0
+                while diff < len(result_diff) :
+                    if result_diff[diff][0][2][1] - result_diff[diff][0][1][1] < 30:
+                        result_diff.pop(diff)
+                    else:
+                        diff += 1
 
-            # ini untuk jarak antar boundbox
-            if len(result_diff) != 0:
-                result_diff, arr_distance = distance_bbox(result_diff)
-                print("arr distance: ",arr_distance)
-            # print(result_diff)
-            frame_2 = bounding_box(result_diff,frame_2)
-            
-            
+                
 
-            # main processing running text bagian atas
-            temp_result_atas = result[-2][1]
-            if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.85:
-                temp_news.append(temp_result_atas)
+                # ini untuk jarak antar boundbox
+                if len(result_diff) != 0:
+                    result_diff, arr_distance = distance_bbox(result_diff)
+                    print("arr distance: ",arr_distance)
+                # print(result_diff)
+                frame_2 = bounding_box(result_diff,frame_2)
+                
+                
 
-            if temp_news[-1][-1]==")":
-                temp_news[-1] += "&"
+                # main processing running text bagian atas
+                temp_result_atas = result[-2][1]
+                if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.85:
+                    temp_news.append(temp_result_atas)
 
-            print("temp_news:",temp_news)
-            
-            # main processing running text bagian bawah
-            temp_result_bawah = result_diff[-2][1]
-            # print(temp_result_bawah,temp_news_bawah[-1])
-            if temp_news_bawah[-1][0].isdigit() and (not(temp_result_bawah[0].isdigit())):
-                if temp_news_bawah[-1][0].isdigit(): #dia kalo ngulang dapet digit lagi nanti malah duakali
-                    temp_news_bawah[-1] += "&"
-            if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.85:
-                temp_news_bawah.append(temp_result_bawah)
+                if temp_news[-1][-1]==")":
+                    temp_news[-1] += "&"
 
-            
+                print("temp_news:",temp_news)
+                
+                # main processing running text bagian bawah
+                temp_result_bawah = result_diff[-2][1]
+                # print(temp_result_bawah,temp_news_bawah[-1])
+                if temp_news_bawah[-1][0].isdigit() and (not(temp_result_bawah[0].isdigit())):
+                    if temp_news_bawah[-1][0].isdigit(): #dia kalo ngulang dapet digit lagi nanti malah duakali
+                        temp_news_bawah[-1] += "&"
+                if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.85:
+                    temp_news_bawah.append(temp_result_bawah)
 
-            print("temp news bawah:",temp_news_bawah)
+                
+
+                print("temp news bawah:",temp_news_bawah)
             
 
             # frame_count += 1
