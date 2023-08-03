@@ -4,6 +4,36 @@ from difflib import SequenceMatcher as sm
 from datetime import timedelta
 
 
+def distance_bbox(result):
+    n = len(result)
+    distance = 0
+    temp= []
+    arr = []
+    i=0
+    while True:
+        distance = result[i+1][0][3][0] - result[i][0][2][0]
+        arr.append(distance)
+        # print(arr)
+        if distance < 20:
+            temp1 = result[i][1]
+            temp1 = temp1.split()
+            temp2 = result[i+1][1]
+            temp2 = temp2.split()
+            temp1 += temp2
+            temp1 = " ".join(temp1)
+            temp = list(result[i])
+            temp[1] = temp1
+            temp = tuple(temp)
+            result[i]=temp
+            result[i][0][1] = result[i+1][0][1]
+            result[i][0][2] = result[i+1][0][2]
+            result.pop(i+1)
+            i-=1
+        i+=1
+        if i==len(result)-1:
+            break
+    return result, arr
+
 def time_bbox(result):
     count_2 = 0
     arr_tx = []
@@ -70,15 +100,15 @@ def bounding_box(result,frame_2):
     print(arr_tx_arr,arr_bx_arr)
     if (len(arr_tx_arr)) == 1:
         distance = arr_tx_arr[0] - arr_bx_arr[0]
-        print("jarak drawing bound : ",distance)
+        # print("jarak drawing bound : ",distance)
         arr_distance.append(distance)
     elif (len(arr_tx_arr)) > 1:
         for j in range(len(arr_tx_arr)):
             if j != 0:
                 distance = arr_tx_arr[j] - arr_bx_arr[j]
-                print(f"jarak drawing bound ke -{j} : {distance}")
+                # print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
-    return arr_distance, frame_2
+    return frame_2
 
 def cetak_json(news):
     input_json = []

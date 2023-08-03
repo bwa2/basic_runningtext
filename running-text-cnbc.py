@@ -45,7 +45,7 @@ while cap.isOpened():
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
-
+            
             # preprocessing tambahan
             # frame_2 = cv2.GaussianBlur(frame_2,(5,5),0)
             # #img = cv2.medianBlur(img, 3)
@@ -53,7 +53,7 @@ while cap.isOpened():
             # frame_2 = cv2.fastNlMeansDenoisingColored(frame_2, None, 10, 10, 7, 15)    
 
             # ocr
-            result = reader.readtext(frame_2,mag_ratio=1.3,min_size=30)
+            result = reader.readtext(frame_2,mag_ratio=1.3)
             result_diff = []
             indeks = 0
             # ini untuk pisah teks yang atas dan teks yang bawah
@@ -66,19 +66,20 @@ while cap.isOpened():
             # ini untuk ketinggian
             diff = 0
             while diff < len(result_diff) :
-                if result_diff[diff][0][2][1] - result_diff[diff][0][1][1] < 40:
+                if result_diff[diff][0][2][1] - result_diff[diff][0][1][1] < 30:
                     result_diff.pop(diff)
                 else:
                     diff += 1
 
-            # for i in range (len(result)) :
-            #     temp_result_atas += " " + result[i][1]
             
-            # for i in range (len(result_diff)) :
-            #     temp_result_bawah += " " + result_diff[i][1]
 
-            # print("temp_news 1:",temp_result_atas)
-            # print("temp_news 2:",temp_result_bawah[frame_count])
+            # ini untuk jarak antar boundbox
+            result_diff, arr_distance = distance_bbox(result_diff)
+            print("arr distance: ",arr_distance)
+            # print(result_diff)
+            frame_2 = bounding_box(result_diff,frame_2)
+            
+            
 
             # main processing running text bagian atas
             temp_result_atas = result[-2][1]
@@ -88,29 +89,24 @@ while cap.isOpened():
             if temp_news[-1][-1]==")":
                 temp_news[-1] += "&"
 
-            
-
             print("temp_news:",temp_news)
             
-            arr_distance, frame_2 = bounding_box(result_diff,frame_2)
-            print("arr distance: ",arr_distance)
-            
-
+            # main processing running text bagian bawah
             temp_result_bawah = result_diff[-2][1]
-            # if sm(None, "".join(temp_news[-1]), "".join(temp_result_bawah)).ratio() < 0.85:
-            #     temp_news.append(temp_result_bawah)
+            if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.85:
+                temp_news_bawah.append(temp_result_bawah)
 
-            # if temp_news[-1][-1]==")":
-            #     temp_news[-1] += "&"
+            if temp_news_bawah[0][0].isdigit():
+                temp_news_bawah[-1] += "&"
 
-            print("temp news bawah:",result_diff)
+            print("temp news bawah:",temp_news_bawah)
             print("----------------")
 
             frame_count += 1
             # if frame_count>3600:
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            if sec>15:
+            if sec>1200:
                 break
         iter += 1
     else:
@@ -124,4 +120,9 @@ news = " ".join(temp_news)
 news = news.split("&")
 if len(news[-1])==0:
     news = news[:-1]
-print(news)
+print("news atas: ",news)
+news_bawah = " ".join(temp_news_bawah)
+news_bawah = news_bawah.split("&")
+if len(news_bawah[-1])==0:
+    news_bawah = news_bawah[:-1]
+print("news bawah: ",news_bawah)

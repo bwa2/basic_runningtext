@@ -13,6 +13,18 @@ temp_news: ['#*', 'PAKUWON JATI 505', '5 (0,988)', 'SEMENINDONESIA 10.450', '25 
 'TOWER BERSAMA INFRASTRUCTURE 2.580', '100 6,73*)', 'WIJAYAKARYA 1.425', '15 (1,078)', 
 'MERDEKA COPPERGOLD 2.280', '10 (0,448)']
 
+tiap result yg dikeluarkan akan dicek tingginya
+if tinggi kurang dari x:
+    then delete dari result
+
+tiap result juga dicek jarak antaranya
+if jarak kurang dari x:
+    then dua array di gabung
+ngukur jarak antar dua boundbox dengan
+jarak[i] = bottom right[i] - bottom left [i+1]; max: i = n-1
+output easy ocr: [[[[top left], [top right], [bottom right], [bottom left]], 'TEKS'], [selanjutnya]]
+
+untuk running text atas
 untuk pemisah antar tiap berita dicek apakah pada huruf terakhir memiliki ")"
 if temp_news[-1][-1]==")":
     temp_news[-1] += "*"
