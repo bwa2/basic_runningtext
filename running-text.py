@@ -12,8 +12,11 @@ from difflib import SequenceMatcher as sm
 from utils import *
 import argparse
 from datetime import datetime
-import os
 import config
+# import tensorflow as tf
+import os
+# import numpy as np
+# from tensorflow.keras.preprocessing import image
 
 a = argparse.ArgumentParser(description='input data')
 a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
@@ -57,12 +60,16 @@ flag_timer_prebreak = False # flag timer buat break itu sendiri
 flag_timer_prebreak_toggle = True
 flag_barumulai = True
 flag_check_iklan = False
+flag_iklan = False
 sec2 = 0
 counter = 0
 
 news = ["#*"]
 
 reader = easyocr.Reader(['id'], gpu=True)
+
+# mengimport file model yang ada di gdrive https://drive.google.com/file/d/1wapNSst2IlPui8HIki7PWYkfGWW7Nmc5/view?usp=sharing
+# model = tf.keras.models.load_model('../modelv2.h5')
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -71,9 +78,17 @@ while cap.isOpened():
         if (iter % ((fps))) == 0:
             # preprocessing
             frame_2 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame_3 = frame
+            #frame_3 = frame
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
+            
+            # menginput frame video ke dalam format yang dapat diterima
+            # frame_ml = cv2.resize(frame, (300, 300))
+            # x = np.expand_dims(frame_ml,0)
+
+            # model melakukan prediksi dari frame yang telah diformat
+            # classes = model.predict(x)
+            # print(classes)
 
             # ocr
             result = reader.readtext(frame_2,paragraph=True,x_ths=1.08,mag_ratio=1.4,blocklist='.')
@@ -87,9 +102,16 @@ while cap.isOpened():
             arr_bb_width = time_bbox(result)
             print("width of bound box: ",arr_bb_width)
 
-            # biar iklan pendek ga kebaca
+            # biar iklan ga kebaca
             acc_lbound = 100 # bisa diatur sesuai frame maks video
             acc_rbound = 1000 # bisa diatur juga
+            # mengekstrak hasil prediksi
+            # if classes[0][0] == 1:
+            #     print("IKLAN")
+            #     flag_iklan = True
+            # elif classes[0][1] == 1:
+            #     print("INEWS")
+            #     flag_iklan = False
 
             # (news[len(news)-1]!="#START#*")
             if element==0:
@@ -115,6 +137,7 @@ while cap.isOpened():
                 top_mostright = result[-1][0][1][0]
                 print("top left and top right:", top_mostleft," ",top_mostright)
                 if top_mostleft<acc_lbound and top_mostright>acc_rbound:
+                # if flag_iklan==False:
                     if flag_mulai == True:
                         if element==2:
                             temp_news = result[1][1]
@@ -280,30 +303,13 @@ print("news:",news)
 print("arr start:",arr_start)
 print("arr end:",arr_end)
 
-
+# OUTPUTTING
 # buat misahin per berita
-panjang_news = len(news)
-arr_text = ['']
-jml_berita = 0
-ada_titik = False
-for i in range(panjang_news):
-    temp_word = news[i]
-    for j in range(len(temp_word)):
-        if temp_word[j] == '*':
-            ada_titik = True
-            temp_word = temp_word[0:i]
-        else:
-            ada_titik = False
-    if arr_text == ['']:
-        arr_text[jml_berita] += temp_word
-    else:
-        arr_text[jml_berita] += " " + temp_word
-
-    if ada_titik:
-        print("jml berita: ", jml_berita)
-        jml_berita += 1
-        arr_text.append('')
-jml_berita += 1
+arr_text = []
+news = " ".join(news)
+arr_text = news.split("*")
+if len(arr_text[-1])==0:
+    arr_text = arr_text[:-1]
 
 # cek repitisi
 arr_repetition = []
@@ -325,17 +331,17 @@ for i in range(len(arr_start)):
 print("\nrepeat: ",arr_repetition)
 
 # print("\nberita:",arr_text)
-print("\njumlah berita:", jml_berita, "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
+print("\njumlah berita:", len(arr_text), "len berita:", len(arr_text), "len arr start:",len(arr_start),"len arr end:",len(arr_end))
 
 
 # masukin ke json
 input_json = [{}]
 
-for i in range(jml_berita):
+for i in range(len(arr_text)):
     temp_json = {"text": arr_text[i],"start time": converttimestamp(arr_start[i]), "end time": converttimestamp(arr_end[i]), "duration": arr_end[i] - arr_start[i],"repeat": arr_repetition[i] }
     input_json[i] = temp_json
     #print(input_json)
-    if(i != jml_berita-1):
+    if(i != len(arr_text)-1):
         input_json.append({})
 
 channel_folders = {
