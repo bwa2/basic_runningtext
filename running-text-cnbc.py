@@ -93,11 +93,14 @@ while cap.isOpened():
             
             # main processing running text bagian bawah
             temp_result_bawah = result_diff[-2][1]
+            # print(temp_result_bawah,temp_news_bawah[-1])
+            if temp_news_bawah[-1][0].isdigit() and (not(temp_result_bawah[0].isdigit())):
+                if temp_news_bawah[-1][0].isdigit(): #dia kalo ngulang dapet digit lagi nanti malah duakali
+                    temp_news_bawah[-1] += "&"
             if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.85:
                 temp_news_bawah.append(temp_result_bawah)
 
-            if temp_news_bawah[0][0].isdigit():
-                temp_news_bawah[-1] += "&"
+            
 
             print("temp news bawah:",temp_news_bawah)
             print("----------------")
@@ -106,7 +109,7 @@ while cap.isOpened():
             # if frame_count>3600:
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            if sec>1200:
+            if sec>600:
                 break
         iter += 1
     else:
