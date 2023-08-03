@@ -1,3 +1,23 @@
+# # Membuat array pertama
+# array_sumber = [([[16, 0], [278, 0], [278, 32], [16, 32]], 'BARITO PACIFIC 770', 0.9587160214037711), 
+#                 ([[308, 2], [433, 2], [433, 33], [308, 35]], '25 (3,33%)', 0.4345254166182505), 
+#                 ([[450, 0], [807, 0], [807, 32], [450, 36]], 'BUMI SERPONG DAMAI 1125', 0.8148056629915795)]
+
+# #Membuat array kedua untuk menyimpan nilai lebih dari 5
+# array_tujuan = []
+
+# # Loop untuk memindahkan nilai lebih dari 5 dan menghapusnya dari array pertama
+# indeks = 0
+# while indeks < len(array_sumber):
+#     if array_sumber[indeks][0][2][1] > 32:
+#         array_tujuan.append(array_sumber.pop(indeks))
+#     else:
+#         indeks += 1
+
+# # Cetak hasilnya
+# print("Array sumber setelah dipindahkan:", array_sumber)
+# print("Array tujuan:", array_tujuan[0])
+
 import cv2
 import easyocr
 import torch
@@ -94,6 +114,7 @@ while cap.isOpened():
                     arr_bx_arr.append(arr_bx[i])
                     arr_tx_arr.append(arr_tx [i+1])
             
+            print (arr_bx_arr, arr_tx_arr)
 
             if (len(arr_tx_arr)) == 1 :
                 distance = arr_tx_arr[0] - arr_bx_arr[0]

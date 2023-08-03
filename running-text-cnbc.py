@@ -9,7 +9,7 @@ from utils import *
 
 
 #cap = cv2.VideoCapture("../../INEWSSEJAM/inews-sejam-24juli.mp4")
-cap = cv2.VideoCapture("Videos/video-cnbc-10sec.flv")
+cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
