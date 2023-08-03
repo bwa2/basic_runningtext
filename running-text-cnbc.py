@@ -56,13 +56,22 @@ while cap.isOpened():
             result = reader.readtext(frame_2,mag_ratio=1.3,min_size=30)
             result_diff = []
             indeks = 0
+            # ini untuk pisah teks yang atas dan teks yang bawah
             while indeks < len(result):
                 if result[indeks][0][2][1] > 60:
                     result_diff.append(result.pop(indeks))
                 else:
                     indeks += 1
-            # for i in range (len(result)) :
-            #     temp_result_atas += " " + result[i][1]
+            
+            # ini untuk ketinggian
+            diff = 0
+            while diff < len(result_diff) :
+                if result_diff[diff][0][2][1] - result_diff[diff][0][1][1] < 40:
+                    result_diff.pop(diff)
+                else:
+                    diff += 1
+            for i in range (len(result)) :
+                temp_result_atas += " " + result[i][1]
             
             # for i in range (len(result_diff)) :
             #     temp_result_bawah += " " + result_diff[i][1]
