@@ -3,8 +3,16 @@ diambil per sedetik
 easyocr membaca layar dan mengeluarkan result
 dibuat temp_result dan temp_news
 temp_result=result[-2][1], elemen kedua dari akhir
-if temp_news[-1]==temp_result
-    continue atau diskip
-else
+if temp_news[-1]!=temp_result
     temp_result dimasukkan ke array temp_news
     temp_news += " " + temp_result
+contoh temp_news:
+temp_news: ['#*', 'PAKUWON JATI 505', '5 (0,988)', 'SEMENINDONESIA 10.450', '25 (0,24*)', 
+'PABRIK KERTAS TJIWI KIMIA 9.950', '75 (0,76*)', 'TELEKOMUNIKASIINDONESIA 3.280', '40 (1,208)', 
+'UNITED TRACTORS 22.475', '600 (2,73*)', 'UNILEVERINDONESIA 6.100', '100 (1,61%)',
+'TOWER BERSAMA INFRASTRUCTURE 2.580', '100 6,73*)', 'WIJAYAKARYA 1.425', '15 (1,078)', 
+'MERDEKA COPPERGOLD 2.280', '10 (0,448)']
+
+untuk pemisah antar tiap berita dicek apakah pada huruf terakhir memiliki ")"
+if temp_news[-1][-1]==")":
+    temp_news[-1] += "*"

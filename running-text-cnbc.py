@@ -18,7 +18,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 # preprocess
 height_process_top = round((23.5 / 27) * height)
-height_process_bottom = round((26.5 / 27) * height) #26.5
+height_process_bottom = round((25 / 27) * height) #26.5
 width_process_left = round((1/7.6) * width)
 width_process_right = round((6.2/7.6) * width)
 
@@ -28,10 +28,9 @@ sec = 0
 
 flag_mulai = True
 
-news = ["#*"]
-temp_result_1 = ""
-temp_result_2 = ""
-temp_news = ["#*"]
+temp_result_atas = ""
+temp_result_bawah = ""
+temp_news = ["#&"]
 
 reader = easyocr.Reader(['id'], gpu=True)
 
@@ -46,8 +45,14 @@ while cap.isOpened():
             frame_2 = frame_2[height_process_top:height_process_bottom,
                               width_process_left:width_process_right]
 
+            # preprocessing tambahan
+            # frame_2 = cv2.GaussianBlur(frame_2,(5,5),0)
+            # #img = cv2.medianBlur(img, 3)
+            # a, frame_2 = cv2.threshold(frame_2, 120, 255, cv2.THRESH_BINARY)
+            # frame_2 = cv2.fastNlMeansDenoisingColored(frame_2, None, 10, 10, 7, 15)    
+
             # ocr
-            result = reader.readtext(frame_2,mag_ratio=1.4,blocklist='.')
+            result = reader.readtext(frame_2,mag_ratio=1.3)
             
             indeks = 0
             while indeks < len(result):
@@ -56,28 +61,42 @@ while cap.isOpened():
                 else:
                     indeks += 1
 
-            for i in range (len(result)) :
-                temp_result_1 += " " + result[i][1]
+            # for i in range (len(result)) :
+            #     temp_result_1 += " " + result[i][1]
             
-            for i in range (len(result_diff)) :
-                temp_result_2 += " " + result_diff[i][1]
+            # for i in range (len(result_diff)) :
+            #     temp_result_2 += " " + result_diff[i][1]
 
-            print("temp_news 1:",temp_result_1)
-            print("temp_news 2:",temp_result_2)
+            # print("temp_news 1:",temp_result_1)
+            # print("temp_news 2:",temp_result_2)
+            temp_result = result[-2][1]
+            
+            if sm(None, "".join(temp_news[-1]), "".join(temp_result)).ratio() < 0.85:
+                temp_news.append(temp_result)
+
+            if temp_news[-1][-1]==")":
+                temp_news[-1] += "&"
+            print("temp_news:",temp_news)
             arr_distance, frame_2 = bounding_box(result,frame_2)
             print("arr distance: ",arr_distance)
             print("----------------")
 
             frame_count += 1
+            # if frame_count>3600:
             cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
-
-
+            sec+=1
+            if sec>15:
+                break
         iter += 1
     else:
         break
 
-
-
-
 cap.release()
 # cv2.destroyAllWindows()
+
+# buat misahin per berita
+news = " ".join(temp_news)
+news = news.split("&")
+if len(news[-1])==0:
+    news = news[:-1]
+print(news)
