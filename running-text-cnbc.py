@@ -138,7 +138,9 @@ while cap.isOpened():
 
                     
 
-                    print("temp news bawah:",temp_news_bawah)
+                    print("temp news bawah:",temp_news_bawah,"\n")
+
+                    print("time atas:",time_atas)
             
 
             # frame_count += 1
@@ -202,3 +204,4 @@ print("-------")
 
 print(time_atas)
 print(len(time_atas))
+print(len(news))
