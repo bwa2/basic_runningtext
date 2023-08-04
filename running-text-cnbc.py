@@ -183,7 +183,7 @@ while True:
 # buat misahin per berita
 # atas
 news_out = []
-news = " ".join(temp_news)
+news = "".join(temp_news)
 news = news.split("&")
 if len(news[-1])==0:
     news = news[:-1]
@@ -194,7 +194,7 @@ for i in range(len(news)):
 print("news atas: ", news_out,"\n")
 # bawah
 news_bawah_out = []
-news_bawah = " ".join(temp_news_bawah)
+news_bawah = "".join(temp_news_bawah)
 news_bawah = news_bawah.split("&")
 if len(news_bawah[-1])==0:
     news_bawah = news_bawah[:-1]
