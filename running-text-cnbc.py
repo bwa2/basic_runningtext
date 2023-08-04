@@ -188,8 +188,9 @@ news = news.split("&")
 if len(news[-1])==0:
     news = news[:-1]
 for i in range(len(news)):
-    if not(news[i][0].isdigit()) or news[i]!="#":
-        news_out.append(news[i])
+    if not(news[i][0].isdigit()):
+        if news[i]!="#":
+            news_out.append(news[i])
 print("news atas: ", news_out,"\n")
 # bawah
 news_bawah_out = []
@@ -198,8 +199,9 @@ news_bawah = news_bawah.split("&")
 if len(news_bawah[-1])==0:
     news_bawah = news_bawah[:-1]
 for i in range(len(news_bawah)):
-    if not(news_bawah[i][0].isdigit()) or news_bawah[i]!="#":
-        news_bawah_out.append(news_bawah[i])
+    if not(news_bawah[i][0].isdigit()):
+        if news_bawah[i]!="#":
+            news_bawah_out.append(news_bawah[i])
 print("news bawah: ",news_bawah_out,"\n")
 
 for j in range(len(news)):
