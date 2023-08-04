@@ -69,7 +69,7 @@ news = ["#*"]
 reader = easyocr.Reader(['id'], gpu=True)
 
 # mengimport file model yang ada di gdrive https://drive.google.com/file/d/1wapNSst2IlPui8HIki7PWYkfGWW7Nmc5/view?usp=sharing
-model = tf.keras.models.load_model('../modelv2.h5')
+model = tf.keras.models.load_model('../../modelv2.h5')
 
 while cap.isOpened():
     ret, frame = cap.read()
