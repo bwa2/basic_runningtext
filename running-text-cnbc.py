@@ -182,17 +182,25 @@ while True:
 
 # buat misahin per berita
 # atas
+news_out = []
 news = " ".join(temp_news)
 news = news.split("&")
 if len(news[-1])==0:
     news = news[:-1]
-print("news atas: ",news,"\n")
+for i in range(len(news)):
+    if not(news[i][0].isdigit()) or news[i]!="#":
+        news_out.append(news[i])
+print("news atas: ", news_out,"\n")
 # bawah
+news_bawah_out = []
 news_bawah = " ".join(temp_news_bawah)
 news_bawah = news_bawah.split("&")
 if len(news_bawah[-1])==0:
     news_bawah = news_bawah[:-1]
-print("news bawah: ",news_bawah,"\n")
+for i in range(len(news_bawah)):
+    if not(news_bawah[i][0].isdigit()) or news_bawah[i]!="#":
+        news_bawah_out.append(news_bawah[i])
+print("news bawah: ",news_bawah_out,"\n")
 
 for j in range(len(news)):
     print(news[j])
@@ -207,3 +215,8 @@ print("-------")
 # print(time_atas)
 print(len(time_bawah))
 print(len(news_bawah))
+print(len(news_bawah_out))
+
+print(len(time_atas))
+print(len(news))
+print(len(news_out))
