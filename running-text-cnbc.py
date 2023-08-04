@@ -135,7 +135,7 @@ while cap.isOpened():
                             temp_news_bawah[-1] += "&"
                     if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.55:
                         temp_news_bawah.append(temp_result_bawah)
-                        if not(temp_news[-1][0].isdigit()):
+                        if not(temp_news_bawah[-1][0].isdigit()):
                             time_bawah.append(sec)
 
                     
