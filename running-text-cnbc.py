@@ -153,11 +153,17 @@ while True:
     if(temp_news[i][0].isalpha()) and (temp_news[i+1][0].isalpha()):
         temp_news[i] += "&"
 
+    i+=1
+    if i==len(temp_news):
+        break
+
+i=1
+while True:
     if(temp_news_bawah[i][0].isalpha()) and (temp_news_bawah[i+1][0].isalpha()):
         temp_news_bawah[i] += "&"
 
     i+=1
-    if i==len(temp_news):
+    if i==len(temp_news_bawah):
         break
 
 
@@ -172,5 +178,5 @@ news_bawah = news_bawah.split("&")
 if len(news_bawah[-1])==0:
     news_bawah = news_bawah[:-1]
 print("news bawah: ",news_bawah,"\n")
-for i in range(len(news_bawah)):
+for j in range(len(news_bawah)):
     print(news_bawah[i])
