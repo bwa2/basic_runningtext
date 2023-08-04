@@ -110,11 +110,13 @@ while cap.isOpened():
 
                     # main processing running text bagian atas
                     temp_result_atas = result[-2][1]
+                    if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
+                        if temp_news[-1][-1]==")":
+                            temp_news[-1] += "&"
                     if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.85:
                         temp_news.append(temp_result_atas)
 
-                    if temp_news[-1][-1]==")":
-                        temp_news[-1] += "&"
+                    
 
                     print("temp_news:",temp_news)
                     
@@ -166,8 +168,6 @@ while True:
     if i==len(temp_news_bawah)-1:
         break
 
-print(temp_news_bawah)
-
 # buat misahin per berita
 news = " ".join(temp_news)
 news = news.split("&")
@@ -179,5 +179,5 @@ news_bawah = news_bawah.split("&")
 if len(news_bawah[-1])==0:
     news_bawah = news_bawah[:-1]
 print("news bawah: ",news_bawah,"\n")
-for j in range(len(news_bawah)):
-    print(news_bawah[j])
+for j in range(len(news_)):
+    print(news[j])
