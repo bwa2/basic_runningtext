@@ -56,7 +56,30 @@ while cap.isOpened():
             result = reader.readtext(frame_2,mag_ratio=1.3)
             element = len(result)
 
-            if element!=0:
+            # biar iklan ga kebaca
+            acc_lbound = 100 # bisa diatur sesuai frame maks video
+            acc_rbound = 1000 # bisa diatur juga
+
+            if element==0:
+                # atas
+                if (temp_news[len(temp_news)-1] != "#&"):
+                    if (temp_news[len(temp_news)-1][-1] != "&"):
+                        temp_news[len(temp_news)-1] += "&"
+                    temp_news.append("#&")
+
+                # bawah
+                if (temp_news_bawah[len(temp_news_bawah)-1] != "#&"):
+                    if (temp_news_bawah[len(temp_news_bawah)-1][-1] != "&"):
+                        temp_news_bawah[len(temp_news_bawah)-1] += "&"
+                    temp_news_bawah.append("#&")
+
+
+                print("\nTidak ada kalimat!")
+            else:
+                top_mostleft = result[0][0][0][0]
+                top_mostright = result[-1][0][1][0]
+                print("top left and top right:", top_mostleft," ",top_mostright)
+                
                 result_diff = []
                 indeks = 0
                 # ini untuk pisah teks yang atas dan teks yang bawah
