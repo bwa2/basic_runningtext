@@ -28,3 +28,6 @@ untuk running text atas
 untuk pemisah antar tiap berita dicek apakah pada huruf terakhir memiliki ")"
 if temp_news[-1][-1]==")":
     temp_news[-1] += "*"
+
+algoritma timestamp:
+ngambil timestamp setiap append ke temp_news jika bukan digit

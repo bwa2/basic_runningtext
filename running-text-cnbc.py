@@ -5,10 +5,11 @@ import easyocr
 import torch
 from difflib import SequenceMatcher as sm
 from utils import *
+import json
 
 
 
-cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-terjebak.mp4")
+cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-duel2021.mp4")
 #cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
 
 # get video property
@@ -32,6 +33,9 @@ temp_result_atas = ""
 temp_result_bawah = ""
 temp_news = ["#&"]
 temp_news_bawah = ["#&"]
+
+time_atas = []
+time_bawah = []
 
 reader = easyocr.Reader(['id'], gpu=True)
 
@@ -116,6 +120,8 @@ while cap.isOpened():
                             temp_news[-1] += "&"
                     if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.55:
                         temp_news.append(temp_result_atas)
+                        if not(temp_news[-1][0].isdigit()):
+                            time_atas.append(sec)
 
                     
 
@@ -191,3 +197,8 @@ print("-------")
 
 for k in range(len(news_bawah)):
     print(news_bawah[k])
+
+print("-------")
+
+print(time_atas)
+print(len(time_atas))
