@@ -206,4 +206,4 @@ print("-------")
 
 # print(time_atas)
 print(len(time_bawah))
-print(len(news))
+print(len(news_bawah))
