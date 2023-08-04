@@ -47,10 +47,10 @@ while cap.isOpened():
                               width_process_left:width_process_right]
             
             # preprocessing tambahan
-            # frame_2 = cv2.GaussianBlur(frame_2,(5,5),0)
-            # #img = cv2.medianBlur(img, 3)
-            # a, frame_2 = cv2.threshold(frame_2, 120, 255, cv2.THRESH_BINARY)
-            # frame_2 = cv2.fastNlMeansDenoisingColored(frame_2, None, 10, 10, 7, 15)    
+            frame_2 = cv2.GaussianBlur(frame_2,(5,5),0)
+            #img = cv2.medianBlur(img, 3)
+            a, frame_2 = cv2.threshold(frame_2, 120, 255, cv2.THRESH_BINARY)
+            frame_2 = cv2.fastNlMeansDenoisingColored(frame_2, None, 10, 10, 7, 15)    
 
             # ocr
             result = reader.readtext(frame_2,mag_ratio=1.3)
