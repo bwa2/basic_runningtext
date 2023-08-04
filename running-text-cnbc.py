@@ -166,6 +166,7 @@ while True:
     if i==len(temp_news_bawah)-1:
         break
 
+print(temp_news_bawah)
 
 # buat misahin per berita
 news = " ".join(temp_news)
@@ -179,4 +180,4 @@ if len(news_bawah[-1])==0:
     news_bawah = news_bawah[:-1]
 print("news bawah: ",news_bawah,"\n")
 for j in range(len(news_bawah)):
-    print(news_bawah[i])
+    print(news_bawah[j])
