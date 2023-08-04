@@ -75,7 +75,7 @@ while cap.isOpened():
 
 
                 print("\nTidak ada kalimat!")
-            else:
+            elif element>2:
                 top_mostleft = result[0][0][0][0]
                 top_mostright = result[-1][0][1][0]
                 print("top left and top right:", top_mostleft," ",top_mostright)
