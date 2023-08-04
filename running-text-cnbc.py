@@ -149,7 +149,7 @@ while cap.isOpened():
             # if frame_count>3600:
             # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            if sec>600:
+            if sec>3000:
                 break
             print("sec:",sec)
             print("----------------")
