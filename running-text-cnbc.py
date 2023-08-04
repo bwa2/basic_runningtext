@@ -154,7 +154,7 @@ while True:
         temp_news[i] += "&"
 
     i+=1
-    if i==len(temp_news):
+    if i==len(temp_news)-1:
         break
 
 i=1
@@ -163,7 +163,7 @@ while True:
         temp_news_bawah[i] += "&"
 
     i+=1
-    if i==len(temp_news_bawah):
+    if i==len(temp_news_bawah)-1:
         break
 
 
