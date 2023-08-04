@@ -55,12 +55,13 @@ while cap.isOpened():
             # ocr
             result = reader.readtext(frame_2,mag_ratio=1.3)
             element = len(result)
+            print(result)
 
             # biar iklan ga kebaca
             acc_lbound = 70 # bisa diatur sesuai frame maks video
             acc_rbound = 820 # bisa diatur juga
 
-            if element==0:
+            if element<2:
                 # atas
                 if (temp_news[len(temp_news)-1] != "#&"):
                     if (temp_news[len(temp_news)-1][-1] != "&"):
@@ -75,7 +76,7 @@ while cap.isOpened():
 
 
                 print("\nTidak ada kalimat!")
-            elif element>2:
+            else:
                 top_mostleft = result[0][0][0][0]
                 top_mostright = result[-1][0][1][0]
                 print("top left and top right:", top_mostleft," ",top_mostright)
