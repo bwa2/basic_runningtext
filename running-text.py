@@ -13,10 +13,10 @@ from utils import *
 import argparse
 from datetime import datetime
 import config
-# import tensorflow as tf
+import tensorflow as tf
 import os
-# import numpy as np
-# from tensorflow.keras.preprocessing import image
+import numpy as np
+from tensorflow.keras.preprocessing import image
 
 a = argparse.ArgumentParser(description='input data')
 a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
@@ -69,7 +69,7 @@ news = ["#*"]
 reader = easyocr.Reader(['id'], gpu=True)
 
 # mengimport file model yang ada di gdrive https://drive.google.com/file/d/1wapNSst2IlPui8HIki7PWYkfGWW7Nmc5/view?usp=sharing
-# model = tf.keras.models.load_model('../modelv2.h5')
+model = tf.keras.models.load_model('../modelv2.h5')
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -83,11 +83,11 @@ while cap.isOpened():
                               width_process_left:width_process_right]
             
             # menginput frame video ke dalam format yang dapat diterima
-            # frame_ml = cv2.resize(frame, (300, 300))
-            # x = np.expand_dims(frame_ml,0)
+            frame_ml = cv2.resize(frame, (300, 300))
+            x = np.expand_dims(frame_ml,0)
 
             # model melakukan prediksi dari frame yang telah diformat
-            # classes = model.predict(x)
+            classes = model.predict(x)
             # print(classes)
 
             # ocr
@@ -103,15 +103,15 @@ while cap.isOpened():
             print("width of bound box: ",arr_bb_width)
 
             # biar iklan ga kebaca
-            acc_lbound = 100 # bisa diatur sesuai frame maks video
-            acc_rbound = 1000 # bisa diatur juga
+            # acc_lbound = 100 # bisa diatur sesuai frame maks video
+            # acc_rbound = 1000 # bisa diatur juga
             # mengekstrak hasil prediksi
-            # if classes[0][0] == 1:
-            #     print("IKLAN")
-            #     flag_iklan = True
-            # elif classes[0][1] == 1:
-            #     print("INEWS")
-            #     flag_iklan = False
+            if classes[0][0] == 1:
+                print("IKLAN")
+                flag_iklan = True
+            elif classes[0][1] == 1:
+                print("INEWS")
+                flag_iklan = False
 
             # (news[len(news)-1]!="#START#*")
             if element==0:
@@ -136,8 +136,8 @@ while cap.isOpened():
                 top_mostleft = result[0][0][0][0]
                 top_mostright = result[-1][0][1][0]
                 print("top left and top right:", top_mostleft," ",top_mostright)
-                if top_mostleft<acc_lbound and top_mostright>acc_rbound:
-                # if flag_iklan==False:
+                # if top_mostleft<acc_lbound and top_mostright>acc_rbound:
+                if flag_iklan==False:
                     if flag_mulai == True:
                         if element==2:
                             temp_news = result[1][1]
