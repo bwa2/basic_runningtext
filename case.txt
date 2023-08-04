@@ -1,11 +1,42 @@
 case2 yang mungkin terjadi pada running-text geser sehingga dapat 
 merusak indeks starttime/endtime:
-1. terdapat tiga elemen
-2. jeda sebentar
-3. jeda lama (beberapa menit)
+1. terdapat tiga elemen pada satu captured frame
+2. jeda sebentar (solusi: dikasih "#" setiap ada jeda) #SOLVED
+3. jeda lama bbrp menit  (solusi: dikasih "#" setiap ada jeda) #SOLVED
 4. terbaca sesuatu pada saat iklan
-5. setelah jeda lama, running-text yg sebelumnya sudah berlalu
+    menyebabkan mismatch antara temp_news dan news #SOLVED
+    (solusi: dikasih len minimal pada temp_news)
+5. setelah jeda lama, running-text yg sebelumnya sudah berlalu #SOLVED 
+    (solusi: selalu mulai dari ketika ada dua elemen dan diambil elemen kedua)
 6. kemungkinan salah baca ketika kata terakhir hanya satu/dua huruf
+    menyebabkan kata sebelumnya tidak memiliki asterisk sedangkan kata yang terbaca setelahnya
+    memiliki asterisk sehingga yang tersimpan pada news yang tidak memiliki asterisk #SOLVEDBUTUNSURE
+    (solusi: selalu ambil yang ada asterisknya)
 7. karakter yang kadang terbaca dan kadang tidak sehingga dapat 
-    memisah kalimat (manipulasi dengan jarak antar bounding-box)
+    memisah kalimat #SOLVED
+    (solusi: manipulasi dengan jarak antar bounding-box)
 8. 
+
+solusi untuk start/endtime:
+secara umum: 
+masalah di atas:
+1. tdk efek
+2. start jalan dan end time berhenti
+3. start jalan dan end time berhenti
+4. tdk efek
+5. klo udh ada dua elemen mulai starttime
+6. tdk efek
+7. tdk efek
+
+kesimpulan:
+1. berita mulai
+2. deteksi ada dua elemen, jika ada starttime jalan
+2,5. min temp_news adalah 5, jika ada baru mulai ditambah ke news untuk pertama kali/setelah break(#)
+3. deteksi adanya asterisk atau kalimat baru untuk starttime
+4. endtime berhenti ketika starttime mulai lagi
+5. jika ada break, endtime berita berhenti dan berita langsung diberi asterisk dan tambah penanda break (#)
+    dan starttime break jalan
+6. ketika break selesai, endtime break berhenti,
+7. tunggu deteksi ada dua elemen, jika ada starttime jalan
+8. kembali ke langkah 2,5
+9. begitu terus sampai akhir video

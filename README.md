@@ -5,7 +5,7 @@ UNTUK MENDETEKSI RUNNING TEXT PADA BERITA DENGAN TIPE GESER
 kode main: running-text.py
 
 ```
-python3 <namafile>.py -c <namachannel> -v <pathvideo> -f <channelconfig>
+python3 <namafile>.py -c <namachannel> -v <pathvideo>
 ```
 
 

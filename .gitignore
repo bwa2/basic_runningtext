@@ -1,7 +1,19 @@
 Videos/
 
-cobatime2.json
-running-text.py
-cobatime2.json
-running-text.py
-frame_2.jpg
+
+
+*.mp4
+*.jpg
+*.json
+
+coba.py
+test.py
+running-text-2.py
+running-text-3.py
+running-text-cnbc.py
+
+
+ssh-info.txt
+
+ __pycache__/
+
