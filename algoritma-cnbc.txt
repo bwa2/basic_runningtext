@@ -31,3 +31,6 @@ if temp_news[-1][-1]==")":
 
 algoritma timestamp:
 ngambil timestamp setiap append ke temp_news jika bukan digit
+
+post process timestamp:
+if news[i] isinya digit aja, delete news[i]

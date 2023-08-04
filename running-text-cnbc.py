@@ -135,12 +135,14 @@ while cap.isOpened():
                             temp_news_bawah[-1] += "&"
                     if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.55:
                         temp_news_bawah.append(temp_result_bawah)
+                        if not(temp_news[-1][0].isdigit()):
+                            time_bawah.append(sec)
 
                     
 
                     print("temp news bawah:",temp_news_bawah,"\n")
 
-                    print("time atas:",time_atas)
+                    # print("time atas:",time_atas)
             
 
             # frame_count += 1
@@ -202,6 +204,6 @@ for k in range(len(news_bawah)):
 
 print("-------")
 
-print(time_atas)
-print(len(time_atas))
+# print(time_atas)
+print(len(time_bawah))
 print(len(news))
