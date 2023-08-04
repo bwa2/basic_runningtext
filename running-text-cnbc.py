@@ -115,8 +115,11 @@ while cap.isOpened():
 
                     # main processing running text bagian atas
                     temp_result_atas = result[-2][1]
+                    # if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
+                    #     if temp_news[-1][-1]==")":
+                    #         temp_news[-1] += "&"
                     if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
-                        if temp_news[-1][-1]==")":
+                        if temp_news[-1][0].isdigit(): #dia kalo ngulang dapet digit lagi nanti malah duakali
                             temp_news[-1] += "&"
                     if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.55:
                         temp_news.append(temp_result_atas)
