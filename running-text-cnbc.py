@@ -8,7 +8,7 @@ from utils import *
 
 
 
-cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-duel2021.mp4")
+cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-terjebak.mp4")
 #cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
 
 # get video property
@@ -47,10 +47,10 @@ while cap.isOpened():
                               width_process_left:width_process_right]
             
             # preprocessing tambahan
-            frame_2 = cv2.GaussianBlur(frame_2,(5,5),0)
-            #img = cv2.medianBlur(img, 3)
-            a, frame_2 = cv2.threshold(frame_2, 120, 255, cv2.THRESH_BINARY)
-            frame_2 = cv2.fastNlMeansDenoisingColored(frame_2, None, 10, 10, 7, 15)    
+            # frame_2 = cv2.GaussianBlur(frame_2,(5,5),0)
+            # #img = cv2.medianBlur(img, 3)
+            # a, frame_2 = cv2.threshold(frame_2, 120, 255, cv2.THRESH_BINARY)
+            # frame_2 = cv2.fastNlMeansDenoisingColored(frame_2, None, 10, 10, 7, 15)    
 
             # ocr
             result = reader.readtext(frame_2,mag_ratio=1.3)
@@ -150,6 +150,7 @@ cap.release()
 # cv2.destroyAllWindows()
 
 # post processing
+# atas
 i=1
 while True:
     if(temp_news[i][0].isalpha()) and (temp_news[i+1][0].isalpha()):
@@ -158,7 +159,7 @@ while True:
     i+=1
     if i==len(temp_news)-1:
         break
-
+# bawah
 i=1
 while True:
     if(temp_news_bawah[i][0].isalpha()) and (temp_news_bawah[i+1][0].isalpha()):
@@ -169,11 +170,13 @@ while True:
         break
 
 # buat misahin per berita
+# atas
 news = " ".join(temp_news)
 news = news.split("&")
 if len(news[-1])==0:
     news = news[:-1]
 print("news atas: ",news,"\n")
+# bawah
 news_bawah = " ".join(temp_news_bawah)
 news_bawah = news_bawah.split("&")
 if len(news_bawah[-1])==0:
