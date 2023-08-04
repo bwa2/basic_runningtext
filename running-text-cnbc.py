@@ -147,14 +147,30 @@ while cap.isOpened():
 cap.release()
 # cv2.destroyAllWindows()
 
+# post processing
+i=1
+while True:
+    if(temp_news[i][0].isalpha()) and (temp_news[i+1][0].isalpha()):
+        temp_news[i] += "&"
+
+    if(temp_news_bawah[i][0].isalpha()) and (temp_news_bawah[i+1][0].isalpha()):
+        temp_news_bawah[i] += "&"
+
+    i+=1
+    if i==len(temp_news):
+        break
+
+
 # buat misahin per berita
 news = " ".join(temp_news)
 news = news.split("&")
 if len(news[-1])==0:
     news = news[:-1]
-print("news atas: ",news)
+print("news atas: ",news,"\n")
 news_bawah = " ".join(temp_news_bawah)
 news_bawah = news_bawah.split("&")
 if len(news_bawah[-1])==0:
     news_bawah = news_bawah[:-1]
-print("news bawah: ",news_bawah)
+print("news bawah: ",news_bawah,"\n")
+for i in range(len(news_bawah)):
+    print(news_bawah[i])
