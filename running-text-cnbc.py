@@ -9,7 +9,7 @@ import json
 
 
 
-cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-duel2021.mp4")
+cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-terjebak.mp4")
 #cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
 
 # get video property
