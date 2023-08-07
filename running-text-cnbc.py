@@ -128,7 +128,7 @@ while cap.isOpened():
 
                     
 
-                    # print("temp_news:",temp_news)
+                    print("temp_news:",temp_news)
                     
                     # main processing running text bagian bawah
                     temp_result_bawah = result_diff[-2][1]
@@ -143,16 +143,16 @@ while cap.isOpened():
 
                     
 
-                    # print("temp news bawah:",temp_news_bawah,"\n")
+                    print("temp news bawah:",temp_news_bawah,"\n")
 
-                    # print("time atas:",time_atas)
+                    print("time atas:",time_atas)
             
 
             # frame_count += 1
             # if frame_count>3600:
             # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            if sec>1000:
+            if sec>120:
                 break
             print("sec:",sec)
             print("----------------")
