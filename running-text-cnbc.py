@@ -128,7 +128,7 @@ while cap.isOpened():
 
                     
 
-                    # print("temp_news:",temp_news)
+                    print("temp_news:",temp_news)
                     
                     # main processing running text bagian bawah
                     temp_result_bawah = result_diff[-2][1]
@@ -143,7 +143,7 @@ while cap.isOpened():
 
                     
 
-                    # print("temp news bawah:",temp_news_bawah,"\n")
+                    print("temp news bawah:",temp_news_bawah,"\n")
 
                     # print("time atas:",time_atas)
             
