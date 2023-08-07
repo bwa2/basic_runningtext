@@ -59,7 +59,7 @@ while cap.isOpened():
             # ocr
             result = reader.readtext(frame_2,mag_ratio=1.3)
             element = len(result)
-            print(result)
+            # print(result)
 
             # biar iklan ga kebaca
             acc_lbound = 70 # bisa diatur sesuai frame maks video
@@ -152,8 +152,8 @@ while cap.isOpened():
             # if frame_count>3600:
             # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            # if sec>3000:
-            #     break
+            if sec>1000:
+                break
             print("sec:",sec)
             print("----------------")
         iter += 1
