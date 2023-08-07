@@ -105,8 +105,8 @@ while cap.isOpened():
                     
 
                     # ini untuk jarak antar boundbox
-                    if len(result_diff) != 0:
-                        result_diff, arr_distance = distance_bbox(result_diff)
+                    if len(result) != 0:
+                        result, arr_distance = distance_bbox(result_diff)
                         print("arr distance: ",arr_distance)
                     print(result_diff)
                     frame_2 = bounding_box(result_diff,frame_2)
