@@ -105,10 +105,10 @@ while cap.isOpened():
                     
 
                     # ini untuk jarak antar boundbox
-                    # if len(result_diff) != 0:
-                    #     result_diff, arr_distance = distance_bbox(result_diff)
-                    #     print("arr distance: ",arr_distance)
-                    # print(result_diff)
+                    if len(result_diff) != 0:
+                        result_diff, arr_distance = distance_bbox(result_diff)
+                        print("arr distance: ",arr_distance)
+                    print(result_diff)
                     frame_2 = bounding_box(result_diff,frame_2)
                     
                     
@@ -128,7 +128,7 @@ while cap.isOpened():
 
                     
 
-                    print("temp_news:",temp_news)
+                    # print("temp_news:",temp_news)
                     
                     # main processing running text bagian bawah
                     temp_result_bawah = result_diff[-2][1]
@@ -143,9 +143,9 @@ while cap.isOpened():
 
                     
 
-                    print("temp news bawah:",temp_news_bawah,"\n")
+                    # print("temp news bawah:",temp_news_bawah,"\n")
 
-                    print("time atas:",time_atas)
+                    # print("time atas:",time_atas)
             
 
             # frame_count += 1
