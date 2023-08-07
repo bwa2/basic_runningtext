@@ -1,0 +1,36 @@
+open cv mulai capture
+diambil per sedetik
+easyocr membaca layar dan mengeluarkan result
+dibuat temp_result dan temp_news
+temp_result=result[-2][1], elemen kedua dari akhir
+if temp_news[-1]!=temp_result
+    temp_result dimasukkan ke array temp_news
+    temp_news += " " + temp_result
+contoh temp_news:
+temp_news: ['#*', 'PAKUWON JATI 505', '5 (0,988)', 'SEMENINDONESIA 10.450', '25 (0,24*)', 
+'PABRIK KERTAS TJIWI KIMIA 9.950', '75 (0,76*)', 'TELEKOMUNIKASIINDONESIA 3.280', '40 (1,208)', 
+'UNITED TRACTORS 22.475', '600 (2,73*)', 'UNILEVERINDONESIA 6.100', '100 (1,61%)',
+'TOWER BERSAMA INFRASTRUCTURE 2.580', '100 6,73*)', 'WIJAYAKARYA 1.425', '15 (1,078)', 
+'MERDEKA COPPERGOLD 2.280', '10 (0,448)']
+
+tiap result yg dikeluarkan akan dicek tingginya
+if tinggi kurang dari x:
+    then delete dari result
+
+tiap result juga dicek jarak antaranya
+if jarak kurang dari x:
+    then dua array di gabung
+ngukur jarak antar dua boundbox dengan
+jarak[i] = bottom right[i] - bottom left [i+1]; max: i = n-1
+output easy ocr: [[[[top left], [top right], [bottom right], [bottom left]], 'TEKS'], [selanjutnya]]
+
+untuk running text atas
+untuk pemisah antar tiap berita dicek apakah pada huruf terakhir memiliki ")"
+if temp_news[-1][-1]==")":
+    temp_news[-1] += "*"
+
+algoritma timestamp:
+ngambil timestamp setiap append ke temp_news jika bukan digit
+
+post process timestamp:
+if news[i] isinya digit aja, delete news[i]

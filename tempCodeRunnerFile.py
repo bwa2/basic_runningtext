@@ -1,5 +1,2 @@
-print(len(news))
-# temp = "".join(temp)
-# news = "".join(news)
-# print(temp)
-# print(news)
+for i in range(len(a)):
+    temp += a[i] + " "

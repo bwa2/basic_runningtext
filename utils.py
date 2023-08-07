@@ -4,6 +4,36 @@ from difflib import SequenceMatcher as sm
 from datetime import timedelta
 
 
+def distance_bbox(result):
+    n = len(result)
+    distance = 0
+    temp= []
+    arr = []
+    i=0
+    while True:
+        distance = result[i+1][0][3][0] - result[i][0][2][0]
+        arr.append(distance)
+        # print(arr)
+        if distance < 13:
+            temp1 = result[i][1]
+            temp1 = temp1.split()
+            temp2 = result[i+1][1]
+            temp2 = temp2.split()
+            temp1 += temp2
+            temp1 = " ".join(temp1)
+            temp = list(result[i])
+            temp[1] = temp1
+            temp = tuple(temp)
+            result[i]=temp
+            result[i][0][1] = result[i+1][0][1]
+            result[i][0][2] = result[i+1][0][2]
+            result.pop(i+1)
+            i-=1
+        i+=1
+        if i==len(result)-1:
+            break
+    return result, arr
+
 def time_bbox(result):
     count_2 = 0
     arr_tx = []
@@ -12,7 +42,7 @@ def time_bbox(result):
     arr_tx_arr = []
     arr_distance = []
     # show video
-    for (coord, text) in result:
+    for (coord, text, prob) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
@@ -54,7 +84,7 @@ def bounding_box(result,frame_2):
     arr_tx_arr = []
     arr_distance = [0]
     # show video
-    for (coord, text) in result:
+    for (coord, text, prob) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
@@ -63,21 +93,22 @@ def bounding_box(result,frame_2):
         arr_bx.append(bx)
         arr_tx.append(tx)
 
-        for i in range(count_2-1):
-            arr_bx_arr.append(arr_bx[i])
-            arr_tx_arr.append(arr_tx[i+1])
+    for i in range(count_2-1):
+        arr_bx_arr.append(arr_bx[i])
+        arr_tx_arr.append(arr_tx[i+1])
 
+    print(arr_tx_arr,arr_bx_arr)
     if (len(arr_tx_arr)) == 1:
         distance = arr_tx_arr[0] - arr_bx_arr[0]
-        print("jarak drawing bound : ",distance)
+        # print("jarak drawing bound : ",distance)
         arr_distance.append(distance)
     elif (len(arr_tx_arr)) > 1:
         for j in range(len(arr_tx_arr)):
             if j != 0:
                 distance = arr_tx_arr[j] - arr_bx_arr[j]
-                print(f"jarak drawing bound ke -{j} : {distance}")
+                # print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
-    return arr_distance, frame_2
+    return frame_2
 
 def cetak_json(news):
     input_json = []
@@ -85,14 +116,15 @@ def cetak_json(news):
     jml_berita = len(news)
 
     for i in range(jml_berita):
-        if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
-            temp_json = {"text": news[i][0], "start time": news[i][1], "end time": news[i]
-                         [2], "duration": news[i][2] - news[i][1], "repeat": news[i][3]}
-            input_json.append({})
-            input_json[j] = temp_json
-            j += 1
+        #if ((news[i][0] != "#*") and (news[i][0] != "*") and (news[i][0] != "#")) and (len(news[i][0]) > 1):
+            # temp_json = {"text": news[i][0], "start time": news[i][1], "end time": news[i]
+            #              [2], "duration": news[i][2] - news[i][1], "repeat": news[i][3]}
+        temp_json = {"text": news[i][0], "timestamp": news[i][1]}
+        input_json.append({})
+        input_json[j] = temp_json
+        j += 1
 
-    with open("cobatime2_3.json", "w") as f:
+    with open("out_cnbc.json", "w") as f:
         json.dump(input_json, f, indent=3)
     f.close()
 
