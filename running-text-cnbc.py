@@ -208,12 +208,12 @@ for i in range(len(news_bawah)):
 print("news bawah: ",news_bawah_out,"\n")
 
 for j in range(len(news)):
-    print(news[j])
+    print(news_out[j])
 
 print("-------")
 
 for k in range(len(news_bawah)):
-    print(news_bawah[k])
+    print(news_bawah_out[k])
 
 print("-------")
 
@@ -225,3 +225,11 @@ print(len(news_bawah_out))
 print(len(time_atas))
 print(len(news))
 print(len(news_out))
+
+# outputting .json
+news_out_json = []
+for i in range(len(news_out)):
+    temp_json = [news_out[i],time_atas[i]]
+    news_out_json.append(temp_json)
+
+cetak_json(news_out_json)
