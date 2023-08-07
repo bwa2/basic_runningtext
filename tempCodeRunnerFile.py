@@ -1,2 +1,2 @@
-
-#     news = news[:-1]
+for i in range(len(a)):
+    temp += a[i] + " "
