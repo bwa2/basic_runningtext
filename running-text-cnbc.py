@@ -119,7 +119,7 @@ while cap.isOpened():
                     #     if temp_news[-1][-1]==")":
                     #         temp_news[-1] += "&"
                     if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
-                        if temp_news[-1][0].isdigit(): #dia kalo ngulang dapet digit lagi nanti malah duakali
+                        if temp_news[-1][0].isdigit() and not(temp_news[-1][-1]=="&"): #dia kalo ngulang dapet digit lagi nanti malah duakali
                             temp_news[-1] += "&"
                     if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.55:
                         temp_news.append(temp_result_atas)
@@ -134,7 +134,7 @@ while cap.isOpened():
                     temp_result_bawah = result_diff[-2][1]
                     # print(temp_result_bawah,temp_news_bawah[-1])
                     if temp_news_bawah[-1][0].isdigit() and (not(temp_result_bawah[0].isdigit())):
-                        if temp_news_bawah[-1][0].isdigit(): #dia kalo ngulang dapet digit lagi nanti malah duakali
+                        if temp_news_bawah[-1][0].isdigit() and not(temp_news_bawah[-1][-1]=="&"): #dia kalo ngulang dapet digit lagi nanti malah duakali
                             temp_news_bawah[-1] += "&"
                     if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.55:
                         temp_news_bawah.append(temp_result_bawah)
