@@ -207,12 +207,12 @@ for i in range(len(news_bawah)):
             news_bawah_out.append(news_bawah[i])
 print("news bawah: ",news_bawah_out,"\n")
 
-for j in range(len(news)):
+for j in range(len(news_out)):
     print(news_out[j])
 
 print("-------")
 
-for k in range(len(news_bawah)):
+for k in range(len(news_bawah_out)):
     print(news_bawah_out[k])
 
 print("-------")
