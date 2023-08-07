@@ -128,7 +128,7 @@ while cap.isOpened():
 
                     
 
-                    print("temp_news:",temp_news)
+                    # print("temp_news:",temp_news)
                     
                     # main processing running text bagian bawah
                     temp_result_bawah = result_diff[-2][1]
@@ -143,7 +143,7 @@ while cap.isOpened():
 
                     
 
-                    print("temp news bawah:",temp_news_bawah,"\n")
+                    # print("temp news bawah:",temp_news_bawah,"\n")
 
                     # print("time atas:",time_atas)
             
@@ -152,8 +152,8 @@ while cap.isOpened():
             # if frame_count>3600:
             # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            if sec>3000:
-                break
+            # if sec>3000:
+            #     break
             print("sec:",sec)
             print("----------------")
         iter += 1
@@ -173,6 +173,7 @@ while True:
     i+=1
     if i==len(temp_news)-1:
         break
+
 # bawah
 i=1
 while True:
@@ -229,7 +230,7 @@ print(len(news_out))
 # outputting .json
 news_out_json = []
 for i in range(len(news_out)):
-    temp_json = [news_out[i],time_atas[i]]
+    temp_json = [news_out[i],converttimestamp(time_atas[i])]
     news_out_json.append(temp_json)
 
 cetak_json(news_out_json)
