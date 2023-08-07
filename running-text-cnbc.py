@@ -9,7 +9,7 @@ import json
 
 
 
-cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-terjebak.mp4")
+cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-duel2021.mp4")
 #cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
 
 # get video property
@@ -152,7 +152,7 @@ while cap.isOpened():
             # if frame_count>3600:
             # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            if sec>120:
+            if sec>3000:
                 break
             print("sec:",sec)
             print("----------------")
