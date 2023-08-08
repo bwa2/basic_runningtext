@@ -1,10 +1,5 @@
 # KODE MAIN RUNNING-TEXT GESER
 
-#UNSOLVED: EASYOCR NGELUARIN RESULT GA BERURUTAN AKIBAT MENGGUNAKAN PARAGRAPH=True
-#UNSOLVED2: semua yang masuk if sm..>0.91 harus di uppercase dulu
-
-#UNDONE: testing kalau threshold easyocr 0.6
-
 import cv2
 import easyocr
 import torch
