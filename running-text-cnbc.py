@@ -102,7 +102,8 @@ while cap.isOpened():
                         else:
                             diff += 1
 
-                    
+                    print(result)
+                    print(result_diff)
 
                     # ini untuk jarak antar boundbox
                     if len(result) != 0:
@@ -114,6 +115,7 @@ while cap.isOpened():
                     
 
                     # main processing running text bagian atas
+                    if len(result==0):
                     temp_result_atas = result[-2][1]
                     # if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
                     #     if temp_news[-1][-1]==")":
