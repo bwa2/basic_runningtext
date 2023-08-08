@@ -94,7 +94,10 @@ while cap.isOpened():
                         else:
                             indeks += 1
                     
-                    # ini untuk ketinggian
+                    # filter untuk ketinggian text box
+                    # atas
+
+                    # bawah
                     diff = 0
                     while diff < len(result_diff) :
                         if result_diff[diff][0][2][1] - result_diff[diff][0][1][1] < 30:
@@ -106,47 +109,47 @@ while cap.isOpened():
                     print(result_diff)
 
                     # ini untuk jarak antar boundbox
-                    if len(result) != 0:
+                    if len(result) != 0 and len(result_diff)!=0:
                         result, arr_distance = distance_bbox(result)
                         print("arr distance: ",arr_distance)
-                    # print(result_diff)
-                    frame_2 = bounding_box(result,frame_2)
-                    
-                    
+                        # print(result_diff)
+                        frame_2 = bounding_box(result,frame_2)
+                        
+                        
 
-                    # main processing running text bagian atas
-                    temp_result_atas = result[-2][1]
-                    # if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
-                    #     if temp_news[-1][-1]==")":
-                    #         temp_news[-1] += "&"
-                    if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
-                        if temp_news[-1][0].isdigit() and temp_news[-1][-1]!="&": #dia kalo ngulang dapet digit lagi nanti malah duakali
-                            temp_news[-1] += "&"
-                    if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.55:
-                        temp_news.append(temp_result_atas)
-                        if not(temp_news[-1][0].isdigit()):
-                            time_atas.append(sec)
+                        # main processing running text bagian atas
+                        temp_result_atas = result[-2][1]
+                        # if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
+                        #     if temp_news[-1][-1]==")":
+                        #         temp_news[-1] += "&"
+                        if temp_news[-1][0].isdigit() and (not(temp_result_atas[0].isdigit())):
+                            if temp_news[-1][0].isdigit() and temp_news[-1][-1]!="&": #dia kalo ngulang dapet digit lagi nanti malah duakali
+                                temp_news[-1] += "&"
+                        if sm(None, "".join(temp_news[-1]), "".join(temp_result_atas)).ratio() < 0.55:
+                            temp_news.append(temp_result_atas)
+                            if not(temp_news[-1][0].isdigit()):
+                                time_atas.append(sec)
 
-                    
+                        
 
-                    print("temp_news:",temp_news)
-                    
-                    # main processing running text bagian bawah
-                    temp_result_bawah = result_diff[-2][1]
-                    # print(temp_result_bawah,temp_news_bawah[-1])
-                    if temp_news_bawah[-1][0].isdigit() and (not(temp_result_bawah[0].isdigit())):
-                        if temp_news_bawah[-1][0].isdigit() and temp_news_bawah[-1][-1]!="&": #dia kalo ngulang dapet digit lagi nanti malah duakali
-                            temp_news_bawah[-1] += "&"
-                    if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.55:
-                        temp_news_bawah.append(temp_result_bawah)
-                        if not(temp_news_bawah[-1][0].isdigit()):
-                            time_bawah.append(sec)
+                        print("temp_news:",temp_news)
+                        
+                        # main processing running text bagian bawah
+                        temp_result_bawah = result_diff[-2][1]
+                        # print(temp_result_bawah,temp_news_bawah[-1])
+                        if temp_news_bawah[-1][0].isdigit() and (not(temp_result_bawah[0].isdigit())):
+                            if temp_news_bawah[-1][0].isdigit() and temp_news_bawah[-1][-1]!="&": #dia kalo ngulang dapet digit lagi nanti malah duakali
+                                temp_news_bawah[-1] += "&"
+                        if sm(None, "".join(temp_news_bawah[-1]), "".join(temp_result_bawah)).ratio() < 0.55:
+                            temp_news_bawah.append(temp_result_bawah)
+                            if not(temp_news_bawah[-1][0].isdigit()):
+                                time_bawah.append(sec)
 
-                    
+                        
 
-                    print("temp news bawah:",temp_news_bawah,"\n")
+                        print("temp news bawah:",temp_news_bawah,"\n")
 
-                    # print("time atas:",time_atas)
+                        # print("time atas:",time_atas)
             
 
             # frame_count += 1
