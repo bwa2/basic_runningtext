@@ -9,7 +9,7 @@ import json
 
 
 
-cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-terjebak.mp4")
+cap = cv2.VideoCapture("../../cnbc-sejam/cnbc-sejam-duel2021.mp4")
 #cap = cv2.VideoCapture("Videos/3mnt-cnbc.mp4")
 
 # get video property
@@ -96,7 +96,12 @@ while cap.isOpened():
                     
                     # filter untuk ketinggian text box
                     # atas
-
+                    diff = 0
+                    while diff < len(result) :
+                        if result[diff][0][2][1] - result[diff][0][1][1] < 30:
+                            result.pop(diff)
+                        else:
+                            diff += 1
                     # bawah
                     diff = 0
                     while diff < len(result_diff) :
@@ -105,8 +110,8 @@ while cap.isOpened():
                         else:
                             diff += 1
 
-                    print(result)
-                    print(result_diff)
+                    # print(result)
+                    # print(result_diff)
 
                     # ini untuk jarak antar boundbox
                     if len(result) != 0 and len(result_diff)!=0:
@@ -156,8 +161,8 @@ while cap.isOpened():
             # if frame_count>3600:
             # cv2.imwrite(f'frame_{frame_count}.jpg', frame_2)
             sec+=1
-            if sec>3000:
-                break
+            # if sec>3000:
+                # break
             print("sec:",sec)
             print("----------------")
         iter += 1
