@@ -88,7 +88,7 @@ def bounding_box(result,frame_2):
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
-        cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
+        # cv2.rectangle(frame_2, (tx, ty), (bx, by), (0, 0, 255), 2)
         count_2 += 1
         arr_bx.append(bx)
         arr_tx.append(tx)
@@ -100,13 +100,13 @@ def bounding_box(result,frame_2):
     print(arr_tx_arr,arr_bx_arr)
     if (len(arr_tx_arr)) == 1:
         distance = arr_tx_arr[0] - arr_bx_arr[0]
-        # print("jarak drawing bound : ",distance)
+        print("jarak drawing bound : ",distance)
         arr_distance.append(distance)
     elif (len(arr_tx_arr)) > 1:
         for j in range(len(arr_tx_arr)):
             if j != 0:
                 distance = arr_tx_arr[j] - arr_bx_arr[j]
-                # print(f"jarak drawing bound ke -{j} : {distance}")
+                print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
     return arr_distance, frame_2
 

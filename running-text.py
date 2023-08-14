@@ -94,8 +94,8 @@ while cap.isOpened():
             temp_news = ""
             arr_distance, frame_2 = bounding_box(result,frame_2)
             print("arr distance: ",arr_distance)
-            arr_bb_width = time_bbox(result)
-            print("width of bound box: ",arr_bb_width)
+            # arr_bb_width = time_bbox(result)
+            # print("width of bound box: ",arr_bb_width)
 
             # biar iklan ga kebaca
             acc_lbound = 100 # bisa diatur sesuai frame maks video
