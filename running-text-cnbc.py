@@ -118,7 +118,7 @@ while cap.isOpened():
                         result, arr_distance = distance_bbox(result)
                         print("arr distance: ",arr_distance)
                         # print(result_diff)
-                        frame_2 = bounding_box(result,frame_2)
+                        # frame_2 = bounding_box(result,frame_2)
                         
                         
 
