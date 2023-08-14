@@ -108,7 +108,7 @@ def bounding_box(result,frame_2):
                 distance = arr_tx_arr[j] - arr_bx_arr[j]
                 # print(f"jarak drawing bound ke -{j} : {distance}")
                 arr_distance.append(distance)
-    return frame_2
+    return arr_distance, frame_2
 
 def cetak_json(news):
     input_json = []
