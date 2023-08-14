@@ -37,3 +37,7 @@ docker exec -it nolimit_image2text_engine bash
 [[[[top left], [top right], [bottom right], [bottom left]], 'TEKS'], [selanjutnya]]
 
 [[[[0(x), 7(y)], [1705, 7], [1705, 67], [0, 67]], 'AKAL DIBANGUN USAI AKSES MALANG LUMAJANG TERPUTUS']]
+
+
+### Token
+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
