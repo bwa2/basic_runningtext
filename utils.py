@@ -105,10 +105,10 @@ def bounding_box(result,frame_2):
         arr_distance.append(distance)
     elif (len(arr_tx_arr)) > 1:
         for j in range(len(arr_tx_arr)):
-            if j != 0:
-                distance = arr_tx_arr[j] - arr_bx_arr[j]
-                print(f"jarak drawing bound ke -{j} : {distance}")
-                arr_distance.append(distance)
+            # if j != 0:
+            distance = arr_tx_arr[j] - arr_bx_arr[j]
+            print(f"jarak drawing bound ke -{j} : {distance}")
+            arr_distance.append(distance)
     return arr_distance, frame_2
 
 def cetak_json(news):
