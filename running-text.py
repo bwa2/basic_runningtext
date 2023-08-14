@@ -8,10 +8,10 @@ from utils import *
 import argparse
 from datetime import datetime
 import config
-import tensorflow as tf
+# import tensorflow as tf
 import os
 import numpy as np
-from tensorflow.keras.preprocessing import image
+# from tensorflow.keras.preprocessing import image
 
 a = argparse.ArgumentParser(description='input data')
 a.add_argument("-c", "--channel", required=True, help="channel's name. Example: --c MNC")
@@ -64,7 +64,7 @@ news = ["#*"]
 reader = easyocr.Reader(['id'], gpu=True)
 
 # mengimport file model yang ada di gdrive https://drive.google.com/file/d/1wapNSst2IlPui8HIki7PWYkfGWW7Nmc5/view?usp=sharing
-model = tf.keras.models.load_model('../../modelv2.h5')
+# model = tf.keras.models.load_model('../../modelv2.h5')
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -82,7 +82,7 @@ while cap.isOpened():
             x = np.expand_dims(frame_ml,0)
 
             # model melakukan prediksi dari frame yang telah diformat
-            classes = model.predict(x)
+            # classes = model.predict(x)
             # print(classes)
 
             # ocr
@@ -98,15 +98,15 @@ while cap.isOpened():
             print("width of bound box: ",arr_bb_width)
 
             # biar iklan ga kebaca
-            # acc_lbound = 100 # bisa diatur sesuai frame maks video
-            # acc_rbound = 1000 # bisa diatur juga
+            acc_lbound = 100 # bisa diatur sesuai frame maks video
+            acc_rbound = 1000 # bisa diatur juga
             # mengekstrak hasil prediksi
-            if classes[0][0] == 1:
-                print("IKLAN")
-                flag_iklan = True
-            elif classes[0][1] == 1:
-                print("INEWS")
-                flag_iklan = False
+            # if classes[0][0] == 1:
+            #     print("IKLAN")
+            #     flag_iklan = True
+            # elif classes[0][1] == 1:
+            #     print("INEWS")
+            #     flag_iklan = False
 
             # (news[len(news)-1]!="#START#*")
             if element==0:
@@ -131,8 +131,8 @@ while cap.isOpened():
                 top_mostleft = result[0][0][0][0]
                 top_mostright = result[-1][0][1][0]
                 print("top left and top right:", top_mostleft," ",top_mostright)
-                # if top_mostleft<acc_lbound and top_mostright>acc_rbound:
-                if flag_iklan==False:
+                if top_mostleft<acc_lbound and top_mostright>acc_rbound:
+                # if flag_iklan==False:
                     if flag_mulai == True:
                         if element==2:
                             temp_news = result[1][1]
@@ -339,28 +339,8 @@ for i in range(len(arr_text)):
     if(i != len(arr_text)-1):
         input_json.append({})
 
-channel_folders = {
-    "INEWS": "Hasil/Inews",
-    "MNC": "Hasil/MNC"
-}
-
 waktu =  datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
 name = args.channel
 name = name.upper()
-filename = name + "-" + waktu + ".json"
-
-if name in channel_folders:
-    folder_path = channel_folders[name]
-
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-
-    # Gabungkan path folder tujuan dengan nama file untuk mendapatkan path lengkap
-    path_lengkap = os.path.join(folder_path, filename)
-
-    with open(path_lengkap, 'w', newline='') as f:
-        json.dump(input_json, f, indent=3)
-    f.close()
-else:
-    print("Nama channel tidak valid.")
+nama_folder(name, input_json)

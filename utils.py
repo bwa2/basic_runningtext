@@ -1,7 +1,9 @@
 import cv2
 import json
 from difflib import SequenceMatcher as sm
-from datetime import timedelta
+from datetime import timedelta, datetime
+import os
+
 
 
 def distance_bbox(result):
@@ -42,7 +44,7 @@ def time_bbox(result):
     arr_tx_arr = []
     arr_distance = []
     # show video
-    for (coord, text, prob) in result:
+    for (coord, text) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
@@ -84,7 +86,7 @@ def bounding_box(result,frame_2):
     arr_tx_arr = []
     arr_distance = [0]
     # show video
-    for (coord, text, prob) in result:
+    for (coord, text) in result:
         (topleft, topright, bottomright, bottofleft) = coord
         tx, ty = (int(topleft[0]), int(topleft[1]))
         bx, by = (int(bottomright[0]), int(bottomright[1]))
@@ -104,11 +106,12 @@ def bounding_box(result,frame_2):
         arr_distance.append(distance)
     elif (len(arr_tx_arr)) > 1:
         for j in range(len(arr_tx_arr)):
-            if j != 0:
-                distance = arr_tx_arr[j] - arr_bx_arr[j]
-                # print(f"jarak drawing bound ke -{j} : {distance}")
-                arr_distance.append(distance)
-    return frame_2
+            #if j != 0:
+            distance = arr_tx_arr[j] - arr_bx_arr[j]
+            # print(f"jarak drawing bound ke -{j} : {distance}")
+            arr_distance.append(distance)
+
+    return arr_distance, frame_2
 
 def cetak_json(news):
     input_json = []
@@ -123,10 +126,6 @@ def cetak_json(news):
         input_json.append({})
         input_json[j] = temp_json
         j += 1
-
-    with open("out_cnbc.json", "w") as f:
-        json.dump(input_json, f, indent=3)
-    f.close()
 
     print("idx j")
     print(j)
@@ -195,3 +194,29 @@ def converttimestamp(sec):
 
     str_sec = str(timedelta(seconds=sec))
     return str_sec
+
+def nama_folder(name, hasil) :
+    channel_folders = {
+    "INEWS": "Hasil/Inews",
+    "MNC": "Hasil/MNC",
+    "CNBC": "Hasil/CNBC"
+    }
+
+    waktu =  datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+
+    filename = name + "-" + waktu + ".json"
+
+    if name in channel_folders:
+        folder_path = channel_folders[name]
+
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+
+        # Gabungkan path folder tujuan dengan nama file untuk mendapatkan path lengkap
+        path_lengkap = os.path.join(folder_path, filename)
+
+        with open(path_lengkap, 'w', newline='') as f:
+            json.dump(hasil, f, indent=3)
+        f.close()
+    else:
+        print("Nama channel tidak valid.")
