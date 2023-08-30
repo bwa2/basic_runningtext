@@ -24,7 +24,7 @@ docker run --rm -d --gpus all \
 --network host \
 -v $HOME:$HOME \
 -v /nfs:/nfs \
--w /home/ubuntu/workspace/intern/test/basic_runningtext \
+-w /home/ubuntu/workspace/intern/rbw/basic_runningtext \
 risetai/image2text:latest tail -f /dev/null
 ```
 
