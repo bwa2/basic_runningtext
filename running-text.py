@@ -10,6 +10,7 @@ from datetime import datetime
 import config
 # import tensorflow as tf
 import os
+import os.path
 import numpy as np
 # from tensorflow.keras.preprocessing import image
 
@@ -165,7 +166,6 @@ def inews_mnc (cap, fps, height_process_top, height_process_bottom,  width_proce
                             # print(" ".join(news[-3:]))
                             # print(" ".join(temp_news))
                             if sm(None, "".join(news[-n:]), "".join(temp_news[i:j])).ratio() >= 0.91:
-                                # perlu dicek apakah ada kata pada temp_news yang memiliki * sedangkan pada news tidak punya
                                 temp_check = temp_news[i:j]
                                 #temp_check2 = news[-3:]
                                 #print(temp_check)
@@ -542,7 +542,14 @@ a.add_argument("-v", "--video", required=True, help="Video path. Example: -v Vid
 args = a.parse_args()
 
 path = args.video
-cap = cv2.VideoCapture(f"{path}")
+
+# check whether video is available
+check_file = os.path.exists(path)
+while check_file!=True:
+    check_file = os.path.exists(path)
+
+if check_file:
+    cap = cv2.VideoCapture(f"{path}")
 
 # get video property
 fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
